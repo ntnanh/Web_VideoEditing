@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "administrators",
     "users",
     "user_project",
+    
 
 
 
@@ -56,6 +57,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "django.contrib.staticfiles.middleware.StaticFilesMiddleware",
 ]
 
 ROOT_URLCONF = "Web_VideoEditing.urls"
