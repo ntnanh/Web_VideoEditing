@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/global.css' %}">
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="signup">
+      <img
+        class="chris-lee-70l1tdai6rm-unsplash-icon"
+        alt=""
+        src="{% static 'users/images/chrislee70l1tdai6rmunsplash-3@2x.png' %}"
+      />
+      <form action="{% url 'postSignup'%}" method='POST'>
+        {% csrf_token %}
+        <div class="frame-group">
+          <div class="group-child55"></div>
+          <div class="frame-container">
+            <div class="name-wrapper">
+              <div class="name">Name</div>
+            </div>
+            <div class="frame-child1"></div>
+          </div>
+          <div class="frame-parent1">
+            <div class="name-wrapper">
+              <div class="name">Name</div>
+            </div>
+            <div class="frame-wrapper">
+              <div class="name-frame">
+                <div class="name">Enter your email</div>
+              </div>
+            </div>
+          </div>
+          <div class="frame-parent2">
+            <div class="name-wrapper">
+              <div class="name1">Email Address</div>
+            </div>
+            <div class="frame-wrapper">
+              <div class="name-frame">
+                <div class="name">Name</div>
+              </div>
+            </div>
+          </div>
+          <div class="frame-parent3">
+            <div class="name-wrapper">
+              <div class="name">Password</div>
+            </div>
+            <div class="frame-wrapper">
+              <div class="name-frame">
+                <div class="name">Name</div>
+              </div>
+            </div>
+          </div>
+          <div class="i-agree-to-the-term-policy-parent">
+            <div class="i-agree-to">I agree to the term & policy</div>
+            <div class="group-child56"></div>
+          </div>
+          <div class="dont-have-an-account-sign-in-wrapper">
+            <div class="dont-have-an-container">
+              <span>Don’t have an account? </span>
+              <span><a class="sign-in3" href="{% url 'signin'%}">Sign In</a></span>
+            </div>
+          </div>
+          <div class="frame-parent4">
+            <div class="frame-wrapper3">
+              <div class="icons8-apple-logo-1-parent">
+                <img
+                  class="icons8-apple-logo-1"
+                  alt=""
+                  src="{% static 'users/images/icons8applelogo-1.svg' %}"
+                />
+
+                <div class="name">Sign in with Apple</div>
+              </div>
+            </div>
+            <div class="frame-wrapper4">
+              <div class="icons8-google-1-parent">
+                <img
+                  class="icons8-apple-logo-1"
+                  alt=""
+                  src="{% static 'users/images/icons8google-1.svg' %}"
+                />
+
+                <div class="name">Sign in with Google</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="get-started-now">Get Started Now</div>
+        <div class="rectangle-parent33">
+          <input class="group-child" type="text" id="username" name="username" placeholder="Enter your name" required>
+        </div>
+        <div class="rectangle-parent35">
+          <input class="group-child" type="text" id="email" name="email" placeholder="Enter your email" required>
+          <input class="group-child1" type="password" id="password" name="password" placeholder="Enter password" required>
+        </div>
+        <div class="rectangle-parent34">
+          <button type="submit" class="signup1">Sign Up</button>
+        </div>
+        <div class="line-parent">
+          <div class="frame-child2"></div>
+          <div class="or-wrapper">
+            <div class="name">Or</div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

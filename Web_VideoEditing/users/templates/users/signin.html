@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="{% static 'users/css/signin.css' %}">
+    <link rel="stylesheet" href="{% static 'users/css/global.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" />
+</head>
+
+<body>
+    <form action="{% url 'postSignin'%}" method='POST'>
+        {% csrf_token %}
+        <div class="login">
+            <div class="frame-parent5">
+                <div class="group-child61"></div>
+                <div class="enter-your-credentials">
+                    Enter your Credentials to access your account
+                </div>
+                <div class="frame-parent6">
+                    <div class="password-frame">
+                        <div class="name5">Name</div>
+                    </div>
+                    <div class="frame-child3"></div>
+                </div>
+                <div class="frame-parent7">
+                    <div class="password-frame">
+                        <div class="name5">Email address</div>
+                    </div>
+                    <div class="frame-wrapper5">
+                        <div class="name-wrapper5">
+                            <div class="name5">Enter your email</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-parent8">
+                    <div class="password-frame">
+                        <div class="name5">Password</div>
+                    </div>
+                    <div class="frame-wrapper5">
+                        <div class="name-wrapper5">
+                            <div class="name5">Name</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="remember-for-30-days-parent">
+                    <div class="remember-for-30">Remember for 30 days</div>
+                    <div class="group-child62"></div>
+                </div>
+                <div class="group-wrapper1" id="frameContainer10">
+                    <div class="dont-have-an-account-sign-up-wrapper">
+                        <div class="dont-have-an-container1">
+                            <span>Don’t have an account? </span>
+                            <span><a class="sign-up2" href="{% url 'signup'%}">Sign Up</a></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="frame-parent9">
+                    <div class="frame-wrapper7">
+                        <div class="icons8-google-1-group">
+                            <img class="icons8-google-11" alt="" src="{% static 'users/images/icons8google-1.svg' %}" />
+
+                            <div class="name5">Sign in with Google</div>
+                        </div>
+                    </div>
+                    <div class="frame-wrapper8">
+                        <div class="icons8-apple-logo-1-group">
+                            <img class="icons8-google-11" alt="" src="{% static 'users/images/icons8applelogo-1.svg' %}" />
+
+                            <div class="name5">Sign in with Apple</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="forgot-password">forgot password</div>
+            </div>
+            <div class="line-group">
+                <div class="frame-child4"></div>
+                <div class="or-container">
+                    <div class="name5">Or</div>
+                </div>
+            </div>
+            <div class="login-inner">
+                <div class="rectangle-parent36">
+                    <input class="group-child" type="text" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+            </div>
+            <div class="login-child">
+                <div class="rectangle-parent36">
+                    <input class="group-child" type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+            </div>
+            <div class="rectangle-parent37">
+                <button type="submit" class="login1">Sign In</button>
+            </div>
+            <div class="line-container">
+                <div class="frame-child5"></div>
+                <div class="or-frame">
+                    <div class="name5">Or</div>
+                </div>
+            </div>
+            <div class="welcome-back">Welcome back!</div>
+            <img class="chris-lee-70l1tdai6rm-unsplash-icon1" alt="" src="{% static 'users/images/chrislee70l1tdai6rmunsplash-3@2x.png' %}" />
+        </div>
+    </form>
+</body>
+
+</html>

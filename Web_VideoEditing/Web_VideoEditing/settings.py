@@ -41,12 +41,6 @@ INSTALLED_APPS = [
     "administrators",
     "users",
     "user_project",
-    
-
-
-
-
-
 ]
 
 MIDDLEWARE = [
