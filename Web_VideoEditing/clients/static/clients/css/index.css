@@ -1387,8 +1387,10 @@
 
 .all-tools {
     position: absolute;
-    top: 0;
+    top: 3px;
     left: 0;
+    color: #fa7a04;
+    text-decoration: none;
     line-height: 200%;
     display: inline-block;
     width: 85px;
@@ -1431,3 +1433,8 @@
     color: var(--black-primary);
     font-family: var(--font-poppins);
 }
+
+
+/* font-family: var(--font-poppins);
+
+} */

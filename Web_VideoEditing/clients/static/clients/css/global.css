@@ -3,7 +3,7 @@ body {
     line-height: normal;
 }
 
-:root {
+ :root {
     /* fonts */
     --font-poppins: Poppins;
     --font-inter: Inter;
