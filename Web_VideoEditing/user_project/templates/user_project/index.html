@@ -1,0 +1,9 @@
+{% extends "user_project/base.html" %}
+{% block content %}
+    <h1>Website chỉnh sửa Video</h1>
+    {% if username %}
+        <p>Welcome, {{ username }}!</p>
+    {% else %}
+        <p>Welcome, Guest!</p>
+    {% endif %}
+{% endblock content %}

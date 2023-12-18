@@ -6,12 +6,10 @@ from django.contrib import messages
 from .models import Users
 
 def home(request):
-    return render(request, 'users/index.html')
+    username = request.session.get('username', None)
+    return render(request, 'users/index.html', {'username': username})
 
 def signup(request):
-    return render(request, 'users/signup.html')
-
-def postSignup(request):
     if request.method == 'POST':
         username = request.POST['username']
         email = request.POST['email']
@@ -23,12 +21,11 @@ def postSignup(request):
 
         return render(request, 'users/signin.html')
     
-    return HttpResponseBadRequest('Bad Request: Only POST requests are allowed.')
+    # return HttpResponseBadRequest('Bad Request: Only POST requests are allowed.')
     
-def signin(request):
-    return render(request, 'users/signin.html')
+    return render(request, 'users/signup.html')
 
-def postSignin(request):
+def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -36,16 +33,18 @@ def postSignin(request):
         try:
             user = Users.empAuth_objects.get(email=email, password=password)
             if user is not None:
-                return render(request, 'users/index.html')
+                request.session['username'] = user.username
+                return redirect('home')
             else:
                 print("Some tried to login and failed")
                 print("They used email: {} and password: {}".format(email, password))
                 
                 return redirect('/')
-        except Exception as identifier:
+        except Users.DoesNotExist:
+            print("User does not exist")
             return redirect("/")
-    else:
-        return render(request, 'users/signin.html')
+    
+    return render(request, 'users/signin.html')
     
 def signout(request):
     pass

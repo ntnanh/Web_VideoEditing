@@ -9,6 +9,11 @@
 
 <body>
     <h1>Website chỉnh sửa Video</h1>
+    {% if username %}
+        <p>Welcome, {{ username }}!</p>
+    {% else %}
+        <p>Welcome, Guest!</p>
+    {% endif %}
 </body>
 
 </html>
