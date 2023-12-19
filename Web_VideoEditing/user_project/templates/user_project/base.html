@@ -21,7 +21,16 @@
 <body id="body-pd">
 <header class="header" id="header">
   <div class="header_toggle"><i class='bx bx-menu' id="header-toggle"></i></div>
-  <div class="header_img"><img src="https://i.imgur.com/hczKIze.jpg" alt=""></div>
+  <div class="header_img">
+    {% if user_profile %}
+    <p>Welcome, {{ user_profile.username }}!</p>
+    {% if user_profile.image %}
+            <img src="{{ user_profile.image.url }}" alt="{{ user_profile.username }}'s profile picture" class="round_image">
+        {% endif %}
+    {% else %}
+    <p>Welcome, Guest!</p>
+    {% endif %}
+  </div>
 </header>
 <div class="l-navbar" id="nav-bar">
   <nav class="nav">
@@ -79,6 +88,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-<script src="{% static 'videoclips/sidebar.js' %}"></script>
+<script src="{% static 'user_project/js/sidebar.js' %}"></script>
 </body>
 </html>
