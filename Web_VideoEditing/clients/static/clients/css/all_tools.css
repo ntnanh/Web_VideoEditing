@@ -120,7 +120,7 @@
 }
 
 .desc1 {
-    top: 106px;
+    top: 52px;
     left: 0;
     line-height: 30px;
     font-weight: 500;
@@ -128,9 +128,9 @@
 }
 
 .heading {
-    top: 0;
+    top: -47px;
     left: 23.6px;
-    font-size: var(--font-size-58xl);
+    font-size: var(--font-size-50xl);
     letter-spacing: -0.04em;
     line-height: 89px;
     font-family: var(--font-volkhov);
@@ -297,7 +297,7 @@
     left: 0;
     background-color: rgba(250, 122, 4, 0.87);
     width: 1279.2px;
-    height: 408px;
+    height: 308px;
 }
 
 .hero-content1 {

@@ -1,23 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=\, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<style>
-    img.round_image{
-        width: 70px;
-        height: 70px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-</style>
-<body>
-    {% extends "user_project/base.html" %} {% block content %}
-    <h1>HELLO</h1>
-    {% endblock content %}
+{% extends "user_project/base.html" %}
+{% block content %}
+    <h1>Website chỉnh sửa Video</h1>
+    {% if username %}
+        <p>Welcome, {{ username }}!</p>
+    {% else %}
+        <p>Welcome, Guest!</p>
+    {% endif %}
+{% endblock content %}
 
 </body>
 
