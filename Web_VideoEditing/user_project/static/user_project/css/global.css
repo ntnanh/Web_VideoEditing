@@ -6,10 +6,9 @@ body {
  :root {
     /* fonts */
     --font-poppins: Poppins;
-    --font-lexend: Lexend;
+    --font-inter: Inter;
     --font-volkhov: Volkhov;
     --font-google-sans: "Google Sans";
-    --font-inter: Inter;
     /* font sizes */
     --font-size-mini: 15px;
     --font-size-sm: 14px;
@@ -21,9 +20,9 @@ body {
     --font-size-27xl: 46px;
     --font-size-xl: 20px;
     --font-size-3xs: 10px;
-    --font-size-mid: 17px;
     --font-size-lgi: 19px;
     --font-size-58xl: 77px;
+    --font-size-mid: 17px;
     /* Colors */
     --white-primary: #fff;
     --color-darkorange-100: #fa7a04;
@@ -32,20 +31,12 @@ body {
     --fuschia-80: #f178b6;
     --fuschia-60: #fcddec;
     --st: #212832;
-    --rd: #14183e;
     --black-75: rgba(0, 0, 0, 0.5);
     --iris-80: #7879f1;
-    --mrt-app-headline: #1b1c57;
-    --mrt-app-subheadline: #68799f;
-    --color-dimgray: #5c6272;
-    /* Paddings */
-    --padding-5xl: 24px;
     /* Border radiuses */
     --br-81xl: 100px;
     --br-3xs: 10px;
     --br-31xl: 50px;
     --br-6xl: 25px;
-    --br-11xl: 30px;
-    --br-xs: 12px;
     --br-8xs: 5px;
 }
