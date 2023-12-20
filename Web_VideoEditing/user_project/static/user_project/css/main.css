@@ -16,6 +16,13 @@
     box-sizing: border-box
 }
 
+.round-image {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 body {
     position: relative;
     margin: var(--header-height) 0 0 0;

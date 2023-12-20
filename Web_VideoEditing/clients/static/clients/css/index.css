@@ -90,6 +90,11 @@
     display: inline-block;
 }
 
+.sign-in a {
+    text-decoration: none;
+    color: white;
+}
+
 .sign-in-wrapper {
     top: 5px;
     left: 1035.8px;

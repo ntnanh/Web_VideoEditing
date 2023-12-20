@@ -2,12 +2,11 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib import messages
-
 from .models import Users
 
-def home(request):
-    username = request.session.get('username', None)
-    return render(request, 'users/index.html', {'username': username})
+# def home(request):
+#     username = request.session.get('username', None)
+#     return render(request, 'user_project/index.html', {'username': username})
 
 def signup(request):
     if request.method == 'POST':
@@ -16,10 +15,9 @@ def signup(request):
         password = request.POST['password']
         mysqluser = Users(username=username, email=email, password=password)
         mysqluser.save()
+        # messages.success(request, 'Đăng ký thành công!')
 
-        messages.success(request, 'Đăng ký thành công!')
-
-        return render(request, 'users/signin.html')
+        return redirect('signin')
     
     # return HttpResponseBadRequest('Bad Request: Only POST requests are allowed.')
     
@@ -31,10 +29,10 @@ def signin(request):
         password = request.POST.get('password')
         
         try:
-            user = Users.empAuth_objects.get(email=email, password=password)
+            user = Users.objects.get(email=email, password=password)
             if user is not None:
                 request.session['username'] = user.username
-                return redirect('home')
+                return redirect('user_project:index')
             else:
                 print("Some tried to login and failed")
                 print("They used email: {} and password: {}".format(email, password))
