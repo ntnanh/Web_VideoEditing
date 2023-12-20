@@ -3,5 +3,5 @@ from .import views
 
 app_name = 'user_project'
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('index', views.home, name="index"),
 ]

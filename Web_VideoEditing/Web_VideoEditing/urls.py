@@ -21,14 +21,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("",include('users.urls')),
-<<<<<<< HEAD
-    path('clients/', include('clients.urls')),
-    path('', include('user_project.urls', namespace='user_project')),
-=======
-    path("clients/", include('clients.urls')),
+    path("users/",include('users.urls')),
+    path("", include('clients.urls')),
     path("", include('user_project.urls')),
->>>>>>> 2908caf3078142ee178ce7e5311973887ffb9270
 ]
 
 

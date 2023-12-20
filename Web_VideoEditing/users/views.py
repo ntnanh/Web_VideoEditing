@@ -32,7 +32,7 @@ def signin(request):
             user = Users.objects.get(email=email, password=password)
             if user is not None:
                 request.session['username'] = user.username
-                return redirect('user_project:home')
+                return redirect('user_project:index')
             else:
                 print("Some tried to login and failed")
                 print("They used email: {} and password: {}".format(email, password))
