@@ -1,0 +1,8 @@
+.row.col-sm {
+    position: relative;
+}
+
+.col-sm .image1 {
+    width: 225px;
+    height: 225px;
+}

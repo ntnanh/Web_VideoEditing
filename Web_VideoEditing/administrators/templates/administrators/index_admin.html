@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    {% extends "administrators/base_admin.html" %} {% block content %}
+    <div class="container">
+        <div>
+            <h3>All User</h3>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>NgocAnh</td>
+                        <td>ngocanh@gmail.com</td>
+                        <td>client</td>
+                        <td>
+                            <a href="">default.jpg</a>
+                        </td>
+                        <td class="action"><i class="fa-solid fa-pen-to-square"></i> | <i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Nganguyen</td>
+                        <td>nga@gmail.com</td>
+                        <td>client</td>
+                        <td>
+                            <a href="">default.jpg</a>
+                        </td>
+                        <td class="action"><i class="fa-solid fa-pen-to-square"></i> | <i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>thuynguyen</td>
+                        <td>thuy@gmail.com</td>
+                        <td>client</td>
+                        <td>
+                            <a href="">default.jpg</a>
+                        </td>
+                        <td class="action"><i class="fa-solid fa-pen-to-square"></i> | <i class="fa-solid fa-trash"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% endblock content %}
+</body>
+
+</html>

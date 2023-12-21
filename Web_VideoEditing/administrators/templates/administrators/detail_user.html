@@ -1,0 +1,20 @@
+ {% extends "administrators/base_admin.html" %} {% block content %}
+<div class="container">
+    <div>
+        <h3>User - NgocAnh</h3>
+    </div>
+    <div class="main1">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm" style="position: relative;height: 225px;width: 225px">
+                    {% load static %}
+                    <img src="{% static 'administrators/images/1.PNG' %} " alt=" " class="image1 " style="height: 225px;width: 225px;display: block; ">
+                    <i class="fa-solid fa-ellipsis-vertical" style=" position: absolute;top: 12%; left: 60%;transform: translate;z-index: 1;font-weight: bold;font-size: 20px;color:#fff"></i>
+                    <p style=" position: absolute;top: 10%; left: 7%;transform: translate;z-index: 1;font-weight: bold;font-size: 20px;color:#fff ">Sun_video</p>
+                    <p style=" position: absolute;top: 88%; left: 5%;transform: translate;z-index: 1;font-weight: bold;font-size: 14px;color:#fff ">00:13</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
