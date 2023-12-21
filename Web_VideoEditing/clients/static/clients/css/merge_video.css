@@ -157,6 +157,7 @@
     object-fit: cover;
 }
 
+<<<<<<< HEAD
 .magnifying-glass-1-2-wrapper {
     position: absolute;
     top: 6px;
@@ -171,6 +172,14 @@
 }
 
 .edit-video {
+=======
+.sign-in a {
+    text-decoration: none;
+    color: white;
+}
+
+.sign-in {
+>>>>>>> 1148dc5d4366dc5786c32a4fd4d0d84779be3cd2
     top: 5px;
     left: 0;
     font-size: 24px;

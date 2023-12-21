@@ -195,6 +195,11 @@
     width: 66.3px;
 }
 
+.sign-in1 a {
+    text-decoration: none;
+    color: white;
+}
+
 .sign-in1 {
     top: 5px;
     left: 0;
