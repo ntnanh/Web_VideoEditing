@@ -1,0 +1,358 @@
+body {
+    margin: 0;
+    line-height: normal;
+}
+
+ :root {
+    /* fonts */
+    --font-poppins: Poppins;
+    --font-lexend: Lexend;
+    --font-volkhov: Volkhov;
+    --font-google-sans: "Google Sans";
+    /* font sizes */
+    --font-size-lg: 18px;
+    --font-size-base: 16px;
+    --font-size-xl: 20px;
+    --font-size-sm: 14px;
+    --font-size-7xl: 26px;
+    --font-size-xs: 12px;
+    --font-size-16xl: 35px;
+    --font-size-31xl: 50px;
+    --font-size-mid: 17px;
+    --font-size-5xl: 24px;
+    --font-size-smi: 13px;
+    /* Colors */
+    --color-white: #fff;
+    --color-darkorange: #fa7a04;
+    --color-darkorange-100: rgba(250, 122, 4, 0.87);
+    --color-black: #000;
+    --color-dimgray: #5c6272;
+    --mrt-app-headline: #1b1c57;
+    --mrt-app-subheadline: #68799f;
+    --st: #212832;
+    --color-gray-100: #202024;
+    --rd: #14183e;
+    --color-gray-200: #151519;
+    --color-gainsboro: #d9d9d9;
+    /* Gaps */
+    --gap-11xs: 2px;
+    /* Paddings */
+    --padding-5xl: 24px;
+    /* Border radiuses */
+    --br-3xs: 10px;
+    --br-11xl: 30px;
+    --br-xs: 12px;
+    --br-8xs: 5px;
+}
+
+.loptools-child {
+    position: absolute;
+    top: 70px;
+    left: 108px;
+    width: 580px;
+    height: 360px;
+    object-fit: cover;
+}
+
+.loptools-item {
+    position: absolute;
+    top: 534px;
+    left: 0;
+    background-color: var(--color-gray-200);
+    width: 1280px;
+    height: 66px;
+}
+
+.loptools-inner {
+    position: absolute;
+    top: 449px;
+    left: 326px;
+    width: 90px;
+    height: 27px;
+    object-fit: cover;
+}
+
+.p {
+    margin: 0;
+}
+
+.div {
+    position: absolute;
+    top: 455px;
+    left: 558px;
+    font-size: var(--font-size-xs);
+    font-weight: 500;
+    display: inline-block;
+    width: 113px;
+    height: 21px;
+}
+
+.rectangle-div {
+    position: absolute;
+    top: 534px;
+    left: 271px;
+    background-color: var(--color-gray-100);
+    width: 1009px;
+    height: 66px;
+}
+
+.format {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 500;
+}
+
+.format-wrapper,
+.group-child,
+.group-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 47px;
+    height: 18px;
+}
+
+.group-child,
+.group-wrapper {
+    top: 6px;
+}
+
+.group-child {
+    top: 0;
+    border-radius: var(--br-3xs);
+    background-color: var(--color-gray-100);
+    border: 0.5px solid var(--color-dimgray);
+    box-sizing: border-box;
+    width: 71px;
+    height: 30px;
+}
+
+.group-parent,
+.rectangle-wrapper {
+    position: absolute;
+    top: 0;
+    left: 65px;
+    width: 71px;
+    height: 30px;
+}
+
+.group-parent {
+    top: 556px;
+    left: 338px;
+    width: 136px;
+    font-size: var(--font-size-xs);
+    color: var(--color-darkorange-100);
+}
+
+.group-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: var(--br-3xs);
+    background-color: var(--color-darkorange);
+    width: 100px;
+    height: 35px;
+}
+
+.export {
+    position: absolute;
+    top: 6px;
+    left: 31px;
+    font-weight: 500;
+}
+
+.rectangle-parent {
+    position: absolute;
+    top: 551px;
+    left: 1111px;
+    width: 100px;
+    height: 35px;
+    font-size: var(--font-size-smi);
+}
+
+.div1,
+.group-inner {
+    position: absolute;
+    top: 0;
+}
+
+.group-inner {
+    left: 0;
+    background-color: var(--color-gray-100);
+    width: 270px;
+    height: 66px;
+}
+
+.div1 {
+    left: 97px;
+    font-weight: 500;
+    color: var(--color-white);
+}
+
+.final-output-parent,
+.rectangle-group {
+    position: absolute;
+    top: 24px;
+    left: 59px;
+    width: 130px;
+    height: 18px;
+}
+
+.rectangle-group {
+    top: 534px;
+    left: 0;
+    width: 270px;
+    height: 66px;
+    font-size: var(--font-size-xs);
+    color: var(--color-darkorange-100);
+}
+
+.home {
+    position: absolute;
+    top: 0;
+    left: -3px;
+    font-weight: 300;
+}
+
+.home-wrapper {
+    position: absolute;
+    top: 19px;
+    left: 63px;
+    width: 42px;
+    height: 21px;
+    cursor: pointer;
+    color: var(--color-darkorange);
+}
+
+.loptools-child2 {
+    position: absolute;
+    top: 496px;
+    left: 271px;
+    background-color: var(--color-gray-100);
+    width: 1009px;
+    height: 66px;
+}
+
+.group-div,
+.rectangle-container {
+    position: absolute;
+    top: 513px;
+    left: 1111px;
+    width: 100px;
+    height: 35px;
+    font-size: var(--font-size-smi);
+}
+
+.group-div {
+    top: 496px;
+    left: 0;
+    width: 270px;
+    height: 66px;
+    font-size: var(--font-size-xs);
+    color: var(--color-darkorange-100);
+}
+
+.frame-child {
+    position: absolute;
+    top: -19px;
+    left: 723px;
+    width: 494px;
+    height: 496px;
+    object-fit: cover;
+}
+
+.loop-this-clip {
+    position: absolute;
+    top: 127px;
+    left: 957px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    display: inline-block;
+    width: 150px;
+    height: 25px;
+}
+
+.loptools-child3 {
+    position: absolute;
+    top: 179px;
+    left: 930px;
+    border-radius: var(--br-3xs) 0 0 0;
+    background-color: var(--color-gray-100);
+    border: 2px solid #029bc5;
+    box-sizing: border-box;
+    width: 103px;
+    height: 79px;
+}
+
+.loptools-child4 {
+    top: 179px;
+    left: 929px;
+    border-radius: var(--br-3xs);
+    border: 1px solid rgba(182, 190, 211, 0.78);
+    width: 213px;
+    height: 158px;
+}
+
+.line-div,
+.loptools-child4,
+.loptools-child5 {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.line-div {
+    top: 178.8px;
+    left: 1032.8px;
+    border-right: 0.5px solid var(--color-gainsboro);
+    width: 0.5px;
+    height: 158.5px;
+}
+
+.loptools-child5 {
+    top: 257.8px;
+    left: 930.7px;
+    border-top: 0.5px solid var(--color-gainsboro);
+    width: 213.5px;
+    height: 0.5px;
+}
+
+.x,
+.x1,
+.x2,
+.x3 {
+    position: absolute;
+    top: 203px;
+    left: 954px;
+    font-weight: 500;
+    display: inline-block;
+    width: 47px;
+    height: 25px;
+}
+
+.x1,
+.x2,
+.x3 {
+    left: 1060px;
+}
+
+.x2,
+.x3 {
+    top: 287px;
+}
+
+.x3 {
+    left: 954px;
+}
+
+.loptools {
+    position: relative;
+    background-color: var(--color-gray-200);
+    width: 100%;
+    height: 559px;
+    overflow: hidden;
+    text-align: center;
+    font-size: var(--font-size-base);
+    color: var(--color-white);
+    font-family: var(--font-poppins);
+}

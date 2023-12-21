@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="{% static 'clients/css/loop_tool.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
+    />
+  </head>
+  <body>
+    <div class="loptools">
+      <img class="loptools-child" alt="" src="{% static 'clients/images/rectangle-177@2x.png' %}" />
+
+      <div class="loptools-item"></div>
+      <img class="loptools-inner" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
+
+      <div class="div">
+        <p class="p">00:02 / 00:26</p>
+      </div>
+      <div class="rectangle-div"></div>
+      <div class="group-parent">
+        <div class="group-wrapper">
+          <div class="format-wrapper">
+            <div class="format">Format:</div>
+          </div>
+        </div>
+        <div class="rectangle-wrapper">
+          <div class="group-child"></div>
+        </div>
+      </div>
+      <div class="rectangle-parent">
+        <div class="group-item"></div>
+        <div class="export">Export</div>
+      </div>
+      <div class="rectangle-group">
+        <div class="group-inner"></div>
+        <div class="final-output-parent">
+          <div class="format">Final output:</div>
+          <div class="div1">00:07</div>
+        </div>
+      </div>
+      <div class="home-wrapper" id="frameContainer">
+        <div class="home">Home</div>
+      </div>
+      <div class="loptools-item"></div>
+      <div class="loptools-child2"></div>
+      <div class="rectangle-container">
+        <div class="group-item"></div>
+        <div class="export">Export</div>
+      </div>
+      <div class="group-div">
+        <div class="group-inner"></div>
+        <div class="final-output-parent">
+          <div class="format">Final output:</div>
+          <div class="div1">00:26</div>
+        </div>
+      </div>
+      <div class="home-wrapper" id="frameContainer1">
+        <div class="home">Home</div>
+        <img class="frame-child" alt="" src="{% static 'clients/images/rectangle-204@2x.png' %}" />
+      </div>
+      <div class="loop-this-clip">Loop this clip</div>
+      <div class="loptools-child3"></div>
+      <div class="loptools-child4"></div>
+      <div class="line-div"></div>
+      <div class="loptools-child5"></div>
+      <div class="x">2x</div>
+      <div class="x1">3x</div>
+      <div class="x2">5x</div>
+      <div class="x3">4x</div>
+    </div>
+
+    <script>
+      var frameContainer = document.getElementById("frameContainer");
+      if (frameContainer) {
+        frameContainer.addEventListener("click", function (e) {
+          // Please sync "Index" to the project
+        });
+      }
+      
+      var frameContainer1 = document.getElementById("frameContainer1");
+      if (frameContainer1) {
+        frameContainer1.addEventListener("click", function (e) {
+          // Please sync "Index" to the project
+        });
+      }
+      </script>
+  </body>
+</html>

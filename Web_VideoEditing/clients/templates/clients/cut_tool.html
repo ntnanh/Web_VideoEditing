@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="{% static 'clients/css/cut_tool.css' %}">
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500&display=swap"
+    />
+  </head>
+  <body>
+    <div class="cut-video">
+      <img class="cut-video-child" alt="" src="{% static 'clients/images/rectangle-177@2x.png' %}" />
+
+      <div class="cut-video-item"></div>
+      <img class="cut-video-inner" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
+
+      <img class="rectangle-icon" alt="" src="{% static 'clients/images/rectangle-194@2x.png' %}" />
+
+      <img
+        class="cut-video-child1"
+        alt=""
+        src="{% static 'clients/images/rectangle-177@2x.png' %}"
+      />
+
+      <div class="starttime-parent">
+        <div class="starttime">Starttime:</div>
+        <div class="endtime">Endtime:</div>
+        <div class="rectangle-parent">
+          <div class="group-child"></div>
+          <div class="div">00:05:62</div>
+          <div class="div1">
+            <p class="p">00:05 / 00:13</p>
+          </div>
+        </div>
+        <div class="rectangle-group">
+          <div class="group-item"></div>
+          <div class="div2">00:13:12</div>
+        </div>
+      </div>
+      <div class="rectangle-container">
+        <div class="group-inner"></div>
+        <div class="preview">Preview</div>
+      </div>
+      <div class="rectangle-div"></div>
+      <div class="group-parent">
+        <div class="group-wrapper">
+          <div class="format-wrapper">
+            <div class="format">Format:</div>
+          </div>
+        </div>
+        <div class="rectangle-wrapper">
+          <div class="group-child1"></div>
+        </div>
+      </div>
+      <div class="group-div">
+        <div class="group-inner"></div>
+        <div class="export">Export</div>
+      </div>
+      <div class="rectangle-parent1">
+        <div class="group-child3"></div>
+        <div class="final-output-parent">
+          <div class="format">Final output:</div>
+          <div class="div3">00:07</div>
+        </div>
+      </div>
+      <div class="home-wrapper" id="frameContainer">
+        <div class="home">Home</div>
+      </div>
+      <img class="cut-video-child" alt="" src="{% static 'clients/images/rectangle-177@2x.png' %}" />
+
+      <div class="cut-video-item"></div>
+      <img class="cut-video-inner" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
+
+      <img
+        class="cut-video-child1"
+        alt=""
+        src="{% static 'clients/images/rectangle-195@2x.png' %}"
+      />
+
+      <div class="starttime-parent">
+        <div class="starttime">Starttime:</div>
+        <div class="endtime">Endtime:</div>
+        <div class="rectangle-parent">
+          <div class="group-child"></div>
+          <div class="div">00:05:62</div>
+          <div class="div1">
+            <p class="p">00:05 / 00:13</p>
+          </div>
+        </div>
+        <div class="rectangle-group">
+          <div class="group-item"></div>
+          <div class="div2">00:13:12</div>
+        </div>
+      </div>
+      <div class="rectangle-container">
+        <div class="group-inner"></div>
+        <div class="preview">Preview</div>
+      </div>
+      <div class="cut-video-child5"></div>
+      <div class="rectangle-parent5">
+        <div class="group-inner"></div>
+        <div class="export">Export</div>
+      </div>
+      <div class="rectangle-parent6">
+        <div class="group-child8"></div>
+        <div class="final-output-group">
+          <div class="final-output1">Final output:</div>
+          <div class="div7">00:07</div>
+        </div>
+      </div>
+      <div class="home-wrapper" id="frameContainer1">
+        <div class="home">Home</div>
+      </div>
+    </div>
+
+    <script>
+      var frameContainer = document.getElementById("frameContainer");
+      if (frameContainer) {
+        frameContainer.addEventListener("click", function (e) {
+          // Please sync "Index" to the project
+        });
+      }
+      
+      var frameContainer1 = document.getElementById("frameContainer1");
+      if (frameContainer1) {
+        frameContainer1.addEventListener("click", function (e) {
+          // Please sync "Index" to the project
+        });
+      }
+      </script>
+  </body>
+</html>

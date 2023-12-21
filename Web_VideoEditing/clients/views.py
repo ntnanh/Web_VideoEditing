@@ -11,6 +11,17 @@ def all_tools(request):
 def add_subtitles(request):
     return render(request, 'clients/add_subtitles.html')
 
+def cut_video(request):
+    return render(request, 'clients/cut_video.html')
+def cut_tool(request):
+    return render(request, 'clients/cut_tool.html')
+
+def loop_video(request):
+    return render(request, 'clients/loop_video.html')
+
+def loop_tool(request):
+    return render(request, 'clients/loop_tool.html')
+
 # def clients(request):
 #     return render(request, 'clients/index.html')
 
