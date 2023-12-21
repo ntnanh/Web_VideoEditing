@@ -38,6 +38,10 @@ body {
     --mrt-app-headline: #1b1c57;
     --mrt-app-subheadline: #68799f;
     --color-dimgray: #5c6272;
+    --color-dimgray: #5c6272;
+    --st: #212832;
+    --color-gray-100: #202024;
+    --color-gray-200: #151519;
     /* Paddings */
     --padding-5xl: 24px;
     /* Border radiuses */
@@ -48,4 +52,22 @@ body {
     --br-11xl: 30px;
     --br-xs: 12px;
     --br-8xs: 5px;
+    /* font sizes */
+    --font-size-lg: 18px;
+    --font-size-base: 16px;
+    --font-size-xl: 20px;
+    --font-size-sm: 14px;
+    --font-size-7xl: 26px;
+    --font-size-mid: 17px;
+    /* Colors */
+    --color-white: #fff;
+    --color-darkorange: #fa7a04;
+    --color-black: #000;
+    --color-dimgray: #5c6272;
+    --mrt-app-headline: #1b1c57;
+    --mrt-app-subheadline: #68799f;
+    --st: #212832;
+    --rd: #14183e;
+    /* Gaps */
+    --gap-11xs: 2px;
 }

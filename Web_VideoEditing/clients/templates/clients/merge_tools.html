@@ -1,0 +1,89 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+
+    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}" />
+    <link rel="stylesheet" href="{% static 'clients/css/merge_tools.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
+    />
+  </head>
+  <body>
+    <div class="margetools">
+      <div class="margetools-child"></div>
+      <img class="margetools-item" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
+
+      <img
+        class="margetools-inner"
+        alt=""
+        src="{% static 'clients/images/rectangle-203@2x.png' %}"
+      />
+
+      <img class="rectangle-icon" alt="" src="{% static 'clients/images/rectangle-201@2x.png' %}" />
+
+      <img
+        class="margetools-child1"
+        alt=""
+        src="{% static 'clients/images/rectangle-202@2x.png' %}"
+      />
+
+      <div class="group-parent">
+        <div class="group-wrapper">
+          <div class="format-wrapper">
+            <div class="format">Format:</div>
+          </div>
+        </div>
+        <div class="rectangle-wrapper">
+          <div class="group-child"></div>
+        </div>
+      </div>
+      <div class="rectangle-parent">
+        <div class="group-item"></div>
+        <div class="export">Export</div>
+      </div>
+      <div class="rectangle-group">
+        <div class="group-inner"></div>
+        <div class="final-output-parent">
+          <div class="format">Final output:</div>
+          <div class="div">00:18</div>
+        </div>
+      </div>
+      <div class="home-wrapper" id="frameContainer">
+        <div class="home">Home</div>
+      </div>
+      <div class="rectangle-div"></div>
+      <div class="margetools-child2"></div>
+      <div class="add-more-videos">Add more videos</div>
+      <div class="add-more-videos1">Add more videos</div>
+      <div class="div1">
+        <p class="p">00:01 / 00:18</p>
+      </div>
+    </div>
+
+    <script>
+      var frameContainer = document.getElementById("frameContainer");
+      if (frameContainer) {
+        frameContainer.addEventListener("click", function (e) {
+          // Please sync "Index" to the project
+        });
+      }
+      </script>
+  </body>
+</html>
