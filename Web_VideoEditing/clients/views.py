@@ -11,10 +11,6 @@ def all_tools(request):
 def add_subtitles(request):
     return render(request, 'clients/add_subtitles.html')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> cf57c1ca94a4aad4efaed6df5e757b9f6b2b195b
 def merge_video(request):
     return render(request, 'clients/merge_video.html')
 
