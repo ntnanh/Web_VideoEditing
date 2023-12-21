@@ -52,6 +52,11 @@
     position: absolute;
 }
 
+.sign-in1 a {
+    text-decoration: none;
+    color: white;
+}
+
 .sign-in1 {
     top: 5px;
     left: 1001.7px;
