@@ -4,99 +4,46 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <link rel="stylesheet" href="{% static 'clients/css/crop_tool.css' %}">
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
-    />
+
+    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'clients/css/crop_tool.css' %}"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"/>
   </head>
   <body>
     <div class="croptools">
-      <div class="vector-parent">
-        <img class="group-child" alt="" src="{% static 'clients/images/rectangle-194@2x.png' %}" />
+      <div class="insert-video">
+        <div class="gr1">
+          <img class="gr1-child" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
 
+          <img class="vector-icon" alt="" src="{% static 'clients/images/vector@2x.png' %}" />
+
+          <img class="vector-icon1" alt="" src="{% static 'clients/images/vector@2x.png' %}" />
+        </div>
+        <div class="insert-video-child"></div>
+        <div class="home">Home</div>
+      </div>
+      <div class="crop-edit">
+        <div class="crop-edit-child"></div>
         <div class="extract-size-parent">
           <div class="extract-size">Extract size</div>
           <div class="rectangle-parent">
-            <div class="group-item"></div>
-            <div class="px">686 px</div>
+            <div class="group-child"></div>
+            <div class="div">686</div>
           </div>
           <div class="rectangle-group">
-            <div class="group-inner"></div>
-            <div class="px1">532 px</div>
+            <div class="group-item"></div>
+            <div class="div1">532</div>
           </div>
         </div>
-        <div class="rectangle-container">
-          <div class="rectangle-div"></div>
-          <div class="preview">Preview</div>
+        <div class="preview">
+          <div class="preview1">Preview</div>
         </div>
-        <div class="group-child1"></div>
-      </div>
-      <div class="group-parent">
-        <div class="group-div">
-          <div class="group-child2"></div>
-          <div class="group-container">
-            <div class="group-wrapper">
-              <div class="format-wrapper">
-                <div class="format">Format:</div>
-              </div>
-            </div>
-            <div class="rectangle-wrapper">
-              <div class="group-child3"></div>
-            </div>
-          </div>
-          <div class="rectangle-parent1">
-            <div class="rectangle-div"></div>
-            <div class="export">Export</div>
-          </div>
+        <div class="export">
+          <div class="export1">Export</div>
         </div>
-        <div class="rectangle-parent2">
-          <div class="group-child5"></div>
-          <div class="final-output-wrapper">
-            <div class="format">Final output:</div>
-          </div>
-        </div>
-      </div>
-      <div class="group-parent1">
-        <img class="group-icon" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
-
-        <div class="home-parent" id="frameContainer1">
-          <div class="home">Home</div>
-          <div class="frame-child"></div>
-        </div>
-        <div class="home-parent" id="frameContainer2">
-          <div class="home">Home</div>
-        </div>
-        <img class="group-icon" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
       </div>
     </div>
-
-    <script>
-      var frameContainer1 = document.getElementById("frameContainer1");
-      if (frameContainer1) {
-        frameContainer1.addEventListener("click", function (e) {
-          // Please sync "Index" to the project
-        });
-      }
-      
-      var frameContainer2 = document.getElementById("frameContainer2");
-      if (frameContainer2) {
-        frameContainer2.addEventListener("click", function (e) {
-          // Please sync "Index" to the project
-        });
-      }
-      </script>
   </body>
 </html>
