@@ -24,7 +24,6 @@ def crop_video(request):
 def crop_tools(request):
     return render(request, 'clients/crop_tools.html')
 
-=======
 def cut_video(request):
     return render(request, 'clients/cut_video.html')
 def cut_tool(request):
