@@ -11,8 +11,8 @@ class Subtitle(models.Model):
 
 class Upload(models.Model):
     path_video = models.FileField(upload_to='Files/')
-    title_video = models.CharField(max_length=200)
-    path_image = models.FileField(upload_to='Files/')
+    title_video = models.CharField(max_length=200, null=True)
+    path_image = models.FileField(upload_to='Files/', null=True)
     
     class Meta:
         db_table = "Upload"

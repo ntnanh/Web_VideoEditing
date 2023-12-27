@@ -10,7 +10,7 @@ class Users(models.Model):
     password = models.CharField(max_length=20)
     create_at = models.DateTimeField(default=timezone.now)
     role = models.CharField(max_length=50, default='client')
-    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
     
     class Meta:
         db_table = "users"

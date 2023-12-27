@@ -18,7 +18,7 @@
 </head>
 
 <body>
-    <form action="{% url 'signin'%}" method='POST'>
+    <form action="{% url 'users:signin'%}" method='POST'>
         {% csrf_token %}
         <div class="login">
             <div class="frame-parent5">
@@ -60,7 +60,7 @@
                     <div class="dont-have-an-account-sign-up-wrapper">
                         <div class="dont-have-an-container1">
                             <span>Don’t have an account? </span>
-                            <span><a class="sign-up2" href="{% url 'signup'%}">Sign Up</a></span>
+                            <span><a class="sign-up2" href="{% url 'users:signup'%}">Sign Up</a></span>
                         </div>
                     </div>
                 </div>

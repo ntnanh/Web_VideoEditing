@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'clients/css/base.css' %}"/>
+    {% block stylesheets %}
+
+    {% endblock stylesheets %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  </head>
+
+  <body>
+    <div class="nav">
+        <div class="edit-video"><a href="{% url 'clients:home' %}">Edit video</a></div>
+        <div class="dropdown">
+          <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            Tools
+          </button>
+          <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'clients:loop_video'%}">Loop video</a></li>
+              <li><a class="dropdown-item" href="{% url 'clients:merge_video'%}">Merge video</a></li>
+              <li><a class="dropdown-item" href="{% url 'clients:cut_video'%}">Cut video</a></li>
+              <li><a class="dropdown-item" href="{% url 'clients:crop_video'%}">Crop video</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="{% url 'clients:all_tools' %}">All tools<i class="fa-solid fa-chevron-right"></i></a></li>
+          </ul>
+        </div>
+        <div class="resources">Resources</div>
+        
+        {% if user_profile %}
+        <div class="dropdown1">
+          <img src="{{ user_profile.image.url }}" class="dropbtn"/>
+          <div class="dropdown-content">
+          <a href="#">{{ user_profile.username }}</a>
+          <a href="{% url 'users:signout' %}">Log out</a>
+          </div>
+        </div>
+        {% else %}
+        <div class="sign-in-wrapper">
+          <div class="sign-in">
+            <a href="{% url 'signin'%}">Sign in</a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+    {% block content %}
+      
+    {% endblock  %}
+      
+    <div class="footer">
+        <div class="footer-child"></div>
+        <div class="features-parent">
+          <div class="features">Features</div>
+          <div class="our-features">Our Features</div>
+          <div class="pricing">Pricing</div>
+          <div class="affiliate-program">Affiliate Program</div>
+          <div class="press-kit">Press Kit</div>
+        </div>
+        <div class="support-parent">
+          <div class="features">Support</div>
+          <div class="account">Account</div>
+          <div class="help">Help</div>
+          <div class="contact-us">Contact Us</div>
+        </div>
+        <div class="legal-parent">
+          <div class="legal">Legal</div>
+          <div class="privacy-policy">Privacy Policy</div>
+          <div class="terms-of-use">Terms of Use</div>
+        </div>
+        <div class="social-media-parent">
+          <div class="social-media">Social Media</div>
+          <div class="twitter">Twitter</div>
+          <div class="product-hunt">Product Hunt</div>
+          <div class="instagram">Instagram</div>
+          <div class="github">Github</div>
+        </div>
+        <div class="copyright-2023-editvideo">Copyright 2023 @editvideo</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,46 +1,3 @@
-.nav-child {
-    position: absolute;
-    top: 0;
-    left: 1104px;
-    border-radius: 50%;
-    background-color: var(--color-darkorange);
-    width: 46px;
-    height: 46px;
-}
-
-.sign-in {
-    position: absolute;
-    top: 2px;
-    left: -1px;
-    line-height: 200%;
-    font-weight: 500;
-    display: inline-block;
-    width: 66.3px;
-    height: 22px;
-}
-
-.sign-in-wrapper {
-    position: absolute;
-    top: 4px;
-    left: 996px;
-    border-radius: var(--br-3xs);
-    background-color: var(--color-darkorange);
-    width: 62px;
-    height: 35px;
-    overflow: hidden;
-    text-align: center;
-    font-size: var(--font-size-sm);
-    color: var(--color-white);
-}
-
-.resources {
-    position: absolute;
-    top: 9px;
-    left: 840.7px;
-    display: inline-block;
-    width: 97.3px;
-}
-
 .upload-wrapper {
     position: absolute;
     top: 207px;
@@ -510,215 +467,24 @@
     width: 1104px;
 }
 
-.features,
-.footer-child {
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.footer-child {
-    background-color: var(--color-white);
-    border: 1px solid var(--color-darkorange);
-    box-sizing: border-box;
-    width: 1280px;
-    height: 251px;
-}
-
-.features {
-    font-size: var(--font-size-xl);
-    font-weight: 500;
-    display: inline-block;
-    width: 121px;
-    height: 53.2px;
-}
-
-.affiliate-program,
-.our-features,
-.press-kit,
-.pricing {
-    position: absolute;
-    top: 56.2px;
-    left: 0;
-    display: inline-block;
-    width: 132.6px;
-    height: 39.9px;
-}
-
-.affiliate-program,
-.press-kit,
-.pricing {
-    top: 96.8px;
-    width: 70.3px;
-}
-
-.affiliate-program,
-.press-kit {
-    top: 137.5px;
-    width: 174.1px;
-}
-
-.press-kit {
-    top: 178.1px;
-    width: 85.3px;
-}
-
-.account,
-.features-parent,
-.help {
-    position: absolute;
-    top: 15.4px;
-    left: 176.9px;
-    width: 174.1px;
-    height: 218px;
-}
-
-.account,
-.help {
-    top: 56.2px;
-    left: 0;
-    display: inline-block;
-    width: 94.8px;
-    height: 39.9px;
-}
-
-.help {
-    top: 96.8px;
-    width: 51.1px;
-}
-
-.contact-us,
-.support-parent {
-    position: absolute;
-    width: 124.7px;
-}
-
-.contact-us {
-    top: 137.5px;
-    left: 0;
-    display: inline-block;
-    height: 39.9px;
-}
-
-.support-parent {
-    top: 15.4px;
-    left: 456.3px;
-    height: 177.4px;
-}
-
-.legal,
-.privacy-policy,
-.terms-of-use {
-    position: absolute;
-    left: 0;
-    display: inline-block;
-}
-
-.legal {
-    top: 0;
-    font-size: var(--font-size-xl);
-    font-weight: 500;
-    width: 70.3px;
-    height: 53.2px;
-}
-
-.privacy-policy,
-.terms-of-use {
-    top: 56.2px;
-    width: 131.9px;
-    height: 39.9px;
-}
-
-.terms-of-use {
-    top: 93.9px;
-    white-space: pre-wrap;
-    width: 130.8px;
-}
-
-.legal-parent,
-.social-media {
-    position: absolute;
-    top: 15.4px;
-    left: 744.1px;
-    width: 131.9px;
-    height: 133.8px;
-}
-
-.social-media {
-    top: 0;
-    left: 0;
-    font-size: var(--font-size-xl);
-    font-weight: 500;
-    display: inline-block;
-    width: 176.8px;
-    height: 53.2px;
-}
-
-.github,
-.instagram,
-.product-hunt,
-.twitter {
-    position: absolute;
-    top: 56.2px;
-    left: 0;
-    display: inline-block;
-    width: 68.4px;
-    height: 39.9px;
-}
-
-.github,
-.instagram,
-.product-hunt {
-    top: 93.9px;
-    width: 133.4px;
-}
-
-.github,
-.instagram {
-    top: 131.6px;
-    width: 107.2px;
-}
-
-.github {
-    top: 169.3px;
-    width: 69.6px;
-}
-
-.social-media-parent {
-    position: absolute;
-    top: 15.4px;
-    left: 975.2px;
-    width: 176.8px;
-    height: 209.2px;
-}
-
-.copyright-2023-editvideo {
-    position: absolute;
-    top: 220px;
-    left: 507px;
-    font-size: var(--font-size-lg);
-    display: inline-block;
-    width: 265px;
-    height: 39.7px;
-}
-
-.footer {
-    position: absolute;
-    top: 1849px;
-    left: 0;
-    width: 1280px;
-    height: 259.7px;
-    font-size: var(--font-size-base);
-}
-
 .loop-video {
-    position: relative;
     background-color: var(--color-white);
     width: 100%;
-    height: 2100px;
+    height: auto;
     overflow: hidden;
     text-align: left;
     font-size: var(--font-size-sm);
     color: var(--color-black);
+    font-family: var(--font-poppins);
+}
+
+.footer {
+    position: relative;
+    top: 1840px;
+    left: 0;
+    width: 100%;
+    height: 273px;
+    text-align: left;
+    font-size: var(--font-size-base);
     font-family: var(--font-poppins);
 }

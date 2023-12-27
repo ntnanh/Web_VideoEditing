@@ -44,7 +44,7 @@
         alt=""
         src="{% static 'users/images/chrislee70l1tdai6rmunsplash-3@2x.png' %}"
       />
-      <form action="{% url 'signup'%}" method='POST'>
+      <form action="{% url 'users:signup'%}" method='POST'>
         {% csrf_token %}
         <div class="frame-group">
           <div class="group-child55"></div>
@@ -91,7 +91,7 @@
           <div class="dont-have-an-account-sign-in-wrapper">
             <div class="dont-have-an-container">
               <span>Don’t have an account? </span>
-              <span><a class="sign-in3" href="{% url 'signin'%}">Sign In</a></span>
+              <span><a class="sign-in3" href="{% url 'users:signin'%}">Sign In</a></span>
             </div>
           </div>
           <div class="frame-parent4">

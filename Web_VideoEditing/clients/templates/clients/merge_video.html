@@ -1,52 +1,21 @@
-{% load static %}
-
+{% extends "clients/base.html" %} {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+<html lang="en">
 
-    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}" />
-    <link rel="stylesheet" href="{% static 'clients/css/merge_video.css' %}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  </head>
-  <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% block stylesheets %}
+      {{ block.super }}
+      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/global.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/merge_video.css' %}" />
+    {% endblock stylesheets %}
+</head>
+
+<body>
+    {% block content %}
     <div class="merge-video">
-
-      <div class="nav">
-        <div class="edit-video">Edit video</div>
-        <div class="magnifying-glass-1-2-wrapper">
-          <img class="magnifying-glass-1-2" alt="" src="{% static 'clients/images/magnifyingglass-1-2@2x.png' %}"/>
-        </div>
-        <div class="dropdown">
-          <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Tools
-          </button>
-          <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="{% url 'loop_video'%}">Loop video</a></li>
-              <li><a class="dropdown-item" href="{% url 'merge_video'%}">Merge video</a></li>
-              <li><a class="dropdown-item" href="{% url 'cut_video'%}">Cut video</a></li>
-              <li><a class="dropdown-item" href="{% url 'crop_video'%}">Crop video</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="{% url 'home'%}">All tools<i class="fa-solid fa-chevron-right"></i></a></li>
-          </ul>
-        </div>
-        <div class="resources">Resources</div>
-<<<<<<< HEAD
-        <div class="sign-in-wrapper"><div class="sign-in">Sign in</div></div>
-        <div class="nav-child"></div>
-=======
-        <img class="nav-child" alt="" src="{% static 'clients/images/vector-114@2x.png' %}" />
-
-        <div class="nav-item"></div>
-        <div class="sign-in"><a href="{% url 'signin'%}">Sign in</a></div>
->>>>>>> 1148dc5d4366dc5786c32a4fd4d0d84779be3cd2
-      </div>
-
       <div class="gr1">
         <div class="upload-wrapper">
           <button type="submit" class="cta6">Upload</button>
@@ -112,38 +81,10 @@
         </div>
         <img class="image-45-icon" alt="" src="{% static 'clients/images/image-45@2x.png' %}" />
       </div>
-
-      <div class="footer">
-        <div class="footer-child"></div>
-        <div class="features-parent">
-          <div class="features">Features</div>
-          <div class="our-features">Our Features</div>
-          <div class="pricing">Pricing</div>
-          <div class="affiliate-program">Affiliate Program</div>
-          <div class="press-kit">Press Kit</div>
-        </div>
-        <div class="support-parent">
-          <div class="features">Support</div>
-          <div class="account">Account</div>
-          <div class="help">Help</div>
-          <div class="contact-us">Contact Us</div>
-        </div>
-        <div class="legal-parent">
-          <div class="legal">Legal</div>
-          <div class="privacy-policy">Privacy Policy</div>
-          <div class="terms-of-use">Terms of Use</div>
-        </div>
-        <div class="social-media-parent">
-          <div class="social-media">Social Media</div>
-          <div class="twitter">Twitter</div>
-          <div class="product-hunt">Product Hunt</div>
-          <div class="instagram">Instagram</div>
-          <div class="github">Github</div>
-        </div>
-        <div class="copyright-2023-editvideo">Copyright 2023 @editvideo</div>
-      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-  </body>
+
+    {% endblock content %}
+
+</body>
+
 </html>
-    

@@ -1,12 +1,9 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
 from django.http import HttpResponse, HttpResponseBadRequest
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Users
-
-# def home(request):
-#     username = request.session.get('username', None)
-#     return render(request, 'user_project/index.html', {'username': username})
 
 def signup(request):
     if request.method == 'POST':
@@ -15,11 +12,8 @@ def signup(request):
         password = request.POST['password']
         mysqluser = Users(username=username, email=email, password=password)
         mysqluser.save()
-        # messages.success(request, 'Đăng ký thành công!')
-
         return redirect('signin')
     
-    # return HttpResponseBadRequest('Bad Request: Only POST requests are allowed.')
     
     return render(request, 'users/signup.html')
 
@@ -32,7 +26,7 @@ def signin(request):
             user = Users.objects.get(email=email, password=password)
             if user is not None:
                 request.session['username'] = user.username
-                return redirect('user_project:index')
+                return redirect('clients:home')
             else:
                 print("Some tried to login and failed")
                 print("They used email: {} and password: {}".format(email, password))
@@ -45,4 +39,5 @@ def signin(request):
     return render(request, 'users/signin.html')
     
 def signout(request):
-    pass
+    logout(request)
+    return redirect('clients:home')

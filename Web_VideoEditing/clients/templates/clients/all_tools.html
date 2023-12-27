@@ -1,227 +1,115 @@
-{% load static %}
+{% extends "clients/base.html" %} {% load static %}
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+<html lang="en">
 
-    <link rel="stylesheet" type="text/css" href="{% static 'clients/css/global.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'clients/css/all_tools.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
-    />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
-    />
-  </head>
-  <body>
-    <div class="macbook-air-1">
-      <div class="nav1">
-        <div class="nav-inner">
-          <div class="edit-video-container" id="frameContainer">
-            <div class="edit-video1">Edit video</div>
-          </div>
-        </div>
-        <div class="tool1">Tool</div>
-        <div class="resources1">Resources</div>
-        <img class="vector-icon" alt="" src=" {% static 'clients/images/vector-114@2x.png' %}"/>
-        <div class="nav-child1"></div>
-        <div class="sign-in1">Sign in</div>
-        <div class="search1">
-          <div class="search-child"></div>
-          <img class="magnifying-glass-1-1" alt="" src="{% static 'clients/images/magnifyingglass-1-1@2x.png' %} "/>
-        </div>
-      </div>
-      <div class="hero-content">
-        <div class="desc">
-          <div class="desc1">
-            Built Wicket longer admire do barton vanity itself do in it.
-            Preferred to sportsmen it engrossed listening. Park gate sell they
-            west hard for the.
-          </div>
-          <b class="heading">Online Video Tools</b>
-        </div>
-        <img class="image-icon" alt="" src="{% static 'clients/images/image@2x.png' %}" />
-      </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% block stylesheets %}
+      {{ block.super }}
+      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/global.css' %}" />
+      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/all_tools.css' %}" />
+    {% endblock stylesheets %}
+</head>
+
+<body>
+    {% block content %}
+    <div class="all-tools">
       <div class="hero">
-        <img class="decore-icon" alt="" src="{% static 'clients/images/decore@2x.png' %}" />
-
-        <div class="top-nav">
-          <img class="logo-icon" alt="" src="{% static 'clients/images/logo@2x.png' %}" />
-
-          <div class="nav-item1">Bookings</div>
-          <div class="nav-item2">Flights</div>
-          <div class="nav-item3">Hotels</div>
-          <div class="nav-item4">Desitnations</div>
-          <div class="nav-item5">Login</div>
-          <div class="button">
-            <div class="sign-up">Sign up</div>
-            <div class="button-child"></div>
-          </div>
-          <div class="dropdown">
-            <div class="en">EN</div>
-            <img class="dropdown-child" alt="" src="{% static 'clients/images/vector-1@2x.png' %}" />
-          </div>
-        </div>
         <div class="hero-child"></div>
-        <div class="hero-content1">
-          <div class="desc">
-            <div class="desc1">
-              Built Wicket longer admire do barton vanity itself do in it.
-              Preferred to sportsmen it engrossed listening. Park gate sell they
-              west hard for the.
-            </div>
-            <b class="heading">Online Video Tools</b>
-          </div>
-          <img class="image-icon" alt="" src="{% static 'clients/images/image@2x.png' %}" />
+        <div class="desc">
+            Built Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening. Park gate sell they west hard for the.
         </div>
-      </div>
-      <div class="base-parent">
+        <b class="heading">Online Video Tools</b>
+    </div>
+    <div class="base-parent">
         <div class="base"></div>
         <div class="including-clubs-specializing">
-          Including clubs specializing in knowledge, an environment
+            Including clubs specializing in knowledge, an environment
         </div>
-        <div class="video-editor4">Video Editor</div>
-        <img class="gif-1-icon" alt="" src="{% static 'clients/images/videoandaudio-1@2x.png' %}" />
-      </div>
-      <div class="base-group">
+        <div class="video-editor">Video Editor</div>
+        <img class="video-and-audio-1-icon" alt="" src="{% static 'clients/images/videoandaudio-1@2x.png' %}" />
+
+        <div class="make-edit-now">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-item"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
+        </div>
+    </div>
+    <div class="base-group">
         <div class="base"></div>
-        <div class="add-subtitles1">Add subtitles</div>
+        <div class="add-subtitles">Add subtitles</div>
         <div class="including-clubs-specializing1">
-          Including clubs specializing in knowledge, an environment
+            Including clubs specializing in knowledge, an environment
         </div>
-        <img class="add-text-1-icon1" alt="" src="{% static 'clients/images/addtext-1@2x.png' %}" />
-      </div>
-      <div class="base-container">
-        <div class="base"></div>
+        <img class="add-text-1-icon" alt="" src="{% static 'clients/images/addtext-1@2x.png' %}" />
+
+        <div class="make-edit-now">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-item"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
+        </div>
+    </div>
+    <div class="base-container">
+        <div class="base2"></div>
         <div class="including-clubs-specializing2">
-          Including clubs specializing in knowledge, an environment
+            Including clubs specializing in knowledge, an environment
         </div>
-        <div class="mute">Crop</div>
-        <div class="image-35"></div>
-        <img class="gif-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
-      </div>
-      <div class="frame-div" id="frameContainer5">
-        <div class="base"></div>
-        <div class="including-clubs-specializing">
-          Including clubs specializing in knowledge, an environment
+        <div class="crop">Crop</div>
+        <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
+
+        <div class="make-edit-now">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-child2"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
         </div>
-        <div class="video-editor4">Add Music</div>
-        <img class="gif-1-icon" alt="" src="{% static 'clients/images/addvideo-1@2x.png' %}" />
-      </div>
-      <div class="base-parent1">
-        <div class="base"></div>
-        <div class="compress1">Compress</div>
-        <div class="including-clubs-specializing1">
-          Including clubs specializing in knowledge, an environment
+    </div>
+    <div class="frame-div" id="frameContainer3">
+        <div class="base3"></div>
+        <div class="including-clubs-specializing3">
+            Including clubs specializing in knowledge, an environment
         </div>
-        <img
-          class="sound-editing-1-icon"
-          alt=""
-          src="{% static 'clients/images/collapse-1@2x.png' %}" />
-      </div>
-      <div class="base-parent2">
-        <div class="base"></div>
-        <div class="including-clubs-specializing2">
-          Including clubs specializing in knowledge, an environment
+        <div class="cut">Cut</div>
+        <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />
+
+        <div class="make-edit-now6">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-item"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
         </div>
-        <div class="mute">Flip</div>
-        <div class="image-35"></div>
-        <img class="reflect-1-icon1" alt="" src="{% static 'clients/images/reflect-1@2x.png' %}" />
-      </div>
-      <div class="base-parent3">
-        <div class="base"></div>
-        <div class="including-clubs-specializing">
-          Including clubs specializing in knowledge, an environment
+    </div>
+    <div class="base-parent1">
+        <div class="base4"></div>
+        <div class="merge">Merge</div>
+        <div class="including-clubs-specializing4">
+            Including clubs specializing in knowledge, an environment
         </div>
-        <div class="cut2">Cut</div>
-        <img
-          class="cutting-tool-1-icon1"
-          alt=""
-          src="{% static 'clients/images/cuttingtool-1@2x.png' %}"/>
-      </div>
-      <div class="base-parent4">
-        <div class="base"></div>
-        <div class="merge1">Merge</div>
-        <div class="including-clubs-specializing1">
-          Including clubs specializing in knowledge, an environment
+        <img class="merged-4-icon" alt="" src="{% static 'clients/images/merged-4@2x.png' %}" />
+
+        <div class="make-edit-now8">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-item"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
         </div>
-        <img class="merged-3-icon" alt="" src="{% static 'clients/images/merged-3@2x.png' %}" />
-      </div>
-      <div class="base-parent5">
-        <div class="base"></div>
-        <div class="including-clubs-specializing2">
-          Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="mute">Mute</div>
-        <div class="image-35"></div>
-        <img class="muted-1-icon" alt="" src="{% static 'clients/images/muted-1@2x.png' %}" />
-      </div>
-      <div class="base-parent6">
-        <div class="base"></div>
-        <div class="including-clubs-specializing">
-          Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="convert-video">Convert Video</div>
-        <img class="gif-1-icon" alt="" src="{% static 'clients/images/gif-1@2x.png' %}" />
-      </div>
-      <div class="base-parent7">
-        <div class="base"></div>
-        <div class="cut-audio">Cut Audio</div>
-        <div class="including-clubs-specializing1">
-          Including clubs specializing in knowledge, an environment
-        </div>
-        <img
-          class="sound-editing-1-icon"
-          alt=""
-          src="{% static 'clients/images/soundediting-1@2x.png' %}"
-        />
-      </div>
-      <div class="base-parent8">
-        <div class="base"></div>
-        <div class="including-clubs-specializing2">
-          Including clubs specializing in knowledge, an environment
+    </div>
+    <div class="base-parent2">
+        <div class="base5"></div>
+        <div class="including-clubs-specializing5">
+            Including clubs specializing in knowledge, an environment
         </div>
         <div class="loop">Loop</div>
-        <div class="image-35"></div>
         <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />
-      </div>
-      <div class="footer1">
-        <div class="footer-item"></div>
-        <div class="copyright-2023-videoeditor1">
-          Copyright 2023 @videoeditor
+
+        <div class="make-edit-now6">
+            <div class="make-edit-now-child"></div>
+            <div class="make-edit-now-item"></div>
+            <div class="make-edit-now1"><a href="">Make Edit Now</a></div>
         </div>
       </div>
-      <div class="features-group">
-        <div class="features1">Features</div>
-        <div class="our-features1">Our Features</div>
-        <div class="pricing1">Pricing</div>
-        <div class="affiliate-program1">Affiliate Program</div>
-        <div class="press-kit1">Press Kit</div>
-      </div>
-      <div class="support-group">
-        <div class="support1">Support</div>
-        <div class="account1">Account</div>
-        <div class="help1">Help</div>
-        <div class="contact-us1">Contact Us</div>
-      </div>
-      <div class="legal-group">
-        <div class="legal1">Legal</div>
-        <div class="privacy-policy1">Privacy Policy</div>
-        <div class="terms-of-use1">Terms of Use</div>
-      </div>
-      <div class="social-media-group">
-        <div class="social-media1">Social Media</div>
-        <div class="twitter1">Twitter</div>
-        <div class="product-hunt1">Product Hunt</div>
-        <div class="instagram1">Instagram</div>
-        <div class="github1">Github</div>
-      </div>
     </div>
-  </body>
+    {% endblock content %}
+
+</body>
+
 </html>
-``

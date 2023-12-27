@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "administrators",
     "users",
     "user_project",
+    "django_dump_die"
 ]
 
 MIDDLEWARE = [
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_dump_die.middleware.DumpAndDieMiddleware"
     # "django.contrib.staticfiles.middleware.StaticFilesMiddleware",
 ]
 
