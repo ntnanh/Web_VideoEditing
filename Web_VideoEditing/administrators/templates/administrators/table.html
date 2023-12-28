@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Tables {% endblock %}
+
+
+{% block css %}
+<!-- Custom styles for this page -->
+<link href="{% static 'administrators/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block container_fluid %}
+<div class="container-fluid">
+    <!-- Page Heading -->
+  {% comment %} <h1 class="h3 mb-2 text-gray-800">Tables</h1> {% endcomment %}
+  <button class="orange-button">Add User</button>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>UseName</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Create date</th>
+                            <th>Image</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>ID</th>
+                            <th>UseName</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Create date</th>
+                            <th>Image</th>
+                            <th>Action</th>
+
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Anh</td>
+                            <td>ngocanh2562001@gmail.com</td>
+                            <td>client</td>
+                            <td>2023-12-27</td>
+                            <td>default.jpg</td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-circle btn-sm">  <i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="#" class="btn btn-danger btn-circle btn-sm"> <i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Nga</td>
+                            <td>nga@gmail.com</td>
+                            <td>client</td>
+                            <td>2023-12-27</td>
+                            <td>default.jpg</td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-circle btn-sm">  <i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="#" class="btn btn-danger btn-circle btn-sm"> <i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block js_body %}
+<!-- Data Tables -->
+<script src="{% static 'administrators/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'administrators/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'administrators/js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
