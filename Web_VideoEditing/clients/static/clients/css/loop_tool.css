@@ -171,6 +171,15 @@ body {
     font-size: var(--font-size-smi);
 }
 
+.export-button {
+    background-color: var(--color-darkorange-100);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
 .div1,
 .group-inner {
     position: absolute;

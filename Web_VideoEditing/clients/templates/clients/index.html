@@ -22,7 +22,7 @@
           <img src="{{ user_profile.image.url }}" class="dropbtn"/>
           <div class="dropdown-content">
           <a href="#">{{ user_profile.username }}</a>
-          <a href="#">Log out</a>
+          <a href="{% url 'users:signout'%}">Log out</a>
           </div>
         </div>
         {% else %}

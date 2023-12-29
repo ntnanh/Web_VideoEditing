@@ -12,7 +12,7 @@ def signup(request):
         password = request.POST['password']
         mysqluser = Users(username=username, email=email, password=password)
         mysqluser.save()
-        return redirect('signin')
+        return redirect('users:signin')
     
     
     return render(request, 'users/signup.html')

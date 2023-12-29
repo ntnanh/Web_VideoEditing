@@ -89,23 +89,6 @@
     color: var(--color-darkorange-100);
 }
 
-.group-item {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: var(--br-3xs);
-    background-color: var(--color-darkorange);
-    width: 100px;
-    height: 35px;
-}
-
-.export {
-    position: absolute;
-    top: 6px;
-    left: 31px;
-    font-weight: 500;
-}
-
 .rectangle-parent {
     position: absolute;
     top: 506px;
@@ -113,6 +96,15 @@
     width: 100px;
     height: 35px;
     font-size: var(--font-size-smi);
+}
+
+.export-button {
+    background-color: var(--color-darkorange-100);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
 }
 
 .div,
