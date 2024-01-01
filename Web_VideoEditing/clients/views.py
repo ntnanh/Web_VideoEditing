@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from users.models import Users
 from django.http import HttpResponse
 import os
@@ -6,6 +6,7 @@ from django.conf import settings
 from .forms import FileUploadForm
 from users.views import base_context
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from .models import Upload,UserUpload
 
 def home(request):
     context = base_context(request)
@@ -34,16 +35,18 @@ def crop_tool(request):
     return render(request, 'clients/crop_tool.html')
 
 def cut_video(request):
-    if request.method == "POST":
-        form = FileUploadForm(request.POST, request.FILES)
-        dd(form.is_valid())
-        if form.is_valid():
-            dd(form)
-    else:
-        form = FileUploadForm()
-        
     context = base_context(request)
-    return render(request, 'clients/cut_video.html', context)
+    if request.method == 'POST' and 'video_file' in request.FILES:
+        video_file = request.FILES['video_file']
+        title = video_file.name
+        upload = Upload(path_video=video_file, title_video=title, path_image='')
+        upload.save()
+        user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
+        user_upload.save()
+        return redirect('clients:cut_tool')
+    else:
+        return render(request, 'clients/cut_video.html', context)
+
 
 def cut_tool(request):
     if request.method == 'POST':

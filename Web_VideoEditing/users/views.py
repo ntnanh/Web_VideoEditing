@@ -54,6 +54,7 @@ def signin(request):
             user = Users.objects.get(email=email)
             if check_password(password,user.password) and user is not None:
                 request.session['username'] = user.username
+                request.session['user_id'] = user.id
                 if user.role == 'admin':
                     return redirect('administrators:index')
                 elif user.role == 'client':
