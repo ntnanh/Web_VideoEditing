@@ -6,7 +6,7 @@ from django.contrib import messages
 from .models import Users
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 
 def signup(request):
     if request.method == 'POST':
@@ -50,10 +50,9 @@ def signin(request):
     if request.method == 'POST':
         email = request.POST.get('email')
         password = request.POST.get('password')
-        
         try:
-            user = Users.objects.get(email=email, password=password)
-            if user is not None:
+            user = Users.objects.get(email=email)
+            if check_password(password,user.password) and user is not None:
                 request.session['username'] = user.username
                 if user.role == 'admin':
                     return redirect('administrators:index')
