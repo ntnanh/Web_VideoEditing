@@ -15,7 +15,7 @@
     <div class="cut-video">
         <div class="cut-video-child">
             <video class="video-upload" width="550" height="330" controls>
-                <source src="{% static 'clients/images/video1.mp4' %}" type="video/mp4">
+                <source src="{{ video_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
         </div>
@@ -30,7 +30,7 @@
         {% if video_url %}
         <div class="cut-video-child1">
             <video id="video-edit" width="400" height="240" controls>
-                <source src="{{ video_url }}" type="video/mp4">
+                <source src="{{ preview_video }}" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
         </div>
@@ -40,7 +40,7 @@
         </div>
         {% endif %}
 
-        <form action="{% url 'clients:cut_tool'%}" method='POST'>
+        <form action="{% url 'clients:cut_tool' id=id %}" method='POST'>
             {% csrf_token %}
             <div class="starttime-parent">
                 <div class="starttime">Starttime:</div>
