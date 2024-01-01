@@ -7,7 +7,7 @@ from PIL import Image
 class Users(models.Model):
     username = models.CharField(max_length=100)
     email = models.EmailField()
-    password = models.CharField(max_length=20)
+    password = models.CharField(max_length=100)
     create_at = models.DateTimeField(default=timezone.now)
     role = models.CharField(max_length=50, default='client')
     image = models.ImageField(default='default.jpg', upload_to='profile_pics/')
