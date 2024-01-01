@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from users.models import Users
 from django.http import HttpResponse
 import os
@@ -41,14 +42,16 @@ def cut_video(request):
         title = video_file.name
         upload = Upload(path_video=video_file, title_video=title, path_image='')
         upload.save()
-        user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
+        upload_id = upload.id
+        user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
         user_upload.save()
-        return redirect('clients:cut_tool')
+        redirect_url = reverse('clients:cut_tool', kwargs={'id': upload_id})
+        return redirect(redirect_url)
     else:
         return render(request, 'clients/cut_video.html', context)
 
 
-def cut_tool(request):
+def cut_tool(request, id):
     if request.method == 'POST':
         starttime = request.POST.get('start')
         endtime = request.POST.get('end')
@@ -62,9 +65,9 @@ def cut_tool(request):
             ffmpeg_extract_subclip(input_video_path, start_time_seconds, end_time_seconds, targetname=output_video_path)
 
             video_url = '/static/appcut/images/input_video1.mp4'
-            return render(request, "clients/cut_tool.html", {'video_url': video_url})
-
-    return render(request, "clients/cut_tool.html")
+            return render(request, "clients/cut_tool.html", {'preview_video': video_url})
+    upload = Upload.objects.get(id=id)
+    return render(request, "clients/cut_tool.html", {'id':id,'video_url': upload.path_video.url})
 
 def convert_to_seconds(time_string):
     hours, minutes, seconds = map(int, time_string.split(':'))
