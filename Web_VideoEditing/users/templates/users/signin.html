@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="{% static 'users/css/signin.css' %}">
     <link rel="stylesheet" href="{% static 'users/css/global.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap" />
@@ -52,10 +53,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="remember-for-30-days-parent">
+                {% comment %} <div class="remember-for-30-days-parent">
                     <div class="remember-for-30">Remember for 30 days</div>
                     <div class="group-child62"></div>
-                </div>
+                </div> {% endcomment %}
                 <div class="group-wrapper1" id="frameContainer10">
                     <div class="dont-have-an-account-sign-up-wrapper">
                         <div class="dont-have-an-container1">
@@ -64,22 +65,22 @@
                         </div>
                     </div>
                 </div>
-                <div class="frame-parent9">
-                    <div class="frame-wrapper7">
-                        <div class="ico<ns8-google-1-group">
-                            <img class="icons8-google-11" alt="" src="{% static 'users/images/icons8google-1.svg' %}" />
+                {% comment %} <div class="frame-parent9"> {% endcomment %}
+                <div class="frame-wrapper7">
+                    <div class="icons8-google-1-group">
+                        <img class="icons8-google-11" alt="" src="{% static 'users/images/icons8google-1.svg' %}" />
 
-                            <div class="name5">Sign in with Google</div>
-                        </div>
+                        <div class="name5">Sign in with Google</div>
                     </div>
-                    <div class="frame-wrapper8">
+                </div>
+                    {% comment %} <div class="frame-wrapper8">
                         <div class="icons8-apple-logo-1-group">
                             <img class="icons8-google-11" alt="" src="{% static 'users/images/icons8applelogo-1.svg' %}" />
 
                             <div class="name5">Sign in with Apple</div>
                         </div>
-                    </div>
-                </div>
+                    </div> {% endcomment %}
+                {% comment %} </div> {% endcomment %}
                 <div class="forgot-password">forgot password</div>
             </div>
             <div class="line-group">
@@ -101,6 +102,8 @@
             <div class="rectangle-parent37">
                 <button type="submit" class="login1">Sign In</button>
             </div>
+            <div id="error-message"></div>
+
             <div class="line-container">
                 <div class="frame-child5"></div>
                 <div class="or-frame">
@@ -111,6 +114,15 @@
             <img class="chris-lee-70l1tdai6rm-unsplash-icon1" alt="" src="{% static 'users/images/chrislee70l1tdai6rmunsplash-3@2x.png' %}" />
         </div>
     </form>
+    <script>
+        // Xử lý hiển thị thông báo lỗi
+        {% if error_message %}
+        window.onload = function() {
+            document.getElementById('error-message').innerText = '{{ error_message }}';
+            document.getElementById('error-message').style.display = 'block';
+        };
+        {% endif %}
+    </script>
 </body>
 
 </html>

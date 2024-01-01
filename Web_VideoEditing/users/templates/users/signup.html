@@ -7,35 +7,15 @@
 
     <link rel="stylesheet" href="{% static 'users/css/signup.css' %}">
     <link rel="stylesheet" href="{% static 'users/css/global.css' %}">
-
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
-    />
+    
+    {% comment %} <link rel="stylesheet" href="{% static 'users/js/signup.js' %}"> {% endcomment %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open Sans:wght@400;600&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"/>
   </head>
   <body>
     <div class="signup">
@@ -84,38 +64,16 @@
               </div>
             </div>
           </div>
-          <div class="i-agree-to-the-term-policy-parent">
-            <div class="i-agree-to">I agree to the term & policy</div>
-            <div class="group-child56"></div>
-          </div>
           <div class="dont-have-an-account-sign-in-wrapper">
             <div class="dont-have-an-container">
               <span>Don’t have an account? </span>
               <span><a class="sign-in3" href="{% url 'users:signin'%}">Sign In</a></span>
             </div>
           </div>
-          <div class="frame-parent4">
-            <div class="frame-wrapper3">
-              <div class="icons8-apple-logo-1-parent">
-                <img
-                  class="icons8-apple-logo-1"
-                  alt=""
-                  src="{% static 'users/images/icons8applelogo-1.svg' %}"
-                />
-
-                <div class="name">Sign in with Apple</div>
-              </div>
-            </div>
-            <div class="frame-wrapper4">
-              <div class="icons8-google-1-parent">
-                <img
-                  class="icons8-apple-logo-1"
-                  alt=""
-                  src="{% static 'users/images/icons8google-1.svg' %}"
-                />
-
-                <div class="name">Sign in with Google</div>
-              </div>
+          <div class="frame-wrapper4">
+            <div class="icons8-google-1-parent">
+              <img class="icons8-apple-logo-1" alt="" src="{% static 'users/images/icons8google-1.svg' %}"/>
+              <div class="name">Sign in with Google</div>
             </div>
           </div>
         </div>
@@ -123,9 +81,12 @@
         <div class="rectangle-parent33">
           <input class="group-child" type="text" id="username" name="username" placeholder="Enter your name" required>
         </div>
+            <p id="error-message"></p>
         <div class="rectangle-parent35">
           <input class="group-child" type="text" id="email" name="email" placeholder="Enter your email" required>
+          <p id="email-message"></p>
           <input class="group-child1" type="password" id="password" name="password" placeholder="Enter password" required>
+          <p id="password-message"></p>
         </div>
         <div class="rectangle-parent34">
           <button type="submit" class="signup1">Sign Up</button>
@@ -138,5 +99,42 @@
         </div>
       </form>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>document.querySelector('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+  
+      var formData = new FormData(this);
+  
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', "{% url 'users:signup' %}", true);
+      xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+              if (xhr.status === 200) {
+                  var response = JSON.parse(xhr.responseText);
+                  if (response.error_message) {
+                      var errorMessageContainer = document.getElementById('error-message');
+                      if (errorMessageContainer) {
+                          errorMessageContainer.textContent = response.error_message;
+                      }
+                  } else if (response.email_message) {
+                      var emailMessageContainer = document.getElementById('email-message');
+                      if (emailMessageContainer) {
+                          emailMessageContainer.textContent = response.email_message;
+                      }
+                  } else if (response.password_message) {
+                      var passwordMessageContainer = document.getElementById('password-message');
+                      if (passwordMessageContainer) {
+                          passwordMessageContainer.textContent = response.password_message;
+                      }
+                  } else {
+                      window.location.href = "{% url 'users:signin' %}";
+                  }
+              } else {
+                  console.error('Request error:', xhr.status);
+              }
+          }
+      };
+      xhr.send(formData);
+  });</script>
   </body>
 </html>

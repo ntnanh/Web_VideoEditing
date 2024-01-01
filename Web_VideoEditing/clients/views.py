@@ -4,11 +4,8 @@ from django.http import HttpResponse
 import os
 from django.conf import settings
 from .forms import FileUploadForm
-
-def base_context(request):
-    username = request.session.get('username', None)
-    user_profile = Users.objects.get(username=username) if username else None
-    return {'user_profile': user_profile}
+from users.views import base_context
+from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 
 def home(request):
     context = base_context(request)
@@ -49,7 +46,27 @@ def cut_video(request):
     return render(request, 'clients/cut_video.html', context)
 
 def cut_tool(request):
-    return render(request, 'clients/cut_tool.html')
+    if request.method == 'POST':
+        starttime = request.POST.get('start')
+        endtime = request.POST.get('end')
+
+        input_video_path = '/static/clients/images/video1.mp4'
+        output_video_path = '/static/clients/images/input_video1.mp4'
+        if starttime and endtime:
+            start_time_seconds = convert_to_seconds(starttime)
+            end_time_seconds = convert_to_seconds(endtime)
+
+            ffmpeg_extract_subclip(input_video_path, start_time_seconds, end_time_seconds, targetname=output_video_path)
+
+            video_url = '/static/appcut/images/input_video1.mp4'
+            return render(request, "clients/cut_tool.html", {'video_url': video_url})
+
+    return render(request, "clients/cut_tool.html")
+
+def convert_to_seconds(time_string):
+    hours, minutes, seconds = map(int, time_string.split(':'))
+    total_seconds = hours * 3600 + minutes * 60 + seconds
+    return total_seconds
 
 def loop_video(request):
     context = base_context(request)
