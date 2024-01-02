@@ -125,13 +125,11 @@
                     headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
                     data: params
                 }).done(function(res) {
-                    let video = document.getElementById('video-edit');
-                    // Create a new source element
-                    let source = document.createElement('source');
-                    source.setAttribute('src', res.preview_video); // Set the video source URL
-                    source.setAttribute('type', 'video/mp4'); // Set the MIME type
-                    video.appendChild(source);
-                    video.play();
+                    let video = $('#video-edit');
+                    let source = `<source src="${res.preview_video}" type="video/mp4">`;
+                    video.html(source)
+                    video[0].load();
+                    video[0].play();
                     $.LoadingOverlay("hide");
                 });
             })

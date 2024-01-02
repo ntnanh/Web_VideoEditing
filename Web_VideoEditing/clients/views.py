@@ -57,12 +57,12 @@ def preview_cut_video(request):
         start_time = request.POST.get('start_time')
         end_time = request.POST.get('end_time')
         input_video_path = request.POST.get('video_path')
-        output_video_path = os.path.join(settings.BASE_DIR, 'media/Files/input_video1.mp4')
+        output_video_path = os.path.join(settings.BASE_DIR, f"media/Files/previews/output_preview.mp4")
         if start_time and end_time:
             start_time_seconds = convert_to_seconds(start_time)
             end_time_seconds = convert_to_seconds(end_time)
             ffmpeg_extract_subclip(input_video_path, start_time_seconds, end_time_seconds, targetname=output_video_path)
-            preview_video = '/media/Files/input_video1.mp4'
+            preview_video = f"/media/Files/previews/output_preview.mp4"
             return JsonResponse({'preview_video' : preview_video})
         content = {
             'id': id,
