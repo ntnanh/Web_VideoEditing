@@ -1,0 +1,13 @@
+/Web_VideoEditing/media/Files/
+.idea
+/Web_VideoEditing/Web_VideoEditing/__paycache__/
+/Web_VideoEditing/Web_VideoEditing/__pycache__/
+/Web_VideoEditing/administrators/__pycache__/
+/Web_VideoEditing/administrators/migrations/__pycache__/
+/Web_VideoEditing/clients/__pycache__/
+/Web_VideoEditing/clients/migrations/__pycache__/
+/Web_VideoEditing/user_project/__pycache__/
+/Web_VideoEditing/user_project/migrations/__pycache__/
+/Web_VideoEditing/users/__pycache__/
+/Web_VideoEditing/users/migrations/__pycache__/
+/Web_VideoEditing/myenv/
