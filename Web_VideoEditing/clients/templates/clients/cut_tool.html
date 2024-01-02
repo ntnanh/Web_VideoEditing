@@ -14,7 +14,7 @@
 <body>
     <div class="cut-video">
         <div class="cut-video-child">
-            <video class="video-upload" width="550" height="330" controls>
+            <video class="video-upload" width="550" height="330">
                 <source src="{{ video_url }}" type="video/mp4">
                 Your browser does not support the video tag.
             </video>
@@ -60,7 +60,7 @@
         </div>
         <div class="cut-video-child5"></div>
         <div class="rectangle-parent5">
-            <button class="export-button">Export</button>
+            <button class="export-button disable-button">Export</button>
         </div>
         <div class="rectangle-parent6">
             <div class="group-child8"></div>
@@ -130,8 +130,33 @@
                     video.html(source)
                     video[0].load();
                     video[0].play();
+                    $('.export-button').removeClass('disable-button');
                     $.LoadingOverlay("hide");
                 });
+            })
+
+            $('.export-button').on('click', function (){
+                const form = $(this).closest('.cut-video').find('#form-cut_video');
+                let preview_video = $('#video-edit');
+                let url = preview_video.find('source').attr('src');
+                let anchor = $("<a>")
+                    .attr("href", url)
+                    .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                    .appendTo("body");
+                anchor[0].click();
+                anchor.remove();
+                // $.ajax({
+                //     url: '/export_cut_video',
+                //     type: 'POST',
+                //     beforeSend: function() {
+                //         $.LoadingOverlay("show");
+                //     },
+                //     headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
+                //     data: {url: url}
+                // }).done(function(res) {
+                //     console.log(res)
+                //     $.LoadingOverlay("hide");
+                // });
             })
         });
 
