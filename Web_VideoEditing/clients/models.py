@@ -10,7 +10,7 @@ class Subtitle(models.Model):
         db_table = "Subtitle"
 
 class Upload(models.Model):
-    path_video = models.FileField(upload_to='Files/')
+    path_video = models.FileField(max_length=200, upload_to='Files/')
     title_video = models.CharField(max_length=200, null=True)
     path_image = models.FileField(upload_to='Files/', null=True)
     
@@ -35,7 +35,7 @@ class Video(models.Model):
     update_date = models.DateTimeField()
     thumb = models.ImageField(upload_to='video_thumbs/')
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    subtitle_id = models.ForeignKey(Subtitle, on_delete=models.CASCADE)
+    subtitle_id = models.ForeignKey(Subtitle, null=True, on_delete=models.CASCADE)
     upload_id = models.ForeignKey(Upload, on_delete=models.CASCADE)
     
     class Meta:

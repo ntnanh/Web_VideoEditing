@@ -17,5 +17,6 @@ urlpatterns = [
     path('preview_cut_video', views.preview_cut_video, name="preview_cut_video"),
     path('add_voice_tool/<int:id>/', views.add_voice_tool, name="add_voice_tool"),
     path('add_voice/', views.add_voice, name="add_voice"),
+    path('export_cut_video', views.export_cut_video, name="export_cut_video"),
 
 ]
