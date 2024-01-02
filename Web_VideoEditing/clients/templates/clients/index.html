@@ -15,13 +15,13 @@
 
     <div class="nav">
         <img class="pexels-jessica-lewis-593324-2-icon" alt="" src="{% static 'clients/images/pexelsjessicalewis593324-2@2x.png' %}" />
-        <div class="edit-video">Edit video</div>
+        <div class="edit-video"><a href="{% url 'clients:home' %}">Edit video</a></div>
         <div class="resources">Resources</div>
         {% if user_profile %}
         <div class="dropdown1">
           <img src="{{ user_profile.image.url }}" class="dropbtn"/>
           <div class="dropdown-content">
-          <a href="#">{{ user_profile.username }}</a>
+          <a href="{% url 'user_project:index' id=user_profile.id %}">{{ user_profile.username }}</a>
           <a href="{% url 'users:signout'%}">Log out</a>
           </div>
         </div>
@@ -37,11 +37,6 @@
     <div class="slide">
         <div class="make-your-interior"> Make Your Interior More Minimaistic & Modern </div>
         <div class="all-in-one-easy-to-use-online"> All-in-one easy-to-use online video tools </div>
-        <div class="search-column">
-            <div class="search-column-child"></div>
-            <div class="search">Search</div>
-            <img class="button-search-icon" alt="" src="{% static 'clients/images/button-search@2x.png' %}" />
-        </div>
     </div>
 
     <div class="reason">
@@ -73,24 +68,32 @@
             <img class="next-child" alt="" src="{% static 'clients/images/arrow-2@2x.png' %}" />
         </div>
         <div class="tool4">
-            <div class="tool4-child"></div>
-            <div class="merge">Merge</div>
-            <img class="merged-1-icon" alt="" src="{% static 'clients/images/merged-1@2x.png' %}" />
+            <a href="{% url 'clients:merge_video'%}">
+                <div class="tool4-child"></div>
+                <div class="merge">Merge</div>
+                <img class="merged-1-icon" alt="" src="{% static 'clients/images/merged-1@2x.png' %}" />
+            </a>
         </div>
         <div class="tool3">
-            <div class="tool4-child"></div>
-            <div class="cut">Cut</div>
-            <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />
+            <a href="{% url 'clients:cut_video'%}">
+                <div class="tool4-child"></div>
+                <div class="cut">Cut</div>
+                <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />
+            </a>   
         </div>
         <div class="tool2">
-            <div class="tool4-child"></div>
-            <div class="loop">Loop</div>
-            <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />
+            <a href="{% url 'clients:loop_video'%}">
+                <div class="tool4-child"></div>
+                <div class="loop">Loop</div>
+                <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />
+            </a>
         </div>
         <div class="tool1">
-            <div class="tool4-child"></div>
-            <div class="crop">Crop</div>
-            <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
+            <a href="{% url 'clients:crop_video'%}">
+                <div class="tool4-child"></div>
+                <div class="crop">Crop</div>
+                <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
+            </a>
         </div>
     </div>
 

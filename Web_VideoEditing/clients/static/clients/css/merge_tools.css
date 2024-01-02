@@ -17,6 +17,11 @@
     object-fit: cover;
 }
 
+.home a {
+    text-decoration: none;
+    color: var(--color-darkorange);
+}
+
 .margetools-inner {
     top: 37px;
     left: 396px;

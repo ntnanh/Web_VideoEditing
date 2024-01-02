@@ -13,6 +13,11 @@
     display: inline-block;
 }
 
+.edit-video a {
+    color: var(--color-darkorange);
+    text-decoration: none;
+}
+
 .edit-video {
     top: 39px;
     left: 53px;

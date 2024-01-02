@@ -63,6 +63,11 @@ body {
     height: 66px;
 }
 
+.home a {
+    text-decoration: none;
+    color: var(--color-darkorange);
+}
+
 .loptools-inner {
     position: absolute;
     top: 449px;
