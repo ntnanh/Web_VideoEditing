@@ -51,6 +51,11 @@
     font-weight: 300;
 }
 
+.home a {
+    text-decoration: none;
+    color: var(--color-darkorange);
+}
+
 .crop-edit-child,
 .insert-video {
     position: absolute;

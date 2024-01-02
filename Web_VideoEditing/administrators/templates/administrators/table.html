@@ -46,14 +46,15 @@
 
                         </tr>
                     </tfoot>
-                    <tbody>
-                        {% for user in web_videoediting %}
+                    <tbody>  
+
+                        {% for user in users_data %}
                         <tr>
-                            <td>{{ forloop.counter }}</td>
+                            <td>{{ user.id }}</td>
                             <td>{{ user.username }}</td>
                             <td>{{ user.email }}</td>
                             <td>{{ user.role }}</td>
-                            <td>{{ user.create_at|date:"Y-m-d" }}</td>
+                            <td>{{ user.create_at }}</td>
                             <td><img src="{{ user.image.url }}" alt="{{ user.username }}'s image" style="max-width: 50px; max-height: 50px;"></td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-circle btn-sm"><i class="fa-regular fa-pen-to-square"></i></a>
@@ -61,7 +62,6 @@
                             </td>
                         </tr>
                     {% endfor %}
- 
                     </tbody>
                 </table>
             </div>

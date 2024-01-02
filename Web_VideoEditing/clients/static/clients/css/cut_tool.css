@@ -42,6 +42,11 @@ body {
     height: 66px;
 }
 
+.home a {
+    text-decoration: none;
+    color: var(--color-darkorange-100);
+}
+
 .cut-video-child1,
 .rectangle-icon {
     position: absolute;
