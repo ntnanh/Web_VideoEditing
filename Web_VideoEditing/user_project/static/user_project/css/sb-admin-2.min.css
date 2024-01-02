@@ -11395,3 +11395,18 @@ body.sidebar-toggled footer.sticky-footer {
     text-decoration: none;
     cursor: pointer;
 }
+
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    /* Tỉ lệ khung hình 16:9 */
+}
+
+.responsive-video {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
