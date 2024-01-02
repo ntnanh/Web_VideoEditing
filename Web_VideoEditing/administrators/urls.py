@@ -8,4 +8,5 @@ urlpatterns = [
     path('table', views.table, name="table"),
 
 
+
 ]

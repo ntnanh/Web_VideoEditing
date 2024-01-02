@@ -1,0 +1,75 @@
+{% extends 'user_project/base.html' %}
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block container_fluid %}
+<link href="{% static 'user_project/css/sb-admin-2.min.css' %}" rel="stylesheet">
+<div class="container-fluid">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Profile</h1>
+    </div>
+      <div class="profile-container" id="userProfile">
+        <img src="https://via.placeholder.com/100" alt="User Image" id="user-image">
+        <h2 id="userName">John Doe</h2>
+        <p id="userEmail">john.doe@example.com</p>
+        <button class="edit-btn" onclick="openEditModal()">Edit</button>
+        <button class="delete-btn" onclick="openDeleteModal()">Delete</button>
+      </div>
+      <!-- Edit Modal -->
+      <div id="edit-modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeEditModal()">&times;</span>
+          <h2>Edit User Profile</h2>
+          <label for="editName">Name:</label>
+          <input type="text" id="editName" value="John Doe">
+          <label for="editEmail">Email:</label>
+          <input type="email" id="editEmail" value="john.doe@example.com">
+          <button onclick="saveChanges()">Save Changes</button>
+        </div>
+      </div>
+      <div id="delete-modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeDeleteModal()">&times;</span>
+          <h2>Delete User Profile</h2>
+          <p>Are you sure you want to delete this user profile?</p>
+          <button onclick="deleteProfile()">Delete</button>
+        </div>
+      </div>
+    
+      <script>
+        function openEditModal() {
+          document.getElementById('edit-modal').style.display = 'block';
+        }
+    
+        function closeEditModal() {
+          document.getElementById('edit-modal').style.display = 'none';
+        }
+    
+        function openDeleteModal() {
+          document.getElementById('delete-modal').style.display = 'block';
+        }
+    
+        function closeDeleteModal() {
+          document.getElementById('delete-modal').style.display = 'none';
+        }
+    
+        function saveChanges() {
+          const newName = document.getElementById('editName').value;
+          const newEmail = document.getElementById('editEmail').value;
+    
+          document.getElementById('userName').innerText = newName;
+          document.getElementById('userEmail').innerText = newEmail;
+    
+          closeEditModal();
+        }
+    
+        function deleteProfile() {
+          const userProfile = document.getElementById('userProfile');
+          userProfile.parentNode.removeChild(userProfile);
+          closeDeleteModal();
+        }
+      </script>
+
+</div>
+{% endblock %}
