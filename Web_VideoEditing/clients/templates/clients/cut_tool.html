@@ -139,24 +139,33 @@
                 const form = $(this).closest('.cut-video').find('#form-cut_video');
                 let preview_video = $('#video-edit');
                 let url = preview_video.find('source').attr('src');
-                let anchor = $("<a>")
-                    .attr("href", url)
-                    .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
-                    .appendTo("body");
-                anchor[0].click();
-                anchor.remove();
-                // $.ajax({
-                //     url: '/export_cut_video',
-                //     type: 'POST',
-                //     beforeSend: function() {
-                //         $.LoadingOverlay("show");
-                //     },
-                //     headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
-                //     data: {url: url}
-                // }).done(function(res) {
-                //     console.log(res)
-                //     $.LoadingOverlay("hide");
-                // });
+                let id = form.find('#id').val();
+                let params = {
+                    'id': id,
+                    'url': url
+                }
+                $.ajax({
+                    url: '/export_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    if (res.success === 'true') {
+                        let anchor = $("<a>")
+                            .attr("href", url)
+                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                            .appendTo("body");
+                        anchor[0].click();
+                        anchor.remove();
+                        $.LoadingOverlay("hide");
+                    }
+                }).error(function (e) {
+                    console.log(e)
+                    $.LoadingOverlay("hide");
+                });
             })
         });
 
