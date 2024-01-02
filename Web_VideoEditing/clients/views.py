@@ -7,9 +7,10 @@ from django.conf import settings
 from .forms import FileUploadForm
 from users.views import base_context
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
+from .models import Upload,UserUpload
 from .models import Upload,UserUpload, Video, Subtitle
 import uuid
-from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_audioclips
+from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips
 from datetime import datetime
 from pydub import AudioSegment
 import re
@@ -270,7 +271,70 @@ def convert_to_seconds(time_string):
 
 def loop_video(request):
     context = base_context(request)
-    return render(request, 'clients/loop_video.html', context)
+    if request.method == 'POST' and 'video_file' in request.FILES:
+        video_file = request.FILES['video_file']
+        title = video_file.name
+        upload = Upload(path_video=video_file, title_video=title, path_image='')
+        upload.save()
+        upload_id = upload.id
+        user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
+        user_upload.save()
+        redirect_url = reverse('clients:loop_tool', kwargs={'id': upload_id})
+        return redirect(redirect_url)
+    else:
+        return render(request, 'clients/loop_video.html', context)
 
-def loop_tool(request):
-    return render(request, 'clients/loop_tool.html')
+from django.conf import settings
+from moviepy.editor import VideoFileClip, concatenate_videoclips
+import os
+
+def loop_tool(request, id):
+    upload = Upload.objects.get(id=id)
+    preview_video = upload.path_video.url  # Đường dẫn mặc định là video gốc chưa được lặp lại
+
+    if request.method == 'POST':
+        video_path = request.POST.get('full_path')
+        loop_factor = 1 
+        loop_factor_values = request.POST.getlist('loop_factor')
+        if '2x' in loop_factor_values:
+            loop_factor = 2
+        elif '3x' in loop_factor_values:
+            loop_factor = 3
+        elif '4x' in loop_factor_values:
+            loop_factor = 4
+        elif '5x' in loop_factor_values:
+            loop_factor = 5
+
+        clip = VideoFileClip(video_path)
+        clips = [clip.copy() for _ in range(loop_factor)]
+        final_clip = concatenate_videoclips(clips)
+
+        looped_video_path = os.path.join(settings.MEDIA_ROOT, 'inputloopvideo.mp4')
+        final_clip.write_videofile(looped_video_path)
+
+        preview_video = looped_video_path 
+        # Gán đường dẫn của video đã lặp lại cho biến preview_video
+        
+        
+        
+        looped_video_path = os.path.join(settings.MEDIA_ROOT, 'inputloopvideo.mp4')
+        final_clip.write_videofile(looped_video_path)
+        preview_video = os.path.join(settings.MEDIA_URL, 'inputloopvideo.mp4')
+
+        print("Original video path:", upload.path_video.url)
+        print("Looped video path:", preview_video)
+        print("Video factor:", loop_factor)
+        print("Original video duration:", clip.duration)
+        print("Looped video duration:", final_clip.duration)
+
+
+    return render(request, "clients/loop_tool.html", {'id': id, 'video_url': upload.path_video.url, 'full_path': upload.path_video.path, 'preview_video': preview_video})
+
+def loop_input(video_path, loop_factor):
+    
+    clip = VideoFileClip(video_path)
+    clips = [clip.copy() for _ in range(loop_factor)]
+    # Concatenate the replicated clips to create the final looped video
+    final_clip = concatenate_videoclips(clips)
+
+    final_clip.write_videofile("media/Files/inputloopvideo.mp4")
