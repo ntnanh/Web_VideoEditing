@@ -40,7 +40,7 @@
         </div>
         {% endif %}
 
-        <form action="{% url 'clients:cut_tool' id=id %}" method='POST'>
+        <form id="form-cut_video" action="{% url 'clients:cut_tool' id=id %}" method='POST'>
             {% csrf_token %}
             <div class="starttime-parent">
                 <div class="starttime">Starttime:</div>
@@ -51,17 +51,17 @@
                 <div class="input-end">
                     <input name="end" id="end" type="text" pattern="([01]?[0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9]" placeholder="00:00:00" required>
                 </div>
-                <input type="hidden" name="full_path" value="{{ full_path }}"/>
-
-            </div>
-            <div class="rectangle-container">
-                <button type="submit" class="preview-button">Preview</button>
-            </div>
-            <div class="cut-video-child5"></div>
-            <div class="rectangle-parent5">
-                <button class="export-button">Export</button>
+                <input type="hidden" id="video_path" name="full_path" value="{{ full_path }}"/>
+                <input type="hidden" id="id" name="id" value="{{ id }}"/>
             </div>
         </form>
+        <div class="rectangle-container">
+            <button type="button" class="preview-button">Preview</button>
+        </div>
+        <div class="cut-video-child5"></div>
+        <div class="rectangle-parent5">
+            <button class="export-button">Export</button>
+        </div>
         <div class="rectangle-parent6">
             <div class="group-child8"></div>
             <div class="final-output-group">
@@ -78,6 +78,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="{% static 'clients/js/loadingoverlay.min.js' %}"></script>
     <script>
         $(document).ready(function() {
             $(".play").on("click", function() {
@@ -102,6 +103,38 @@
                 var video = $(".video-upload")[0];
                 video.currentTime += 5;
             });
+
+            $('.preview-button').on("click", function() {
+                const form = $(this).closest('.cut-video').find('#form-cut_video');
+                let start_time = form.find('#start').val();
+                let end_time = form.find('#end').val();
+                let video_path = form.find('#video_path').val();
+                let id = form.find('#id').val();
+                let params = {
+                    'id': id,
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'video_path': video_path,
+                }
+                $.ajax({
+                    url: '/preview_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    let video = document.getElementById('video-edit');
+                    // Create a new source element
+                    let source = document.createElement('source');
+                    source.setAttribute('src', res.preview_video); // Set the video source URL
+                    source.setAttribute('type', 'video/mp4'); // Set the MIME type
+                    video.appendChild(source);
+                    video.play();
+                    $.LoadingOverlay("hide");
+                });
+            })
         });
 
         const video = document.querySelector('.video-upload');
@@ -132,6 +165,8 @@
         function padZero(number) {
             return number < 10 ? `0${number}` : number;
         }
+
+
     </script>
 </body>
 
