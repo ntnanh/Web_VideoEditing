@@ -14,5 +14,6 @@ urlpatterns = [
     path('cut_video/', views.cut_video, name="cut_video"),
     path('loop_video/', views.loop_video, name="loop_video"),
     path('loop_tool/', views.loop_tool, name="loop_tool"),
+    path('preview_cut_video', views.preview_cut_video, name="preview_cut_video"),
 
 ]

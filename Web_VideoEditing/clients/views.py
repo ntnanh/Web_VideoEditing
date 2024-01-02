@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from users.models import Users
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 import os
 from django.conf import settings
 from .forms import FileUploadForm
@@ -50,6 +50,26 @@ def cut_video(request):
     else:
         return render(request, 'clients/cut_video.html', context)
 
+def preview_cut_video(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        upload = Upload.objects.get(id=id)
+        start_time = request.POST.get('start_time')
+        end_time = request.POST.get('end_time')
+        input_video_path = request.POST.get('video_path')
+        output_video_path = os.path.join(settings.BASE_DIR, 'media/Files/input_video1.mp4')
+        if start_time and end_time:
+            start_time_seconds = convert_to_seconds(start_time)
+            end_time_seconds = convert_to_seconds(end_time)
+            ffmpeg_extract_subclip(input_video_path, start_time_seconds, end_time_seconds, targetname=output_video_path)
+            preview_video = '/media/Files/input_video1.mp4'
+            return JsonResponse({'preview_video' : preview_video})
+        content = {
+            'id': id,
+            'video_url': upload.path_video.url,
+            'full_path': upload.path_video.path
+        }
+        return render(request, "clients/cut_tool.html", content)
 
 def cut_tool(request, id):
     upload = Upload.objects.get(id=id)
