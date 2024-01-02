@@ -7,10 +7,14 @@ from django.conf import settings
 from .forms import FileUploadForm
 from users.views import base_context
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
-from .models import Upload,UserUpload, Video
+from .models import Upload,UserUpload, Video, Subtitle
 import uuid
-from moviepy.editor import VideoFileClip
+from moviepy.editor import VideoFileClip, AudioFileClip, concatenate_audioclips
 from datetime import datetime
+from pydub import AudioSegment
+import re
+import time
+import requests
 
 def home(request):
     context = base_context(request)
@@ -35,7 +39,94 @@ def add_voice(request):
         return redirect(redirect_url)
     else:
         return render(request, 'clients/add_voice.html', context)
-    
+
+def upload_subtitle(request):
+    context = base_context(request)
+    if request.method == 'POST' and 'sub_file' in request.FILES:
+        sub_file = request.FILES['sub_file']
+        path_file = os.path.join(settings.BASE_DIR, f"media/Files/{sub_file.name}")
+        # Save the uploaded file to the specified location
+        with open(path_file, 'wb') as file_destination:
+            for chunk in sub_file.chunks():
+                file_destination.write(chunk)
+        return JsonResponse({'path_sub' : path_file})
+    else:
+        return render(request, 'clients/add_voice.html', context)
+
+def preview_voice_to_video(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        upload = Upload.objects.get(id=id)
+        input_video_path = request.POST.get('video_path')
+        path_sub = request.POST.get('path_sub')
+        final_video = handle_sub(input_video_path, path_sub)
+        return JsonResponse({'preview_video' : final_video})
+
+def handle_sub(path_video, path_sub):
+    video_clip = VideoFileClip(path_video)
+    output_audio_file = os.path.join(settings.BASE_DIR, 'media/Files/output_audio.mp3')
+    final_video = os.path.join(settings.BASE_DIR, 'media/Files/previews/output.mp4')
+    video_file = path_video
+    # Phân tích tệp SRT
+    with open(path_sub, 'r', encoding='utf-8') as srt_file:
+        srt_lines = srt_file.readlines()
+    audio_clips = []
+    count = 0
+    # Tạo audio cho từng phụ đề và đồng bộ hóa với video
+    for i in range(0, len(srt_lines), 4):
+        time_line = srt_lines[i + 1].strip()
+        if is_valid_time_format(time_line):
+            start_time, end_time = time_line.split(' --> ')
+            text = srt_lines[i + 2].strip()
+            url = 'https://api.fpt.ai/hmi/tts/v5'
+            payload = text
+            headers = {
+                'api-key': '94xB69ZMrUOTEn3d5e7UbbAHoedTfGnO',
+                'speed': '',
+                'voice': 'banmai'
+            }
+
+            response = requests.request('POST', url, data=payload.encode('utf-8'), headers=headers)
+
+            if response.status_code == 200:
+                response_data = response.json()
+                print(text)
+                audio_url = response_data.get('async')
+
+                # Tải tệp âm thanh đã tạo từ URL
+                audio_response = requests.get(audio_url)
+                if audio_response.status_code == 200:
+                    with open(output_audio_file, 'wb') as audio_file:
+                        audio_file.write(audio_response.content)
+                        audio_clip = AudioSegment.from_file(output_audio_file)
+                        adjusted_audio = audio_clip._spawn(audio_clip.raw_data, overrides={
+                            "frame_rate": int(audio_clip.frame_rate * 1)
+                        }).set_frame_rate(audio_clip.frame_rate)
+                        adjusted_audio.export("adjusted_audio.mp3", format="mp3")
+                        audio_export = AudioFileClip("adjusted_audio.mp3")
+                        audio_clips.append(audio_export)
+            else:
+                print(response.json())
+            time.sleep(1)
+    # Kết hợp (merge) các audio trong danh sách
+    merged_audio = concatenate_audioclips(audio_clips)
+    # Lưu âm thanh kết hợp thành tệp mới
+    merged_audio.write_audiofile("merged_audio.mp3", fps=44100)
+    merged_audio = AudioFileClip("merged_audio.mp3")
+    audio_duration = merged_audio.duration
+    new_video = video_clip.set_duration(audio_duration)
+    video_with_new_audio = new_video.set_audio(merged_audio)
+    video_with_new_audio.write_videofile(final_video, codec='libx264', audio_codec='aac')
+    os.remove(path_sub)
+    os.remove(path_video)
+    os.remove(output_audio_file)
+
+    return '/media/Files/previews/output.mp4'
+
+def is_valid_time_format(time_str):
+    # Định dạng thời gian "HH:MM:SS,sss --> HH:MM:SS,sss" (giờ, phút, giây, mili-giây)
+    time_format = r'\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}'
+    return bool(re.match(time_format, time_str))
 
 def add_voice_tool(request, id):
     upload = Upload.objects.get(id=id)

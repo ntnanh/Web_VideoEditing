@@ -39,9 +39,10 @@
         </div>
         {% endif %}
 
-        {% comment %} <form id="form-cut_video" action="{% url 'clients:cut_tool' id=id %}" method='POST'> {% endcomment %}
+        {% comment %} <form id="form-voice_to_video" action="{% url 'clients:cut_tool' id=id %}" method='POST'> {% endcomment %}
             {% csrf_token %}
-
+            <input type="hidden" id="video_path" name="full_path" value="{{ full_path }}"/>
+            <input type="hidden" id="id" name="id" value="{{ id }}"/>
         </form>
 
         <div class="rectangle-container">
@@ -54,7 +55,8 @@
 
         <div class="add-more-videos">
             <label for="fileInput" class="import-button">Import file text</label>
-            <input type="file" id="fileInput" name="videos" style="display: none;" multiple>
+            <input type="file" id="fileInput" name="sub_file" style="display: none;" multiple>
+            <input type="hidden" class="path_sub" name="path_sub" >
             <div class="video-display" id="videoDisplay">
                 <!-- Display uploaded videos here if needed -->
             </div>
@@ -102,25 +104,50 @@
                 video.currentTime += 5;
             });
 
+            $('#fileInput').on('change', function() {
+                let fileInput = document.getElementById('fileInput');
+                let file = fileInput.files[0];
+
+                if (file) {
+                    let formData = new FormData();
+                    formData.append('sub_file', file);
+                    $.ajax({
+                        url: '/upload_subtitle', // Replace with your server endpoint
+                        type: 'POST',
+                        headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('.path_sub').val(response.path_sub)
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            console.error('There was a problem with the upload:', error);
+                        }
+                    });
+                } else {
+                    console.error('No file selected.');
+                }
+            });
+
             $('.preview-button').on("click", function() {
-                const form = $(this).closest('.cut-video').find('#form-cut_video');
-                let start_time = form.find('#start').val();
-                let end_time = form.find('#end').val();
-                let video_path = form.find('#video_path').val();
-                let id = form.find('#id').val();
+                const form = $(this).closest('.cut-video').find('#form-voice_to_video');
+                let video_path = $('#video_path').val();
+                let id = $('#id').val();
+                let path_sub = $('.path_sub').val();
                 let params = {
                     'id': id,
-                    'start_time': start_time,
-                    'end_time': end_time,
+                    'path_sub': path_sub,
                     'video_path': video_path,
                 }
                 $.ajax({
-                    url: '/preview_cut_video',
+                    url: '/preview_voice_to_video',
                     type: 'POST',
                     beforeSend: function() {
                         $.LoadingOverlay("show");
                     },
-                    headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
+                    headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
                     data: params
                 }).done(function(res) {
                     let video = document.getElementById('video-edit');
@@ -130,6 +157,38 @@
                     source.setAttribute('type', 'video/mp4'); // Set the MIME type
                     video.appendChild(source);
                     video.play();
+                    $.LoadingOverlay("hide");
+                });
+            })
+
+            $('.export-button').on('click', function (){
+                let preview_video = $('#video-edit');
+                let url = preview_video.find('source').attr('src');
+                let id = $('#id').val();
+                let params = {
+                    'id': id,
+                    'url': url
+                }
+                $.ajax({
+                    url: '/export_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': form.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    if (res.success === 'true') {
+                        let anchor = $("<a>")
+                            .attr("href", url)
+                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                            .appendTo("body");
+                        anchor[0].click();
+                        anchor.remove();
+                        $.LoadingOverlay("hide");
+                    }
+                }).error(function (e) {
+                    console.log(e)
                     $.LoadingOverlay("hide");
                 });
             })
