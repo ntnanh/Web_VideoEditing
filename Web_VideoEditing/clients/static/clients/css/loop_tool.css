@@ -63,18 +63,24 @@ body {
     height: 66px;
 }
 
-.home a {
-    text-decoration: none;
-    color: var(--color-darkorange);
-}
-
 .loptools-inner {
     position: absolute;
-    top: 449px;
-    left: 326px;
-    width: 90px;
-    height: 27px;
+    top: 445px;
+    left: 362px;
     object-fit: cover;
+}
+
+.play {
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #fff;
+    height: 27px;
+    width: 27px;
+    border-radius: 20px;
+}
+
+.play i {
+    margin-top: 5px;
 }
 
 .p {
@@ -229,6 +235,11 @@ body {
     font-weight: 300;
 }
 
+.home a {
+    text-decoration: none;
+    color: var(--color-darkorange);
+}
+
 .home-wrapper {
     position: absolute;
     top: 19px;
@@ -276,15 +287,75 @@ body {
     object-fit: cover;
 }
 
+.cut-video-child1 {
+    position: absolute;
+    top: 20px;
+    left: 860px;
+    width: 90px;
+    height: 27px;
+    object-fit: cover;
+}
+
 .loop-this-clip {
     position: absolute;
-    top: 127px;
+    top: 270px;
     left: 957px;
     font-size: var(--font-size-sm);
     font-weight: 500;
     display: inline-block;
     width: 150px;
     height: 25px;
+}
+
+.button_loop {
+    position: absolute;
+    top: 310px;
+    left: 930px;
+    box-sizing: border-box;
+    width: 213px;
+    height: 158px;
+}
+
+.submit2x {
+    width: 70px;
+    height: 60px;
+    font-size: 16px;
+    background: none;
+    color: #fff;
+    border-radius: var(--br-3xs);
+    border: 1px solid rgba(182, 190, 211, 0.78);
+    margin-right: 2px;
+    margin-bottom: 7px;
+}
+
+.submit3x {
+    width: 70px;
+    height: 60px;
+    font-size: 16px;
+    background: none;
+    color: #fff;
+    border-radius: var(--br-3xs);
+    border: 1px solid rgba(182, 190, 211, 0.78);
+}
+
+.submit4x {
+    width: 70px;
+    height: 60px;
+    font-size: 16px;
+    background: none;
+    color: #fff;
+    border-radius: var(--br-3xs);
+    border: 1px solid rgba(182, 190, 211, 0.78);
+}
+
+.submit5x {
+    width: 70px;
+    height: 60px;
+    font-size: 16px;
+    background: none;
+    color: #fff;
+    border-radius: var(--br-3xs);
+    border: 1px solid rgba(182, 190, 211, 0.78);
 }
 
 .loptools-child3 {
@@ -297,6 +368,10 @@ body {
     box-sizing: border-box;
     width: 103px;
     height: 79px;
+}
+
+.button_loop input {
+    cursor: pointer;
 }
 
 .loptools-child4 {

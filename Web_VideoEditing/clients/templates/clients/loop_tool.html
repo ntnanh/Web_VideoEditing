@@ -5,96 +5,107 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="initial-scale=1, width=device-width" />
 
-    <link rel="stylesheet" href="{% static 'clients/css/loop_tool.css' %}">
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
-    />
+    <link rel="stylesheet" href="{% static 'clients/css/loop_tool.css'%}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"/>
   </head>
   <body>
-    <div class="loptools">
-      <img class="loptools-child" alt="" src="{% static 'clients/images/rectangle-177@2x.png' %}" />
+    <form action="{% url 'clients:loop_tool' id=id %}" method="POST" enctype="multipart/form-data">
+      <div class="loptools">
+         <div class="loptools-child">
+            {% csrf_token %}
+            <video class="video-upload" width="580" height="360">
+              <source src="{{ video_url }}" type="video/mp4">
+              Your browser does not support the video tag.
+          </video>
+         </div>
+         <input type="hidden" id="video_path" name="full_path" value="{{ full_path }}"/>
+         <input type="hidden" id="id" name="id" value="{{ id }}"/>
+         <div class="loptools-item"></div>
+         <div class="loptools-inner">
+            <div class="play"><i class="fa-solid fa-play"></i></div>
+         </div>
+         <div class="rectangle-div"></div>
+         <div class="group-parent">
+            <div class="group-wrapper">
+            <div class="format-wrapper">
+                <div class="format">Format:</div>
+            </div>
+            </div>
+            <div class="rectangle-wrapper">
+            <div class="group-child"></div>
+            </div>
+         </div>
+         <div class="rectangle-group">
+            <div class="group-inner"></div>
+            <div class="final-output-parent">
+            <div class="format">Final output:</div>
+            <div class="div1">00:07</div>
+            </div>
+         </div>
+         <div class="home-wrapper" id="frameContainer">
+            <div class="home">Home</div>
+         </div>
+         <div class="loptools-item"></div>
+         <div class="loptools-child2"></div>
+         <div class="rectangle-container">
+            <button class="export-button">Export</button> 
+         </div>
+         <div class="group-div">
+            <div class="group-inner"></div>
+            <div class="final-output-parent">
+            <div class="format">Final output:</div>
+            <div class="div1">00:26</div>
+            </div>
+         </div>
+         <div class="home-wrapper" id="frameContainer1">
+            <div class="home"><a href="{% url 'clients:home' %}">Home</a></div>
+            <img class="frame-child" alt="" src="{% static 'clients/images/rectangle-204@2x.png' %}" />
+         </div>
 
-      <div class="loptools-item"></div>
-      <img class="loptools-inner" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
-
-      <div class="div">
-        <p class="p">00:02 / 00:26</p>
+         {% if video_url %}
+         <div class="cut-video-child1">
+             <video id="video-edit" width="330" height="220" controls>
+                 {% if preview_video %}
+                     <source src="{{ preview_video }}" type="video/mp4">
+                 {% endif %}
+                 Your browser does not support the video tag.
+             </video>
+         </div>
+     {% endif %}
+         <div class="loop-this-clip">Loop this clip</div>
+        
+        
+         <div class="button_loop">
+            <input type='submit' value="2x" name="loop_factor" class="submit2x"/>
+            <input type='submit' value="3x" name="loop_factor" class="submit3x"/><br/>
+            <input type='submit' value="4x" name="loop_factor" class="submit4x"/>
+            <input type='submit' value="5x" name="loop_factor"class="submit5x"/>
+         </div>
       </div>
-      <div class="rectangle-div"></div>
-      <div class="group-parent">
-        <div class="group-wrapper">
-          <div class="format-wrapper">
-            <div class="format">Format:</div>
-          </div>
-        </div>
-        <div class="rectangle-wrapper">
-          <div class="group-child"></div>
-        </div>
-      </div>
-      <div class="rectangle-group">
-        <div class="group-inner"></div>
-        <div class="final-output-parent">
-          <div class="format">Final output:</div>
-          <div class="div1">00:07</div>
-        </div>
-      </div>
-      <div class="home-wrapper" id="frameContainer">
-        <div class="home"><a href="{% url 'clients:home' %}">Home</a></div>
-      </div>
-      <div class="loptools-item"></div>
-      <div class="loptools-child2"></div>
-      <div class="rectangle-container">
-        <button class="export-button">Export</button> 
-      </div>
-      <div class="group-div">
-        <div class="group-inner"></div>
-        <div class="final-output-parent">
-          <div class="format">Final output:</div>
-          <div class="div1">00:26</div>
-        </div>
-      </div>
-      <div class="home-wrapper" id="frameContainer1">
-        <div class="home">Home</div>
-        <img class="frame-child" alt="" src="{% static 'clients/images/rectangle-204@2x.png' %}" />
-      </div>
-      <div class="loop-this-clip">Loop this clip</div>
-      <div class="loptools-child3"></div>
-      <div class="loptools-child4"></div>
-      <div class="line-div"></div>
-      <div class="loptools-child5"></div>
-      <div class="x">2x</div>
-      <div class="x1">3x</div>
-      <div class="x2">5x</div>
-      <div class="x3">4x</div>
-    </div>
-
-    <script>
-      var frameContainer = document.getElementById("frameContainer");
-      if (frameContainer) {
-        frameContainer.addEventListener("click", function (e) {
-          // Please sync "Index" to the project
+	</form>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script type="text/javascript" src="{% static 'clients/js/loadingoverlay.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $(".play").on("click", function() {
+            var video = $(".video-upload")[0];
+            var button = $(this);
+            var icon = button.find("i");
+            if (video.paused) {
+                video.play();
+                icon.removeClass("fa-play").addClass("fa-pause");
+            } else {
+                video.pause();
+                icon.removeClass("fa-pause").addClass("fa-play");
+            }
         });
-      }
-      
-      var frameContainer1 = document.getElementById("frameContainer1");
-      if (frameContainer1) {
-        frameContainer1.addEventListener("click", function (e) {
-          // Please sync "Index" to the project
-        });
-      }
-      </script>
+    });
+
+</script>
   </body>
 </html>

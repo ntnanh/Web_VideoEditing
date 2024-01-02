@@ -19,14 +19,11 @@
       <div class="gr1">
         <b class="heading"><p class="blank-line">Loop Video</p></b>
         <div class="desc">Reduce video file size online </div>
-        <div class="upload-wrapper">
-          <button type="submit" class="cta6">Upload</button>
-        </div>
-        <div class="choose-file-parent">
-          <button type="submit" class="choosefile">Choose file
-            <img class="add-1-icon1" alt="" src="{% static 'clients/images/add-1@2x.png' %}" />
-          </button>
-        </div>
+        <form method="post" action="{% url 'clients:loop_video' %}" enctype="multipart/form-data" class="c_file">
+          {% csrf_token %}
+          Choose file: <input class="c_file" type="file" name="video_file" id="video_file">
+          <button type="submit" class="cta6">Submit</button>
+       </form>
       </div>
   
       <div class="gr2">
