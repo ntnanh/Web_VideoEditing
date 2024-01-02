@@ -251,7 +251,7 @@ def export_cut_video(request):
     upload = Upload(path_video=f"Files/exports/{file_name}", title_video=file_name, path_image='')
     upload.save()
     # Save file to UserUpload table
-    user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
+    user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
     user_upload.save()
     # Save file to Video table
     video = Video(title=file_name, video_edit=file_name, duration=duration, format=file_format, size=file_size, update_date=current_date, thumb='', upload_id_id=upload.id, user_id_id=request.session.get('user_id'))
