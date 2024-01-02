@@ -414,3 +414,10 @@ body {
     color: var(--color-white);
     font-family: var(--font-poppins);
 }
+.preview-button, .export-button {
+    cursor: pointer;
+}
+.disable-button {
+    pointer-events: none;
+    background: #58524d;
+}
