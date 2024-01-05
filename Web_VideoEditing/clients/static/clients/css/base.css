@@ -22,47 +22,6 @@
     color: var(--color-darkorange-100);
 }
 
-.dropdown {
-    position: absolute;
-    display: inline-block;
-    top: 9px;
-    left: 715px;
-    width: 67px;
-}
-
-.dropdown-toggle {
-    background-color: white;
-    color: black;
-    transition: color 0.3s;
-    border: none;
-}
-
-.dropdown-toggle:focus {
-    outline: none;
-    color: rgb(243, 133, 24);
-}
-
-.dropdown-item:focus {
-    outline: none;
-    color: rgb(243, 133, 24);
-}
-
-.dropdown-item {
-    background-color: transparent;
-}
-
-.dropdown-item:hover {
-    background-color: rgb(255, 164, 73);
-    color: white;
-    margin-left: 10px;
-}
-
-.dropdown-item i {
-    font-size: 14px;
-    margin-left: 12px;
-    color: rgb(185 171 158 / 65%);
-}
-
 .resources {
     top: 9px;
     left: 838px;
@@ -358,4 +317,156 @@
     display: inline-block;
     width: 265px;
     height: 39.7px;
+}
+
+ .content-box {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+     justify-content: center;
+}
+
+.file-source-btn {
+    background-color: #fa7a04;
+    border-radius: 6px;
+    color: #fff;
+    position: relative;
+    transition: background-color .15s ease-in-out;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+}
+.file-source-btn .file-input {
+    display: none;
+}
+
+.file-source-btn .file-btn {
+    background-color: transparent;
+    border-radius: 6px;
+    border-width: 0;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 24px;
+    margin: 0;
+    min-height: 60px;
+    padding: 17px 82px 19px 32px;
+    text-align: left;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    transition: background-color .15s ease-in-out;
+    width: 100%;
+}
+
+.file-source-btn label.file-btn {
+    background-image: none;
+    display: flex;
+    height: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+#loader .file-source-btn label.file-btn>span {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+    padding: 17px 25px 17px 32px;
+    width: 100%;
+}
+
+#loader .file-source-btn label.file-btn {
+    background-image: none;
+    display: flex;
+    height: 100%;
+    padding: 0;
+    width: 100%;
+}
+
+.content-upload {
+    display: flex;
+    justify-content: center;
+}
+.file-source-btn span {
+    font-weight: 700;
+}
+
+.add-1-icon1 {
+    padding: 0 10px;
+}
+.content-advantage .card {
+    height: 300px;
+}
+.card-body .card-title {
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
+    color: #262628;
+    font-family: Inter,serif;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    word-break: break-word;
+}
+
+.card-body .card-text {
+    color: #5c5c60;
+    font-family: Inter,serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 26px;
+    margin: 16px 0 0;
+}
+.content-using {
+    background-color: #f6f6f7;;
+}
+.content-using .card {
+    margin-bottom: 20px;
+    border-radius: 8px;
+    transition: background-color .15s ease-in-out;
+    cursor: pointer;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+        "label title"
+        "label text";
+}
+.content-using .card-header button {
+    font-family: Inter,serif;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 16px;
+    transition: color .15s ease-in-out;
+    text-transform: uppercase;
+}
+.content-using .card-header {
+    background-color: #fa7a04;
+}
+
+.contract-left p {
+    font-family: Inter,serif;
+    font-size: 16px;
+    line-height: 2;
+}
+
+.content-box .title h1 {
+    font-size: 60px;
+    line-height: 70px;
+    letter-spacing: -1.2px;
+    font-weight: 800;
+}
+
+.content-box .title h2 {
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 30px;
+    letter-spacing: normal;
+    color: #262628;
+    margin-top: 50px;
+}
+.content-box .title {
+    margin-bottom: 50px;
 }
