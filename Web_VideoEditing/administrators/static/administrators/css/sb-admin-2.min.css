@@ -10804,6 +10804,7 @@ a:focus {
 }
 
 .orange-button:hover {
+    border: 1px solid #FA7A04;
     background-color: #fff;
     color: #FA7A04;
 }

@@ -6,56 +6,53 @@
 {% block css %}
 <!-- Custom styles for this page -->
 <link href="{% static 'administrators/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+<link href="{% static 'administrators/css/video_user.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block container_fluid %}
 <div class="container-fluid">
-    <a href="{% url 'administrators:add_user'%}" class="add_user"><button class="orange-button">Add User</button></a>
 
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">User Management</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Video Edit</h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>UseName</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Create date</th>
-                            <th>Image</th>
-                            <th>Video</th>
+                            <th>STT</th>
+                            <th>Title</th>
+                            <th>Video edit</th>
+                            <th>Duration</th>
+                            <th>Format</th>
+                            <th>Size</th>
+                            <th>Video upload</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tfoot>
                         <tr>
-                            <th>ID</th>
-                            <th>UseName</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Create date</th>
-                            <th>Image</th>
-                            <th>Video</th>
+                            <th>STT</th>
+                            <th>Title</th>
+                            <th>Video edit</th>
+                            <th>Duration</th>
+                            <th>Format</th>
+                            <th>Size</th>
+                            <th>Video upload</th>
                             <th>Action</th>
                         </tr>
                     </tfoot>
                     <tbody>
-                        {% for user in users_data %}
+                        {% for video in videos %}
                         <tr>
-                            <td>{{ user.id }}</td>
-                            <td>{{ user.username }}</td>
-                            <td>{{ user.email }}</td>
-                            <td>{{ user.role }}</td>
-                            <td>{{ user.create_at }}</td>
-                            <td><img src="{{ user.image.url }}" alt="{{ user.username }}'s image" style="max-width: 50px; max-height: 50px;"></td>
-                            <td>
-                                <a href="{% url 'administrators:video_user' pk=user.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fa-regular fa-file-video"></i>
-                                </a>
-                            </td>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ video.title }}</td>
+                            <td>{{ video.video_edit }}</td>
+                            <td>{{ video.duration }}</td>
+                            <td>{{ video.format }}</td>
+                            <td>{{ video.size }}</td>
+                            <td>{{ video.video_upload }}</td>
                             <td>
                                 <a href="{% url 'administrators:update_user' user_id=user.id %}" class="btn btn-danger btn-circle btn-sm update"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <a href="{% url 'administrators:delete_user' user.id%}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>

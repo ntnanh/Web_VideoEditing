@@ -18,7 +18,9 @@
           <a class="collapse-item" href="{% url 'user_project:forgot_password' %}">Forgot Password</a>
           <div class="collapse-divider"></div>
           <h6 class="collapse-header">Other Pages:</h6>
-          <a class="collapse-item" href="{% url 'user_project:profile' %}" >Profile</a>
+          {% if user.id %}
+          <a class="collapse-item" href="{% url 'user_project:profile' user.id %}">Profile</a>
+        {% endif %}
         </div>
       </div>
     </li>

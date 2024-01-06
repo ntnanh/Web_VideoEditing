@@ -1,0 +1,31 @@
+.container-fluid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Additional styles for the container-fluid div */
+}
+
+.add_user {
+    padding: 27px;
+    border: 1.5px solid #c3c8d2;
+    border-radius: 20px;
+    width: 450px;
+    margin-bottom: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: #fa7a04;
+}
+
+.form-control {
+    width: 350px;
+    margin-left: 20px;
+}
+
+.form-control-file::file-selector-button {
+    background-color: #fff;
+    color: #fa7a04;
+    border: 1.5px solid #fa7a04;
+    border-radius: 10px;
+}

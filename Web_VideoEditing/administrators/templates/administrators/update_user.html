@@ -1,0 +1,39 @@
+{% extends 'base.html' %} {% load static %} {% block title %} Add_user {% endblock %} {% block css %}
+<!-- Custom styles for this page -->
+<link href="{% static 'administrators/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet"> {% endblock %} {% block container_fluid %}
+<link href="{% static 'administrators/css/update_user.css' %}" rel="stylesheet">
+<div class="container-fluid">
+    <div class="add_user">
+        <h1>Update User</h1>
+        <form action="{% url 'administrators:update_user' user_id=user.id %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="{{ user.username }}">
+            </div>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="{{ user.email }}">
+            </div>
+            <div class="form-group">
+                <label for="role">Role select</label>
+                <select class="form-control" id="role" name="role">
+                    <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Admin</option>
+                    <option value="client" {% if user.role == 'client' %}selected{% endif %}>Client</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="image">Image file</label>
+                <input type="file" class="form-control-file" id="image" name="image" accept="image/jpeg, image/png">
+            </div>
+            <button type="submit" class="btn btn-primary">Update User</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block js_body %}
+<!-- Data Tables -->
+<script src="{% static 'administrators/vendor/datatables/jquery.dataTables.min.js' %}"></script>
+<script src="{% static 'administrators/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
+<script src="{% static 'administrators/js/demo/datatables-demo.js' %}"></script>
+{% endblock %}
