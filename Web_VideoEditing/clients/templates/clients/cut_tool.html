@@ -200,60 +200,65 @@
             let end_time = previewContent.find('.end_time').val();
             let video_path = previewContent.find('#video_path').val();
             let id = previewContent.find('#id').val();
-            let params = {
-                'id': id,
-                'start_time': start_time,
-                'end_time': end_time,
-                'video_path': video_path,
+            if (video_path) {
+                let params = {
+                    'id': id,
+                    'start_time': start_time,
+                    'end_time': end_time,
+                    'video_path': video_path,
+                }
+                $.ajax({
+                    url: '/preview_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    let video = $('#video-preview');
+                    let source = `<source src="${res.preview_video}" type="video/mp4">`;
+                    video.html(source)
+                    video[0].load();
+                    video[0].play();
+                    $.LoadingOverlay("hide");
+                });
             }
-            $.ajax({
-                url: '/preview_cut_video',
-                type: 'POST',
-                beforeSend: function() {
-                    $.LoadingOverlay("show");
-                },
-                headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
-                data: params
-            }).done(function(res) {
-                let video = $('#video-preview');
-                let source = `<source src="${res.preview_video}" type="video/mp4">`;
-                video.html(source)
-                video[0].load();
-                video[0].play();
-                $.LoadingOverlay("hide");
-            });
         })
 
         $('.btn-export').on('click', function (){
             const previewContent = $('.preview-video_content');
             let id = previewContent.find('#id').val();
             let url = previewContent.find('source').attr('src');
-            let params = {
-                'id': id,
-                'url': url
-            }
-            $.ajax({
-                url: '/export_cut_video',
-                type: 'POST',
-                beforeSend: function() {
-                    $.LoadingOverlay("show");
-                },
-                headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
-                data: params
-            }).done(function(res) {
-                if (res.success === 'true') {
-                    let anchor = $("<a>")
-                        .attr("href", url)
-                        .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
-                        .appendTo("body");
-                    anchor[0].click();
-                    anchor.remove();
-                    $.LoadingOverlay("hide");
+            if (url) {
+                let params = {
+                    'id': id,
+                    'url': url
                 }
-            }).error(function (e) {
-                console.log(e)
-                $.LoadingOverlay("hide");
-            });
+                $.ajax({
+                    url: '/export_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    if (res.success === 'true') {
+                        let anchor = $("<a>")
+                            .attr("href", url)
+                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                            .appendTo("body");
+                        anchor[0].click();
+                        anchor.remove();
+                        $.LoadingOverlay("hide");
+                    }
+                }).error(function (e) {
+                    $.LoadingOverlay("hide");
+                });
+            }else {
+                alert('Please Enter Preview before export');
+            }
         })
     });
 

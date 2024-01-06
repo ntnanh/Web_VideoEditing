@@ -181,23 +181,29 @@
             let file = fileInput.files[0];
 
             if (file) {
-                let formData = new FormData();
-                formData.append('sub_file', file);
-                $.ajax({
-                    url: '/upload_subtitle', // Replace with your server endpoint
-                    type: 'POST',
-                    headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        $('.path_sub').val(response.path_sub)
-                    },
-                    error: function(xhr, status, error) {
-                        // Handle errors
-                        console.error('There was a problem with the upload:', error);
-                    }
-                });
+                var fileName = file.name;
+                var fileExtension = fileName.split('.').pop();
+                if (fileExtension.toLowerCase() === 'srt') {
+                    let formData = new FormData();
+                    formData.append('sub_file', file);
+                    $.ajax({
+                        url: '/upload_subtitle', // Replace with your server endpoint
+                        type: 'POST',
+                        headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('.path_sub').val(response.path_sub)
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle errors
+                            console.error('There was a problem with the upload:', error);
+                        }
+                    });
+                } else {
+                    alert('Please select a .srt file.');
+                }
             } else {
                 console.error('No file selected.');
             }
@@ -207,59 +213,67 @@
             let video_path = $('#video_path').val();
             let id = $('#id').val();
             let path_sub = $('.path_sub').val();
-            let params = {
-                'id': id,
-                'path_sub': path_sub,
-                'video_path': video_path,
+            if(path_sub) {
+                let params = {
+                    'id': id,
+                    'path_sub': path_sub,
+                    'video_path': video_path,
+                }
+                $.ajax({
+                    url: '/preview_voice_to_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    let video = $('#video-preview');
+                    let source = `<source src="${res.preview_video}" type="video/mp4">`;
+                    video.html(source)
+                    video[0].load();
+                    video[0].play();
+                    $.LoadingOverlay("hide");
+                });
+            }else {
+                alert('Please select a .srt file');
             }
-            $.ajax({
-                url: '/preview_voice_to_video',
-                type: 'POST',
-                beforeSend: function() {
-                    $.LoadingOverlay("show");
-                },
-                headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
-                data: params
-            }).done(function(res) {
-                let video = $('#video-preview');
-                let source = `<source src="${res.preview_video}" type="video/mp4">`;
-                video.html(source)
-                video[0].load();
-                video[0].play();
-                $.LoadingOverlay("hide");
-            });
         })
 
         $('.btn-export').on('click', function (){
             let preview_video = $('#video-preview');
             let url = preview_video.find('source').attr('src');
             let id = $('#id').val();
-            let params = {
-                'id': id,
-                'url': url
-            }
-            $.ajax({
-                url: '/export_cut_video',
-                type: 'POST',
-                beforeSend: function() {
-                    $.LoadingOverlay("show");
-                },
-                headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
-                data: params
-            }).done(function(res) {
-                if (res.success === 'true') {
-                    let anchor = $("<a>")
-                        .attr("href", url)
-                        .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
-                        .appendTo("body");
-                    anchor[0].click();
-                    anchor.remove();
-                    $.LoadingOverlay("hide");
+            if (url) {
+                let params = {
+                    'id': id,
+                    'url': url
                 }
-            }).error(function (e) {
-                console.log(e)
-                $.LoadingOverlay("hide");
-            });
+                $.ajax({
+                    url: '/export_cut_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    if (res.success === 'true') {
+                        let anchor = $("<a>")
+                            .attr("href", url)
+                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                            .appendTo("body");
+                        anchor[0].click();
+                        anchor.remove();
+                        $.LoadingOverlay("hide");
+                    }
+                }).error(function (e) {
+                    console.log(e)
+                    $.LoadingOverlay("hide");
+                });
+            }else {
+                alert('Please enter preview before export');
+            }
         })
 
     })

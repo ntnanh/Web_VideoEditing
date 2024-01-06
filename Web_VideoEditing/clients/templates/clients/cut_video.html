@@ -14,7 +14,7 @@
       <div class="file-source-btn">
         <form method="post" action="{% url 'clients:cut_video' %}" id="formUpload" enctype="multipart/form-data">
           {% csrf_token %}
-          <input id="upload-file" type="file"
+          <input accept="video/mp4" id="upload-file" type="file"
                  name="video_file" class="file-input">
           <label for="upload-file" class="file-btn">
             <span><i class="fas fa-plus-circle mr-1"></i>Choose file</span>
