@@ -1,139 +1,219 @@
+{% extends "clients/base.html" %}
 {% load static %}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
-    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}" />
-    <link rel="stylesheet" href="{% static 'clients/css/index.css' %}" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap" />
-</head>
-<body>
-    <div class="index1">
-
-    <div class="nav">
-        <img class="pexels-jessica-lewis-593324-2-icon" alt="" src="{% static 'clients/images/pexelsjessicalewis593324-2@2x.png' %}" />
-        <div class="edit-video"><a href="{% url 'clients:home' %}">Edit video</a></div>
-        <div class="resources">Resources</div>
-        {% if user_profile %}
-        <div class="dropdown1">
-          <img src="{{ user_profile.image.url }}" class="dropbtn"/>
-          <div class="dropdown-content">
-          <a href="{% url 'user_project:index' id=user_profile.id %}">{{ user_profile.username }}</a>
-          <a href="{% url 'users:signout'%}">Log out</a>
-          </div>
+{% block stylesheets %}
+<link rel="stylesheet" href="{% static 'clients/css/index.css' %}" />
+{% endblock stylesheets %}
+{% block content %}
+<div class="view" style="background-image: url('/static/clients/images/pexelsjessicalewis593324-2%402x.png'); height: 700px; background-repeat: no-repeat; background-size: cover; background-position: center center;">
+    <!-- Mask & flexbox options-->
+    <div class="mask rgba-gradient align-items-center">
+        <!-- Content -->
+        <div class="container">
+            <!--Grid row-->
+            <div class="row">
+                <!--Grid column-->
+                <div class="col-md-6 white-text text-center text-md-left mt-xl-5 mb-5 wow fadeInLeft" data-wow-delay="0.3s">
+                    <h1 class="h1-responsive font-weight-bold mt-sm-5">Make Your Interior More Minimaistic & Modern</h1>
+                    <hr class="hr-light">
+                    <h6 class="mb-4">All-in-one easy-to-use online video tools</h6>
+                </div>
+            </div>
+            <!--Grid row-->
         </div>
-        {% else %}
-        <div class="sign-in-wrapper">
-          <div class="sign-in">
-            <a href="{% url 'users:signin'%}">Sign in</a>
-          </div>
-        </div>
-        {% endif %}
+        <!-- Content -->
     </div>
-
-    <div class="slide">
-        <div class="make-your-interior"> Make Your Interior More Minimaistic & Modern </div>
-        <div class="all-in-one-easy-to-use-online"> All-in-one easy-to-use online video tools </div>
-    </div>
-
-    <div class="reason">
-        <div class="rectangle-parent">
-            <div class="group-child"></div>
-            <div class="there-is-no"> There is no need to download and install any app to your phone, tablet or computer — use the online Clideo tools instead. </div>
-            <div class="completely-online"><p class="why">Completely Online</p> </div>
-        </div>
-        <div class="rectangle-group">
-            <div class="group-item"></div>
-            <div class="kapwing-is-completely"> Kapwing is completely free to start. Just upload a video and start editing. Supercharge your editing workflow with our powerful online tools. </div>
-            <div class="free"> <p class="why">Free</p> </div>
-        </div>
-        <div class="rectangle-container">
-            <div class="group-item"></div>
-            <div class="kapwing-works-hard">Kapwing works hard to help make the content you want, when you want it. Get started on your project today. </div>
-            <div class="powerful"><p class="why">Powerful</p> </div>
-        </div>
-        <div class="why-choosing-us-container">
-            <p class="why">Why</p>
-            <p class="why">Choosing Us</p>
+    <!-- Mask & flexbox options-->
+</div>
+<div class="container">
+    <div class="choosing-us pt-5 mt-5 text-center">
+        <h1 class="mb-5">Why Choosing Us</h1>
+        <div class="row justify-content-center">
+            <div class="m-3">
+                <div class="card d-flex align-items-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Completely Online</h5>
+                        <p class="card-text">There is no need to download and install any app to your phone, tablet or computer — use the online Clideo tools instead.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card d-flex align-items-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Free</h5>
+                        <p class="card-text">Kapwing is completely free to start. Just upload a video and start editing. Supercharge your editing workflow with our powerful online tools.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="card d-flex align-items-center" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Powerful</h5>
+                        <p class="card-text">Kapwing works hard to help make the content you want, when you want it. Get started on your project today.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="tool">
-        <div class="online-video-tools">Online Video Tools</div>
-        <div class="next">
-            <div class="all-tools"><a href="{% url 'clients:all_tools'%}">All tools</a></div>
-            <img class="next-child" alt="" src="{% static 'clients/images/arrow-2@2x.png' %}" />
-        </div>
-        <div class="tool4">
-            <a href="{% url 'clients:merge_video'%}">
-                <div class="tool4-child"></div>
-                <div class="merge">Merge</div>
-                <img class="merged-1-icon" alt="" src="{% static 'clients/images/merged-1@2x.png' %}" />
-            </a>
-        </div>
-        <div class="tool3">
-            <a href="{% url 'clients:cut_video'%}">
-                <div class="tool4-child"></div>
-                <div class="cut">Cut</div>
-                <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />
-            </a>   
-        </div>
-        <div class="tool2">
-            <a href="{% url 'clients:loop_video'%}">
-                <div class="tool4-child"></div>
-                <div class="loop">Loop</div>
-                <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />
-            </a>
-        </div>
-        <div class="tool1">
-            <a href="{% url 'clients:crop_video'%}">
-                <div class="tool4-child"></div>
-                <div class="crop">Crop</div>
-                <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
-            </a>
+<div class="content-online-tools">
+    <div class="container">
+        <div class="online-tools pt-5 mt-5 text-center">
+            <h1 class="mb-5">Online Video Tools</h1>
+            <div class="row justify-content-center">
+                <div class="m-3">
+                    <a href="{% url 'clients:crop_video'%}" class="item">
+                        <div class="card d-flex align-items-center" style="width: 18rem;">
+                            <div class="card-body">
+                                <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                <h5 class="card-title">Crop Video</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="m-3">
+                    <a href="{% url 'clients:crop_video'%}" class="item">
+                        <div class="card d-flex align-items-center" style="width: 18rem;">
+                            <div class="card-body">
+                                <img alt="" src="{% static 'clients/images/loop-1@2x.png' %}" width="50" height="50" />
+                                <h5 class="card-title">Loop Video</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="m-3">
+                    <a href="{% url 'clients:crop_video'%}" class="item">
+                        <div class="card d-flex align-items-center" style="width: 18rem;">
+                            <div class="card-body">
+                                <img src="{% static 'clients/images/cuttingtool-1@2x.png' %}" width="50" height="50" alt="...">
+                                <h5 class="card-title">Cut Video</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="m-3">
+                    <a href="{% url 'clients:crop_video'%}" class="item">
+                        <div class="card d-flex align-items-center" style="width: 18rem;">
+                            <div class="card-body">
+                                <img src="{% static 'clients/images/merged-1@2x.png' %}" width="50" height="50" alt="...">
+                                <h5 class="card-title">Merge Video</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="m-3">
+                <div class="all-tools"><a href="{% url 'clients:all_tools'%}">All tools<i class="fas fa-chevron-right"></i></a></div>
+            </div>
         </div>
     </div>
+</div>
 
-    <div class="about">
-        <div class="your-all-in-one-online"> Your all-in-one online video editor </div>
-        <div class="make-your-own"> Make your own video from scratch, edit it and add music — all in one screen! Our seamless video editor allows you to manage the added media easily with the help of a multi-track timeline. </div>
-        <img class="unsplashtqpypka92k8-icon" alt="" src="{% static 'clients/images/unsplashtqpypka92k8@2x.png' %}" />
+<div class="content-aboutus pt-5 mt-5 pb-5">
+    <div class="row justify-content-md-center">
+        <div class="contract-left col col-lg-4">
+            <p>
+                Your all-in-one online video editor
+                Make your own video from scratch, edit it and add music — all in one screen! Our seamless video editor allows you to manage the added media easily with the help of a multi-track timeline.
+            </p>
+        </div>
+        <div class="contract-right col col-lg-2">
+            <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/unsplashtqpypka92k8@2x.png' %}"/>
+        </div>
     </div>
+</div>
 
-    <div class="footer">
-        <div class="footer-child"></div>
-        <div class="features-parent">
-            <div class="features">Features</div>
-            <div class="our-features">Our Features</div>
-            <div class="pricing">Pricing</div>
-            <div class="affiliate-program">Affiliate Program</div>
-            <div class="press-kit">Press Kit</div>
-        </div>
-        <div class="support-parent">
-            <div class="features">Support</div>
-            <div class="account">Account</div>
-            <div class="help">Help</div>
-            <div class="contact-us">Contact Us</div>
-        </div>
-        <div class="legal-parent">
-            <div class="legal">Legal</div>
-            <div class="privacy-policy">Privacy Policy</div>
-            <div class="terms-of-use">Terms of Use</div>
-        </div>
-        <div class="social-media-parent">
-            <div class="social-media">Social Media</div>
-            <div class="twitter">Twitter</div>
-            <div class="product-hunt">Product Hunt</div>
-            <div class="instagram">Instagram</div>
-            <div class="github">Github</div>
-        </div>
-        <div class="copyright-2023-editvideo">Copyright 2023 @editvideo</div>
-    </div>
+<!-- Full Page Intro-->
+<!--<div class="index1">-->
+<!--    <div class="nav">-->
+<!--        <img class="pexels-jessica-lewis-593324-2-icon" alt="" src="{% static 'clients/images/pexelsjessicalewis593324-2@2x.png' %}" />-->
+<!--        <div class="edit-video"><a href="{% url 'clients:home' %}">Edit video</a></div>-->
+<!--        <div class="resources">Resources</div>-->
+<!--        {% if user_profile %}-->
+<!--        <div class="dropdown1">-->
+<!--            <img src="{{ user_profile.image.url }}" class="dropbtn"/>-->
+<!--            <div class="dropdown-content">-->
+<!--                <a href="{% url 'user_project:index' id=user_profile.id %}">{{ user_profile.username }}</a>-->
+<!--                <a href="{% url 'users:signout'%}">Log out</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% else %}-->
+<!--        <div class="sign-in-wrapper">-->
+<!--            <div class="sign-in">-->
+<!--                <a href="{% url 'users:signin'%}">Sign in</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endif %}-->
+<!--    </div>-->
 
-    </div>
-</body>
-</html>
+<!--    <div class="slide">-->
+<!--        <div class="make-your-interior"> Make Your Interior More Minimaistic & Modern </div>-->
+<!--        <div class="all-in-one-easy-to-use-online"> All-in-one easy-to-use online video tools </div>-->
+<!--    </div>-->
 
+<!--    <div class="reason">-->
+<!--        <div class="rectangle-parent">-->
+<!--            <div class="group-child"></div>-->
+<!--            <div class="there-is-no"> There is no need to download and install any app to your phone, tablet or computer — use the online Clideo tools instead. </div>-->
+<!--            <div class="completely-online"><p class="why">Completely Online</p> </div>-->
+<!--        </div>-->
+<!--        <div class="rectangle-group">-->
+<!--            <div class="group-item"></div>-->
+<!--            <div class="kapwing-is-completely"> Kapwing is completely free to start. Just upload a video and start editing. Supercharge your editing workflow with our powerful online tools. </div>-->
+<!--            <div class="free"> <p class="why">Free</p> </div>-->
+<!--        </div>-->
+<!--        <div class="rectangle-container">-->
+<!--            <div class="group-item"></div>-->
+<!--            <div class="kapwing-works-hard">Kapwing works hard to help make the content you want, when you want it. Get started on your project today. </div>-->
+<!--            <div class="powerful"><p class="why">Powerful</p> </div>-->
+<!--        </div>-->
+<!--        <div class="why-choosing-us-container">-->
+<!--            <p class="why">Why</p>-->
+<!--            <p class="why">Choosing Us</p>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="tool">-->
+<!--        <div class="online-video-tools">Online Video Tools</di  v>-->
+<!--        <div class="next">-->
+<!--            <div class="all-tools"><a href="{% url 'clients:all_tools'%}">All tools</a></div>-->
+<!--            <img class="next-child" alt="" src="{% static 'clients/images/arrow-2@2x.png' %}" />-->
+<!--        </div>-->
+<!--        <div class="tool4">-->
+<!--            <a href="{% url 'clients:merge_video'%}">-->
+<!--                <div class="tool4-child"></div>-->
+<!--                <div class="merge">Merge</div>-->
+<!--                <img class="merged-1-icon" alt="" src="{% static 'clients/images/merged-1@2x.png' %}" />-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="tool3">-->
+<!--            <a href="{% url 'clients:cut_video'%}">-->
+<!--                <div class="tool4-child"></div>-->
+<!--                <div class="cut">Cut</div>-->
+<!--                <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="tool2">-->
+<!--            <a href="{% url 'clients:loop_video'%}">-->
+<!--                <div class="tool4-child"></div>-->
+<!--                <div class="loop">Loop</div>-->
+<!--                <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        <div class="tool1">-->
+<!--            <a href="{% url 'clients:crop_video'%}">-->
+<!--                <div class="tool4-child"></div>-->
+<!--                <div class="crop">Crop</div>-->
+<!--                <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />-->
+<!--            </a>-->
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    <div class="about">-->
+<!--        <div class="your-all-in-one-online"> Your all-in-one online video editor </div>-->
+<!--        <div class="make-your-own"> Make your own video from scratch, edit it and add music — all in one screen! Our seamless video editor allows you to manage the added media easily with the help of a multi-track timeline. </div>-->
+<!--        <img class="unsplashtqpypka92k8-icon" alt="" src="{% static 'clients/images/unsplashtqpypka92k8@2x.png' %}" />-->
+<!--    </div>-->
+
+<!--</div>-->
+{% endblock content %}

@@ -1,115 +1,171 @@
-{% extends "clients/base.html" %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% block stylesheets %}
-      {{ block.super }}
-      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/global.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/all_tools.css' %}" />
-    {% endblock stylesheets %}
-</head>
-
-<body>
-    {% block content %}
-    <div class="all-tools">
-      <div class="hero">
-        <div class="hero-child"></div>
+{% extends "clients/base.html" %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'clients/css/all_tools.css' %}" />
+{% endblock stylesheets %}
+{% block content %}
+<div class="all-tools">
+    <div class="content-title">
+        <h1>Online Video Tools</h1>
         <div class="desc">
             Built Wicket longer admire do barton vanity itself do in it. Preferred to sportsmen it engrossed listening. Park gate sell they west hard for the.
         </div>
-        <b class="heading">Online Video Tools</b>
     </div>
-    <div class="base-parent">
-        <div class="base"></div>
-        <div class="including-clubs-specializing">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="video-editor">Video Editor</div>
-        <img class="video-and-audio-1-icon" alt="" src="{% static 'clients/images/videoandaudio-1@2x.png' %}" />
-
-        <div class="make-edit-now">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-item"></div>
-            <div class="make-edit-now1"><a href="#">Make Edit Now</a></div>
-        </div>
-    </div>
-    <div class="base-group">
-        <div class="base"></div>
-        <div class="add-subtitles">Add subtitles</div>
-        <div class="including-clubs-specializing1">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <img class="add-text-1-icon" alt="" src="{% static 'clients/images/addtext-1@2x.png' %}" />
-
-        <div class="make-edit-now">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-item"></div>
-            <div class="make-edit-now1"><a href="{% url 'clients:add_voice'%}">Make Edit Now</a></div>
-        </div>
-    </div>
-    <div class="base-container">
-        <div class="base2"></div>
-        <div class="including-clubs-specializing2">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="crop">Crop</div>
-        <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />
-
-        <div class="make-edit-now">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-child2"></div>
-            <div class="make-edit-now1"><a href="{% url 'clients:crop_video'%}">Make Edit Now</a></div>
-        </div>
-    </div>
-    <div class="frame-div" id="frameContainer3">
-        <div class="base3"></div>
-        <div class="including-clubs-specializing3">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="cut">Cut</div>
-        <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />
-
-        <div class="make-edit-now6">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-item"></div>
-            <div class="make-edit-now1"><a href="{% url 'clients:cut_video'%}">Make Edit Now</a></div>
-        </div>
-    </div>
-    <div class="base-parent1">
-        <div class="base4"></div>
-        <div class="merge">Merge</div>
-        <div class="including-clubs-specializing4">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <img class="merged-4-icon" alt="" src="{% static 'clients/images/merged-4@2x.png' %}" />
-
-        <div class="make-edit-now8">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-item"></div>
-            <div class="make-edit-now1"><a href="{% url 'clients:merge_video'%}">Make Edit Now</a></div>
+    <div class="content-online-tools mb-5 pb-5">
+        <div class="container">
+            <div class="online-tools pt-5 mt-5 text-center">
+                <h1 class="mb-5">Edit Video Tools</h1>
+                <div class="row justify-content-center">
+                    <div class="m-3">
+                        <a href="#" class="item">
+                            <div class="card d-flex align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <img src="{% static 'clients/images/videoandaudio-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <h5 class="card-title">Video Editor</h5>
+                                    <p class="tool-des">Your online all-in-one video editor. Combine and manage video, images, text and music in the multi-track timeline.</p>
+<!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{% url 'clients:add_voice'%}" class="item">
+                            <div class="card d-flex align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <img src="{% static 'clients/images/addtext-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <h5 class="card-title">Add Voice</h5>
+                                    <p class="tool-des">The tool allows you to add voice to a video of any format, and personalize the text font.</p>
+                                    <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{% url 'clients:crop_video'%}" class="item">
+                            <div class="card d-flex align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <h5 class="card-title">Crop Video</h5>
+                                    <p class="tool-des">Choose one of the prepared sizes that are set by default in some popular social media sites.</p>
+                                    <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{% url 'clients:cut_video'%}" class="item">
+                            <div class="card d-flex align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <h5 class="card-title">Cut Video</h5>
+                                    <p class="tool-des">Enter the necessary period of time or move markers to quickly cut your video file.</p>
+                                    <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="{% url 'clients:cut_video'%}" class="item">
+                            <div class="card d-flex align-items-center" style="width: 18rem;">
+                                <div class="card-body">
+                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <h5 class="card-title">Merge Video</h5>
+                                    <p class="tool-des">Upload any number of videos and images, change their order, add an audio and combine them with one click.</p>
+                                    <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="base-parent2">
-        <div class="base5"></div>
-        <div class="including-clubs-specializing5">
-            Including clubs specializing in knowledge, an environment
-        </div>
-        <div class="loop">Loop</div>
-        <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />
+<!--    <div class="base-parent">-->
+<!--        <div class="base"></div>-->
+<!--        <div class="including-clubs-specializing">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <div class="video-editor">Video Editor</div>-->
+<!--        <img class="video-and-audio-1-icon" alt="" src="{% static 'clients/images/videoandaudio-1@2x.png' %}" />-->
 
-        <div class="make-edit-now6">
-            <div class="make-edit-now-child"></div>
-            <div class="make-edit-now-item"></div>
-            <div class="make-edit-now1"><a href="{% url 'clients:loop_video'%}">Make Edit Now</a></div>
-        </div>
-      </div>
-    </div>
-    {% endblock content %}
+<!--        <div class="make-edit-now">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-item"></div>-->
+<!--            <div class="make-edit-now1"><a href="#">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="base-group">-->
+<!--        <div class="base"></div>-->
+<!--        <div class="add-subtitles">Add subtitles</div>-->
+<!--        <div class="including-clubs-specializing1">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <img class="add-text-1-icon" alt="" src="{% static 'clients/images/addtext-1@2x.png' %}" />-->
 
-</body>
+<!--        <div class="make-edit-now">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-item"></div>-->
+<!--            <div class="make-edit-now1"><a href="{% url 'clients:add_voice'%}">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="base-container">-->
+<!--        <div class="base2"></div>-->
+<!--        <div class="including-clubs-specializing2">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <div class="crop">Crop</div>-->
+<!--        <img class="crop-1-icon" alt="" src="{% static 'clients/images/crop-1@2x.png' %}" />-->
 
-</html>
+<!--        <div class="make-edit-now">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-child2"></div>-->
+<!--            <div class="make-edit-now1"><a href="{% url 'clients:crop_video'%}">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="frame-div" id="frameContainer3">-->
+<!--        <div class="base3"></div>-->
+<!--        <div class="including-clubs-specializing3">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <div class="cut">Cut</div>-->
+<!--        <img class="cutting-tool-1-icon" alt="" src="{% static 'clients/images/cuttingtool-1@2x.png' %}" />-->
+
+<!--        <div class="make-edit-now6">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-item"></div>-->
+<!--            <div class="make-edit-now1"><a href="{% url 'clients:cut_video'%}">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="base-parent1">-->
+<!--        <div class="base4"></div>-->
+<!--        <div class="merge">Merge</div>-->
+<!--        <div class="including-clubs-specializing4">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <img class="merged-4-icon" alt="" src="{% static 'clients/images/merged-4@2x.png' %}" />-->
+
+<!--        <div class="make-edit-now8">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-item"></div>-->
+<!--            <div class="make-edit-now1"><a href="{% url 'clients:merge_video'%}">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="base-parent2">-->
+<!--        <div class="base5"></div>-->
+<!--        <div class="including-clubs-specializing5">-->
+<!--            Including clubs specializing in knowledge, an environment-->
+<!--        </div>-->
+<!--        <div class="loop">Loop</div>-->
+<!--        <img class="loop-1-icon" alt="" src="{% static 'clients/images/loop-1@2x.png' %}" />-->
+
+<!--        <div class="make-edit-now6">-->
+<!--            <div class="make-edit-now-child"></div>-->
+<!--            <div class="make-edit-now-item"></div>-->
+<!--            <div class="make-edit-now1"><a href="{% url 'clients:loop_video'%}">Make Edit Now</a></div>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'clients/js/upload.js' %}"></script>
+{% endblock script %}

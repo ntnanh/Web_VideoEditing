@@ -411,6 +411,7 @@
     width: -moz-fit-content;
     width: fit-content;
     word-break: break-word;
+    width: 100%;
 }
 
 .card-body .card-text {

@@ -12,18 +12,20 @@
         <h2>Trim the necessary part of your video</h2>
       </div>
       <div class="file-source-btn">
-        <input id="upload-file" type="file"
-               accept=".3g2,.3gp,.aaf,.asf,.avi,.cavs,.dv,.f4v,.flv,.ivf,.m2ts,.m2v,.m4v,.mkv,.mod,.mov,.mp4,.mpeg,.mpg,.mts,.mxf,.ogv,.qt,.rm,.rmvb,.tod,.ts,.vob,.webm,.wmv,.wtv,.h264"
-               name="upload-file" class="file-input">
-        <label for="upload-file" class="file-btn">
-          <span><i class="fas fa-plus-circle mr-1"></i>Choose file</span>
-        </label>
+        <form method="post" action="{% url 'clients:cut_video' %}" id="formUpload" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input id="upload-file" type="file"
+                 name="video_file" class="file-input">
+          <label for="upload-file" class="file-btn">
+            <span><i class="fas fa-plus-circle mr-1"></i>Choose file</span>
+          </label>
+        </form>
       </div>
     </div>
   </div>
   <div class="content-advantage mt-5 pb-5 pt-5">
-    <div class="row justify-content-md-center">
-      <div class="col col-lg-2">
+    <div class="row justify-content-center">
+      <div class="m-3">
         <div class="card d-flex align-items-center" style="width: 18rem;">
           <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
           <div class="card-body">
@@ -32,7 +34,7 @@
           </div>
         </div>
       </div>
-      <div class="col col-lg-2">
+      <div class="m-3">
         <div class="card d-flex align-items-center" style="width: 18rem;">
           <img class="card-image" src="{% static 'clients/images/frame-427319049@2x.png' %}" width="100" height="100" alt="...">
           <div class="card-body">
@@ -41,7 +43,7 @@
           </div>
         </div>
       </div>
-      <div class="col col-lg-2">
+      <div class="m-3">
         <div class="card d-flex align-items-center" style="width: 18rem;">
           <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
           <div class="card-body">
@@ -54,10 +56,10 @@
   </div>
   <div class="content-using pt-5 pb-5 mt-5">
     <div class="accordion row justify-content-md-center" id="accordionExample">
-      <div class="using-left col col-lg-2">
+      <div class="using-left col-md-2 m-3">
         <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/image-47@2x.png' %}" />
       </div>
-      <div class="using-right col col-lg-4">
+      <div class="using-right col-md-4 m-3">
         <div class="card">
           <div class="card-header" id="headingOne">
             <h2 class="mb-0">
@@ -127,3 +129,6 @@
   </div>
 </div>
 {% endblock content %}
+{% block script %}
+<script src="{% static 'clients/js/upload.js' %}"></script>
+{% endblock script %}

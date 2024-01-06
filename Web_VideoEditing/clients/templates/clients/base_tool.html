@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, width=device-width" />
+    <link rel="stylesheet" href="{% static 'clients/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!--    <link rel="stylesheet" href="{% static 'clients/css/all.min.css' %}"/>-->
+    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}"/>
+    <link rel="stylesheet" href="{% static 'clients/css/base.css' %}"/>
+    {% block stylesheets %}
+
+    {% endblock stylesheets %}
+</head>
+
+<body>
+<div class="main-tool">
+    {% block content %}
+    {% endblock  %}
+</div>
+<script src="{% static 'clients/js/jquery-3.6.4.min.js' %}"></script>
+<script src="{% static 'clients/js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'clients/js/loadingoverlay.min.js' %}"></script>
+<script src="{% static 'clients/bootstrap/js/bootstrap.js' %}"></script>
+{% block script %}
+
+{% endblock script %}
+</body>
+</html>

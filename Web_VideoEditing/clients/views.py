@@ -82,7 +82,7 @@ def handle_sub(path_video, path_sub):
             url = 'https://api.fpt.ai/hmi/tts/v5'
             payload = text
             headers = {
-                'api-key': '94xB69ZMrUOTEn3d5e7UbbAHoedTfGnO',
+                'api-key': 'abAl9piv7XGwHVn5onzLLzTrNGbh5LPZ',
                 'speed': '',
                 'voice': 'banmai'
             }
@@ -295,7 +295,7 @@ def loop_tool(request, id):
     if request.method == 'POST':
         video_path = request.POST.get('full_path')
         loop_factor = 1 
-        loop_factor_values = request.POST.getlist('loop_factor')
+        loop_factor_values = request.POST.get('loop')
         if '2x' in loop_factor_values:
             loop_factor = 2
         elif '3x' in loop_factor_values:
@@ -326,9 +326,40 @@ def loop_tool(request, id):
         print("Video factor:", loop_factor)
         print("Original video duration:", clip.duration)
         print("Looped video duration:", final_clip.duration)
-
-
+        return JsonResponse({'preview_video' : preview_video})
     return render(request, "clients/loop_tool.html", {'id': id, 'video_url': upload.path_video.url, 'full_path': upload.path_video.path, 'preview_video': preview_video})
+
+def export_loop_video(request):
+    url = request.POST.get('url').replace('/', '', 1)
+    id = request.POST.get('id')
+    local_video = os.path.join(settings.BASE_DIR, url)
+    unique_id = str(uuid.uuid4()).split('-')[-1]
+    file_name = f"downloaded_file_{unique_id}_{id}.mp4"
+    dir_download = os.path.join(settings.BASE_DIR, f"media/Files/exports/{file_name}")
+    with open(local_video, 'rb') as file:
+        with open(dir_download, 'wb') as downloaded_file:
+            chunk = file.read(1024)  # Read the file in chunks of 1024 bytes
+            while chunk:
+                downloaded_file.write(chunk)  # Write the chunk to the new file
+                chunk = file.read(1024)  # Read the next chunk
+    # Handle get data save video table
+    clip = VideoFileClip(dir_download)
+    duration = clip.duration
+    file_size = os.path.getsize(dir_download)
+    file_extension = os.path.splitext(dir_download)[1]
+    file_format = file_extension[1:]  # Removing the dot from the extension
+    current_date = datetime.now().date()
+    # Save file to Upload table
+    upload = Upload(path_video=f"Files/exports/{file_name}", title_video=file_name, path_image='')
+    upload.save()
+    # Save file to UserUpload table
+    user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
+    user_upload.save()
+    # Save file to Video table
+    video = Video(title=file_name, video_edit=file_name, duration=duration, format=file_format, size=file_size, update_date=current_date, thumb='', upload_id_id=upload.id, user_id_id=request.session.get('user_id'))
+    video.save()
+
+    return JsonResponse({'success' : 'true'})
 
 def loop_input(video_path, loop_factor):
     
