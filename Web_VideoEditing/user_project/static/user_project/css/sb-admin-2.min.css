@@ -5792,6 +5792,40 @@ a.close.disabled {
     content: none
 }
 
+.form-name {
+    text-align: center;
+    /* margin-bottom: 1%; */
+    color: #fa7a04;
+}
+
+.input-image {
+    display: block;
+}
+
+.edit-image {
+    margin-bottom: 1%;
+}
+
+input[type="file"] {
+    margin-top: 5px;
+}
+
+.input-name {
+    margin-bottom: 1%;
+}
+
+.input-save {
+    margin-top: 2%;
+    background-color: #fff;
+    color: #fa7a04;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
 .modal-content {
     position: relative;
     display: flex;
@@ -11375,7 +11409,7 @@ body.sidebar-toggled footer.sticky-footer {
 
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto;
+    margin: 10% auto;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 5px;
