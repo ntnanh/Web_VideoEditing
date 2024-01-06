@@ -14,14 +14,15 @@
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">New project</h6>
+                    <h6 src="{{ user_upload.upload.title_video }}" class="m-0 font-weight-bold text-primary">{{user_upload.upload.title_video }}</h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <div class="dropdown-header">Action:</div>
-                            <a class="dropdown-item" href="#">Delete</a>
+                            <a href="{% url 'user_project:delete_video' pk=user_upload.id %}" class="dropdown-item" id="delete-video-btn">Delete Video</a>
+                            <a href="{% url 'user_project:download_video' pk=user_upload.id %}" class="dropdown-item" id="delete-video-btn">Download Video</a>
                         </div>
                     </div>
                 </div>
