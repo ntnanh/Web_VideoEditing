@@ -29,6 +29,8 @@ def all_tools(request):
 def add_voice(request):
     context = base_context(request)
     if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
         video_file = request.FILES['video_file']
         title = video_file.name
         upload = Upload(path_video=video_file, title_video=title, path_image='')
@@ -195,6 +197,8 @@ def add_subtitles_tool(request):
 def cut_video(request):
     context = base_context(request)
     if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
         video_file = request.FILES['video_file']
         title = video_file.name
         upload = Upload(path_video=video_file, title_video=title, path_image='')
@@ -272,6 +276,8 @@ def convert_to_seconds(time_string):
 def loop_video(request):
     context = base_context(request)
     if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
         video_file = request.FILES['video_file']
         title = video_file.name
         upload = Upload(path_video=video_file, title_video=title, path_image='')
