@@ -1,7 +1,7 @@
 {% extends "clients/base_tool.html" %}
 {% load static %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_voice.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_subtitles.css' %}" />
 {% endblock stylesheets %}
 {% block content %}
 <div class="h-100">
@@ -9,12 +9,12 @@
         <div class="col col-12 h-100">
             <i class="btn-back fas fa-chevron-left"></i>
             <div class="row edit-wrapper">
-                <div class="edit-video_content d-flex justify-content-center align-items-center col col-md-6 col-sm-12">
+                <div class="edit-video_content d-flex justify-content-center align-items-center col col-md-5 col-sm-12">
                     <div class="video-wrapper">
                         <video class="video-upload" width="100%">
                             <source src="{{ video_url }}" type="video/mp4">
                         </video>
-                        <div class="media-controls d-flex text-center mt-4"><!---->
+                        <div class="media-controls d-flex text-center mt-4">
                             <div class="flex-grow-1 text-left text-white btn-mute"><i class="fas fa-volume-up"></i></div>
                             <div class="mc-box-center btn-play"><i class="fas fa-play"></i></div>
                             <div class="flex-grow-1 text-white">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="preview-video_content col col-md-6 col-sm-12">
+                <div class="preview-video_content col col-md-4 col-sm-12">
                     <div class="preview-video">
                         <form>
                             {% csrf_token %}
@@ -33,19 +33,95 @@
                             <video id="video-preview" width="100%" controls>
                                 <source src="{{ preview_video }}" type="video/mp4">
                             </video>
-                            <div class="sidebar-section flex-md-fill">
-                                <div class="file-source-btn">
-                                    <input id="upload-subtitle" type="file"
-                                           name="video_file" class="file-input">
-                                    <label for="upload-subtitle" class="file-btn">
-                                        <span><i class="fas fa-plus-circle mr-1"></i>Add Subtitle</span>
-                                    </label>
+                        </form>
+                    </div>
+                </div>
+                <div class="edit-subtitle_content col col-md-3 col-sm-12">
+                    <div class="sidebar-container flex-md-fill">
+                        <div class="scroll-wrapper sidebar-scroll scrollbar-custom">
+                            <div class="sidebar-scroll scrollbar-custom scroll-content scroll-scrolly_visible"
+                                 style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 276px;">
+                                <div class="sidebar-inner" style="display: none;">
+                                    <div class="sub-style-presets-wrapper">
+                                        <div class="sub-style-presets">
+                                            <div data-mode="background" data-foreground="#ffffff"
+                                                 data-foreground-opacity="1" data-background="#000000"
+                                                 data-background-opacity="0.7" class="item"><span class="text"
+                                                                                                  style="color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.7);">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                            <div data-mode="background" data-foreground="#ffffff"
+                                                 data-foreground-opacity="1" data-background="#2222dd"
+                                                 data-background-opacity="0.7" class="item"><span class="text"
+                                                                                                  style="color: rgb(255, 255, 255); background-color: rgba(34, 34, 221, 0.7);">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                            <div data-mode="background" data-foreground="#000000"
+                                                 data-foreground-opacity="1" data-background="#ffffff"
+                                                 data-background-opacity="0.8" class="item"><span class="text"
+                                                                                                  style="color: rgb(0, 0, 0); background-color: rgba(255, 255, 255, 0.8);">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                            <div data-mode="stroke" data-foreground="#ffffff"
+                                                 data-foreground-opacity="1" data-background="#000000"
+                                                 data-background-opacity="1" class="item"><span class="text"
+                                                                                                style="color: rgb(255, 255, 255); text-shadow: rgb(0, 0, 0) 2px 2px 0px, rgb(0, 0, 0) -1px -1px 0px, rgb(0, 0, 0) 1px -1px 0px, rgb(0, 0, 0) -1px 1px 0px, rgb(0, 0, 0) 1px 1px 0px;">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                            <div data-mode="stroke" data-foreground="#ffffff"
+                                                 data-foreground-opacity="1" data-background="#aa00cc"
+                                                 data-background-opacity="1" class="item"><span class="text"
+                                                                                                style="color: rgb(255, 255, 255); text-shadow: rgb(170, 0, 204) 2px 2px 0px, rgb(170, 0, 204) -1px -1px 0px, rgb(170, 0, 204) 1px -1px 0px, rgb(170, 0, 204) -1px 1px 0px, rgb(170, 0, 204) 1px 1px 0px;">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                            <div data-mode="stroke" data-foreground="#ffffff"
+                                                 data-foreground-opacity="1" data-background="#2222dd"
+                                                 data-background-opacity="1" class="item"><span class="text"
+                                                                                                style="color: rgb(255, 255, 255); text-shadow: rgb(34, 34, 221) 2px 2px 0px, rgb(34, 34, 221) -1px -1px 0px, rgb(34, 34, 221) 1px -1px 0px, rgb(34, 34, 221) -1px 1px 0px, rgb(34, 34, 221) 1px 1px 0px;">I need your clothes, your boots <br>and your motorcycle.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sidebar-inner">
+                                    {% if subtitles %}
+                                        {% for subtitle in subtitles %}
+                                        <div class="sidebar-subs">
+                                            <div data-uuid="5afcd303-c219-4edc-bde0-158c0ede2955" class="sub-card current">
+                                                <div class="sub-time">
+                                                    <input type="text"
+                                                           pattern="[0-9]*" placeholder="{{ subtitle.start_time }}"
+                                                           class="form-control text-center sub-time-start"
+                                                           im-insert="true">
+                                                    <input type="text"
+                                                           inputmode="numeric"
+                                                           pattern="[0-9]*"
+                                                           placeholder="{{ subtitle.end_time }}"
+                                                           data-mask="99:99.99"
+                                                           class="form-control text-center sub-time-end"
+                                                           im-insert="true">
+                                                </div>
+                                                <div class="sub-text"><textarea
+                                                        placeholder="{{ subtitle.text }}"
+                                                        rows="2" class="form-control auto-expand"></textarea></div>
+                                                <div class="sub-buttons"><a class="sub-del"></a> <a class="sub-add"></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    {% endif %}
+                                    <button class="sidebar-section btn-add-section"><span class="btn">Add subtitle</span></button>
                                 </div>
                             </div>
-                            <div class="input-group mt-3">
-                                <input type="text" class="form-control path_sub" name="path_sub" placeholder="Directory for subtitle" readonly disabled aria-describedby="basic-addon1">
+                            <div class="scroll-element scroll-x scroll-scrolly_visible">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar" style="width: 0px;"></div>
+                                </div>
                             </div>
-                        </form>
+                            <div class="scroll-element scroll-y scroll-scrolly_visible">
+                                <div class="scroll-element_outer">
+                                    <div class="scroll-element_size"></div>
+                                    <div class="scroll-element_track"></div>
+                                    <div class="scroll-bar" style="height: 189px; top: 0px;"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

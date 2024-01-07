@@ -25,6 +25,78 @@ def all_tools(request):
     context = base_context(request)
     return render(request, 'clients/all_tools.html', context)
 
+def subtitle_video(request):
+    context = base_context(request)
+    if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        video_file = request.FILES['video_file']
+        title = video_file.name
+        upload = Upload(path_video=video_file, title_video=title, path_image='')
+        upload.save()
+        upload_id = upload.id
+        user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
+        user_upload.save()
+        redirect_url = reverse('clients:subtitle', kwargs={'id': upload_id})
+        return redirect(redirect_url)
+    else:
+        return render(request, 'clients/add_subtitles.html', context)
+
+def add_subtitles_tool(request, id, subtitle_id):
+    upload = Upload.objects.get(id=id)
+    subtitle = Subtitle.objects.get(id=subtitle_id)
+    if subtitle.path.path is not None:
+        subtitles = detect_subtitle(subtitle.path.path)
+    data = {
+        'id':id,
+        'video_url': upload.path_video.url,
+        'full_path': upload.path_video.path,
+        'subtitles': subtitles
+    }
+
+    return render(request, "clients/add_subtitle_tool.html", data)
+
+def detect_subtitle(path):
+    with open(path, 'r', encoding='utf-8') as srt_file:
+        srt_lines = srt_file.readlines()
+    subtitles = []
+    for i in range(0, len(srt_lines), 4):
+        time_line = srt_lines[i + 1].strip()
+        if is_valid_time_format(time_line):
+            start_time, end_time = time_line.split(' --> ')
+            text = srt_lines[i + 2].strip()
+            subtitle = {
+                'start_time': format_time(start_time),
+                'end_time': format_time(end_time),
+                'text': text
+            }
+            subtitles.append(subtitle)
+    return subtitles
+    # Kết hợp (merge) các audio trong danh sách
+
+def format_time(time):
+    # Parse the input time string
+    time_obj = datetime.strptime(time, '%H:%M:%S,%f')
+    # Calculate total seconds with microseconds truncated to two decimal places
+    total_seconds = time_obj.second + (time_obj.microsecond / 10**6)
+    formatted_time = f"{time_obj.minute:02}:{total_seconds:.2f}"
+    return formatted_time
+
+def subtitle(request, id):
+    context = base_context(request)
+    if request.method == 'POST' and 'sub_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        sub_file = request.FILES['sub_file']
+        path_file = os.path.join(settings.BASE_DIR, f"media/Files/{sub_file.name}")
+        name = sub_file.name
+        subtitle = Subtitle(path=sub_file, name=name)
+        subtitle.save()
+        subtitle_id = subtitle.id
+        redirect_url = reverse('clients:add_subtitles_tool', kwargs={'id': id,'subtitle_id':subtitle_id})
+        return redirect(redirect_url)
+
+    return render(request, "clients/subtitle.html", {'id':id})
 
 def add_voice(request):
     context = base_context(request)
@@ -190,9 +262,6 @@ def crop_video(request):
 
 def crop_tool(request):
     return render(request, 'clients/crop_tool.html')
-
-def add_subtitles_tool(request):
-    return render(request, 'clients/add_subtitles_tool.html')
 
 def cut_video(request):
     context = base_context(request)

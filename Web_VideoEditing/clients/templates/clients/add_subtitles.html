@@ -1,210 +1,158 @@
+{% extends "clients/base.html" %}
 {% load static %}
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
-
-    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}"  />
-    <link rel="stylesheet" href="{% static 'clients/css/add_subtitles.css' %}"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"/>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&display=swap"
-    />
-  </head>
-  <body>
-    <div class="add-subtitles1">
-      <div class="nav1">
-        <div class="edit-video1">Edit video</div>
-        <div class="tool1">Tool</div>
-        <div class="resources1">Resources</div>
-        <img class="nav-inner" alt="" src="{% static 'clients/images/vector-114@2x.png' %}" />
-
-        <div class="nav-child1"></div>
-        <div class="sign-in1">Sign in</div>
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_subtitles.css' %}" />
+{% endblock stylesheets %}
+{% block content %}
+<div id="loader" class="pb-5">
+  <div class="content-upload">
+    <div class="content-box">
+      <div class="title text-center">
+        <h1>Add Subtitle To Video Online</h1>
+        <h2>Edit subtitle, edit, add to video</h2>
       </div>
-      <div class="hero">
-        <img class="decore-icon" alt="" src="{% static 'clients/images/decore@2x.png' %}" />
-
-        <div class="top-nav">
-          <img class="logo-icon" alt="" src="{% static 'clients/images/logo@2x.png' %}" />
-
-          <div class="nav-item1">Bookings</div>
-          <div class="nav-item2">Flights</div>
-          <div class="nav-item3">Hotels</div>
-          <div class="nav-item4">Desitnations</div>
-          <div class="nav-item5">Login</div>
-          <div class="button">
-            <div class="sign-up">Sign up</div>
-            <div class="button-child"></div>
-          </div>
-          <div class="dropdown">
-            <div class="en">EN</div>
-            <img class="dropdown-child" alt="" src="{% static 'clients/images/vector-1@2x.png' %}" />
-          </div>
-        </div>
-        <div class="hero-content">
-          <div class="desc">
-            <div class="desc1">
-              Subtitle a video manually or with an SRT file
-            </div>
-            <b class="heading">Add subtitles</b>
-          </div>
-          <img class="image-icon" alt="" src="{% static 'clients/images/image@2x.png' %}" />
-        </div>
-      </div>
-      <div class="image-48-parent">
-        <img class="image-48-icon" alt="" src="{% static 'clients/images/image-48@2x.png' %}" />
-
-        <div class="cta">
-          <div class="cta1">
-            <div class="cta-child"></div>
-          </div>
-        </div>
-        <div class="choose-file">Choose file</div>
-        <img class="add-1-icon" alt="" src="{% static 'clients/images/add-1@2x.png' %}" />
-
-        <div class="started">Started</div>
-      </div>
-      <div class="card-parent">
-        <div class="card">
-          <div class="base"></div>
-          <img class="image-icon1" alt="" src="{% static 'clients/images/image1@2x.png' %}" />
-
-          <div class="edit-subtitle-font">Edit Subtitle Font</div>
-          <img
-            class="card-child"
-            alt=""
-            src="{% static 'clients/images/frame-427319047@2x.png' %}"
-          />
-
-          <div class="we-dont-limit">
-            We don't limit you! Select a font, its size, align the text. Also,
-            choose its color and background to make the subs look brighter and
-            seen on both black and white.
-          </div>
-        </div>
-        <div class="card1">
-          <div class="base"></div>
-          <img class="image-icon1" alt="" src="{% static 'clients/images/image1@2x.png' %}" />
-
-          <div class="edit-subtitle-font">
-            <p class="online-subtitle-adder">Online Subtitle Adder</p>
-          </div>
-          <div class="the-tool-is-container">
-            <p class="online-subtitle-adder">
-              The tool is completely online which means that you don't need to
-              download any software or app to your device. It's both faster and
-              secure!
-            </p>
-          </div>
-          <img class="card-item" alt="" src="{% static 'clients/images/frame-427319047@2x.png' %}" />
-        </div>
-        <div class="card2">
-          <div class="base"></div>
-          <img class="image-icon1" alt="" src="{% static 'clients/images/image1@2x.png' %}" />
-
-          <div class="works-on-any-container">
-            <p class="online-subtitle-adder">Works on Any Device</p>
-          </div>
-          <img
-            class="card-inner"
-            alt=""
-            src="{% static 'clients/images/frame-427319047@2x.png' %}"
-          />
-
-          <div class="our-website-will-container">
-            <p class="online-subtitle-adder">
-              Our website will work on Mac and Windows, iPhone and Android, no
-              matter what browser you're using.
-            </p>
-          </div>
-          <div class="material-symbolsarrow-right-a"></div>
-        </div>
-      </div>
-      <div class="how-to-add-subtitles-to-a-vide-parent">
-        <b class="how-to-add-container">
-          <p class="online-subtitle-adder">How to add subtitles to a video</p>
-        </b>
-        <div class="k-peoples">
-          <div class="step-1-upload-a-recording-or-parent">
-            <div class="step-1-upload">Step 1: Upload a recording or movie</div>
-            <div class="add-a-video">
-              Add a video to the subtitler: from your computer, a camera roll on
-              your smartphone, or from a cloud. The tool accepts 500 MB for free
-            </div>
-          </div>
-        </div>
-        <div class="k-peoples1">
-          <div class="step-2-create-a-video-wrapper">
-            <div class="step-1-upload">Step 2: Create a video</div>
-          </div>
-        </div>
-        <div class="k-peoples2">
-          <div class="step-2-create-a-video-wrapper">
-            <div class="step-1-upload">Step 3: Save the result</div>
-          </div>
-        </div>
-        <img class="image-47-icon" alt="" src="{% static 'clients/images/image-47@2x.png' %}" />
-      </div>
-      <div class="image-45-parent">
-        <img class="image-45-icon" alt="" src="{% static 'clients/images/image-45@2x.png' %}" />
-
-        <div class="search-column1">
-          <div class="search-column-item"></div>
-          <div class="insert-your-email">Insert your email address</div>
-          <img
-            class="button-search-icon1"
-            alt=""
-            src="{% static 'clients/images/button-search@2x.png' %}"
-          />
-        </div>
-        <div class="have-a-too-container">
-          <p class="online-subtitle-adder">
-            Have a too large file for uploading to Instagram, Facebook, YouTube,
-            or for sending via Email? It's not a problem anymore, with our tool
-            you can easily make your video smaller without losing quality!
-            interface is user-friendly so you don't need to have any special
-            video editing skills to use it!
-          </p>
-          <p class="online-subtitle-adder">&nbsp;</p>
-        </div>
-        <div class="contact-us-if">
-          Contact us if you are interested in working with us
-        </div>
-      </div>
-      <div class="footer1">
-        <div class="footer-item"></div>
-        <div class="features-group">
-          <div class="features1">Features</div>
-          <div class="our-features1">Our Features</div>
-          <div class="pricing1">Pricing</div>
-          <div class="affiliate-program1">Affiliate Program</div>
-          <div class="press-kit1">Press Kit</div>
-        </div>
-        <div class="support-group">
-          <div class="features1">Support</div>
-          <div class="account1">Account</div>
-          <div class="help1">Help</div>
-          <div class="contact-us1">Contact Us</div>
-        </div>
-        <div class="legal-group">
-          <div class="legal1">Legal</div>
-          <div class="privacy-policy1">Privacy Policy</div>
-          <div class="terms-of-use1">Terms of Use</div>
-        </div>
-        <div class="social-media-group">
-          <div class="social-media1">Social Media</div>
-          <div class="twitter1">Twitter</div>
-          <div class="product-hunt1">Product Hunt</div>
-          <div class="instagram1">Instagram</div>
-          <div class="github1">Github</div>
-        </div>
-        <div class="copyright-2023-ntanh">Copyright 2023 @ntanh</div>
+      <div class="file-source-btn">
+        <form method="post" action="{% url 'clients:add_subtitles' %}" id="formUpload" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input id="upload-file" type="file"
+                 name="video_file" class="file-input">
+          <label for="upload-file" class="file-btn">
+            <span><i class="fas fa-plus-circle mr-1"></i>Choose file</span>
+          </label>
+        </form>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+  <div class="content-advantage mt-5 pb-5 pt-5">
+    <div class="row justify-content-center">
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Fast Generate Voice With AI</h5>
+            <p class="card-text">Discover rapid voice synthesis through our AI-driven platform. Effortlessly create
+              diverse, lifelike voices for high-quality audio content like voiceovers and podcasts, revolutionizing
+              content creation.</p>
+          </div>
+        </div>
+      </div>
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319049@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Fast Apply Voice To Video</h5>
+            <p class="card-text">Instantly elevate your videos with our seamless voice application feature. Effortlessly
+              sync captivating narration or dialogue to your visuals, transforming storytelling with ease. Experience
+              seamless voice integration on our cutting-edge platform today.</p>
+          </div>
+        </div>
+      </div>
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Easy-to-use</h5>
+            <p class="card-text">You don't need any experience in video editing to use the online service because its interface is intuitive. </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-using pt-5 pb-5 mt-5">
+    <div class="accordion row justify-content-center" id="accordionExample">
+      <div class="using-left col-md-2 m-3">
+        <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/image-47@2x.png' %}" />
+      </div>
+      <div class="using-right col-md-4 m-3">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Step 1: Upload a recording or movie
+              </button>
+            </h2>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              Open or drag & drop a video from your Mac, Windows computer or other device.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Step 2: Upload subtitle
+              </button>
+            </h2>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              Craft a seamless viewing experience by easily uploading subtitles to your videos. Enhance accessibility
+              and engagement by effortlessly adding captions, ensuring your content reaches a wider audience. Simplify
+              the process of subtitling and amplify the impact of your videos with our intuitive platform.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Step 3: Preview video after export
+              </button>
+            </h2>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              Review your video content immediately after exporting. Ensure quality and perfection by previewing the
+              final output before sharing or publishing. Experience confidence in your content with our instant
+              post-export preview feature, allowing for quick adjustments and enhancements as needed
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingFour">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="headingFour">
+                Step 4: Export Video
+              </button>
+            </h2>
+          </div>
+          <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+            <div class="card-body">
+              Effortlessly finalize and save your video content with our streamlined export feature. Seamlessly transfer
+              your creative work into a shareable format. Take control of your content's destiny by exporting your
+              videos hassle-free, ready to captivate your audience.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-contract pt-5 mt-5 pb-5">
+    <div class="row justify-content-md-center">
+      <div class="contract-left col col-lg-4">
+        <p>
+          Have a too large file for uploading to Instagram, Facebook, YouTube, or for sending via Email? It's not a
+          problem anymore, with our tool you can easily make your video smaller without losing quality!
+          Clideo's interface is user-friendly so you don't need to have any special video editing skills to use it!
+        </p>
+        <div>
+          <p>
+            Contact us if you are interested in working with us
+          </p>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Insert your email address" aria-describedby="basic-addon1">
+          </div>
+        </div>
+      </div>
+      <div class="contract-right col col-lg-2">
+        <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/image-45@2x.png' %}"/>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'clients/js/upload.js' %}"></script>
+{% endblock script %}
