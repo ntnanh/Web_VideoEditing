@@ -97,14 +97,14 @@
                                                 </div>
                                                 <div class="sub-text"><textarea
                                                         placeholder="{{ subtitle.text }}"
-                                                        rows="2" class="form-control auto-expand"></textarea></div>
+                                                        rows="2" class="form-control auto-expand subtext"></textarea></div>
                                                 <div class="sub-buttons"><a class="sub-del"></a> <a class="sub-add"></a>
                                                 </div>
                                             </div>
                                         </div>
                                         {% endfor %}
                                     {% endif %}
-                                    <button class="sidebar-section btn-add-section"><span class="btn">Add subtitle</span></button>
+                                    <button class="sidebar-section btn-add-section"><span class="btn"><i class="fas fa-plus mr-2"></i>Add subtitle</span></button>
                                 </div>
                             </div>
                             <div class="scroll-element scroll-x scroll-scrolly_visible">
@@ -221,11 +221,43 @@
 {% block script %}
 <script>
 
+    $(document).ready(function() {
+        function handleChangeSubText() {
+            const subText = $('.sub-text textarea');
+            // Button click event to change the placeholder
+            subText.on('click', function() {
+                let originalPlaceholder = $(this).attr('placeholder');
+                $(this).val(originalPlaceholder);
+            });
+            subText.on('change', function () {
+                let newSub = $(this).val();
+                $(this).attr('placeholder', newSub)
+            })
+        }
+
+        function handleChangeTime() {
+            const subTime = $('.sub-time-start, .sub-time-end');
+            // Button click event to change the placeholder
+            subTime.on('click', function() {
+                let originalPlaceholder = $(this).attr('placeholder');
+                $(this).val(originalPlaceholder);
+            });
+
+            subTime.on('change', function () {
+                let newSub = $(this).val();
+                $(this).attr('placeholder', newSub)
+            })
+        }
+        handleChangeTime();
+        handleChangeSubText();
+    });
+
     $(document).ready(function (){
         $(".btn-play").on("click", function() {
             const video = $(".video-upload")[0];
             const button = $(this);
             const icon = button.find("i");
+            video.muted = false;
             if (video.paused) {
                 video.play();
                 icon.removeClass("fa-play").addClass("fa-pause");
@@ -241,10 +273,10 @@
             const icon = button.find("i");
             if (video.muted) {
                 video.muted = false;
-                icon.removeClass("fa-volume-up").addClass("fa-volume-mute");
+                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
             } else {
                 video.muted = true;
-                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
+                icon.removeClass("a-volume-up").addClass("fa-volume-mute");
             }
         });
 
@@ -281,18 +313,32 @@
             }
         });
 
+        function getSubtitles() {
+            let subtitles = [];
+            $('.sidebar-subs').each(function (i) {
+                subtitles.push({
+                    'start_time': $(this).find('.sub-time-start').attr('placeholder'),
+                    'end_time': $(this).find('.sub-time-end').attr('placeholder'),
+                    'text': $(this).find('.sub-text textarea').attr('placeholder'),
+                })
+            })
+
+            return subtitles;
+        }
+
         $('.btn-preview').on("click", function() {
             let video_path = $('#video_path').val();
             let id = $('#id').val();
-            let path_sub = $('.path_sub').val();
-            if(path_sub) {
+            let subtitles = getSubtitles();
+
+            if(video_path && subtitles) {
                 let params = {
                     'id': id,
-                    'path_sub': path_sub,
                     'video_path': video_path,
+                    'subtitles': JSON.stringify(subtitles)
                 }
                 $.ajax({
-                    url: '/preview_voice_to_video',
+                    url: '/preview_add_subtitles',
                     type: 'POST',
                     beforeSend: function() {
                         $.LoadingOverlay("show");
@@ -310,6 +356,14 @@
             }else {
                 alert('Please select a .srt file');
             }
+        })
+
+        $('.btn-add-section').on('click', function () {
+            const subClone = $('.sidebar-subs:last').clone();
+            subClone.find('.sub-time-start').attr('placeholder','00:00.00')
+            subClone.find('.sub-time-end').attr('placeholder','00:00.00')
+            subClone.find('.sub-text textarea').attr('placeholder','')
+            $(this).before(subClone)
         })
 
         $('.btn-export').on('click', function (){

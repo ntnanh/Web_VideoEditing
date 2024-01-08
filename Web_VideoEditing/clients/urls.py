@@ -7,6 +7,7 @@ urlpatterns = [
     path('all_tools/', views.all_tools, name="all_tools"),
     path('add_subtitles/', views.subtitle_video, name="add_subtitles"),
     path('add_subtitles_tool/<int:id>/<int:subtitle_id>/', views.add_subtitles_tool, name="add_subtitles_tool"),
+    path('preview_add_subtitles', views.preview_add_subtitles, name="preview_add_subtitles"),
     path('subtitle/<int:id>/', views.subtitle, name="subtitle"),
     path('merge_video/', views.merge_video, name="merge_video"),
     path('merge_tools/<int:id>/', views.merge_tools, name="merge_tools"),

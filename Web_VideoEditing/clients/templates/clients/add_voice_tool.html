@@ -150,6 +150,7 @@
             const video = $(".video-upload")[0];
             const button = $(this);
             const icon = button.find("i");
+            video.muted = false;
             if (video.paused) {
                 video.play();
                 icon.removeClass("fa-play").addClass("fa-pause");
@@ -165,10 +166,10 @@
             const icon = button.find("i");
             if (video.muted) {
                 video.muted = false;
-                icon.removeClass("fa-volume-up").addClass("fa-volume-mute");
+                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
             } else {
                 video.muted = true;
-                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
+                icon.removeClass("a-volume-up").addClass("fa-volume-mute");
             }
         });
 

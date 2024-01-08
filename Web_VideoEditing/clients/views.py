@@ -10,12 +10,13 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 from .models import Upload,UserUpload
 from .models import Upload,UserUpload, Video, Subtitle
 import uuid
-from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips
+from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips, TextClip, CompositeVideoClip, VideoClip
 from datetime import datetime
 from pydub import AudioSegment
 import re
 import time
 import requests
+import json
 
 def home(request):
     context = base_context(request)
@@ -73,6 +74,67 @@ def detect_subtitle(path):
             subtitles.append(subtitle)
     return subtitles
     # Kết hợp (merge) các audio trong danh sách
+def preview_add_subtitles(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        upload = Upload.objects.get(id=id)
+        input_video_path = request.POST.get('video_path')
+        video = VideoFileClip(upload.path_video.path)
+        final_video = os.path.join(settings.BASE_DIR, 'media/Files/previews/output.mp4')
+        subtitles = request.POST.get('subtitles')
+        subtitles = json.loads(subtitles)
+        video_clips = sub_clips = []
+        for sub in subtitles:
+            start_time = format_time_to_seconds(sub["start_time"])
+            end_time = format_time_to_seconds(sub["end_time"])
+            videoClip = video.subclip(start_time, end_time)
+            text = sub["text"]
+            font_size = int(min(video.size) / 20)
+            # Insert line breaks based on video width and maximum characters per line
+            max_chars_per_line = int(video.size[0] / font_size)
+            text_with_line_breaks = insert_line_breaks(text, max_chars_per_line)
+            subtitle_clip = generate_subtitle(text_with_line_breaks, start_time , end_time, font_size)
+            sub_clips.append(subtitle_clip)
+        video_with_subtitles = CompositeVideoClip([video] + sub_clips)
+        video_with_subtitles.write_videofile(final_video, codec="libx264", audio_codec="aac",fps=24)
+
+
+        return JsonResponse({'preview_video' : '/media/Files/previews/output.mp4'})
+# Function to insert line breaks in text based on width
+def insert_line_breaks(text, max_chars):
+    words = text.split()
+    lines = []
+    current_line = ""
+
+    for word in words:
+        if len(current_line + " " + word) <= max_chars:
+            current_line += " " + word
+        else:
+            lines.append(current_line.strip())
+            current_line = word
+
+    lines.append(current_line.strip())
+    return "\n".join(lines)
+
+def format_time_to_seconds(time):
+# Split the time string into minutes, seconds, and milliseconds
+    minutes, seconds = map(float, time.split(':'))
+
+    # Convert the time to seconds
+    total_seconds = (minutes * 60) + seconds
+    return total_seconds
+
+def generate_subtitle(subtitle_text, start_time, end_time, font_size):
+    duration = end_time - start_time
+    textClip = TextClip(subtitle_text, fontsize=font_size, font='Arial', color='white', bg_color='black')
+    # Calculate the desired padding (in pixels)
+    padding_x = 10  # Horizontal padding
+    padding_y = 100  # Vertical padding
+
+    # Increase the size of the text clip to add padding
+    textClip = textClip.margin(left=padding_x, right=padding_x, top=padding_y, bottom=padding_y)
+    textClip = textClip.set_start(start_time).set_end(end_time).set_duration(duration).set_position(("center", "bottom"))
+    return textClip
 
 def format_time(time):
     # Parse the input time string

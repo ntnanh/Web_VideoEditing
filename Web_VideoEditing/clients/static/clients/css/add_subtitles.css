@@ -169,3 +169,31 @@ textarea.auto-expand {
     position: absolute;
     z-index: 10;
 }
+.sidebar-section {
+    border-color: #151519;
+    width: 100%;
+}
+.btn-add-section:hover {
+    background-color: #2c2c31;
+}
+.btn-add-section.sidebar-section {
+    align-items: center;
+}
+
+.editor-sidebar .sidebar-inner>* {
+    order: 1;
+}
+.btn-add-section>.btn {
+    background-color: transparent;
+    border: none;
+    color: #fa7a04!important;
+    padding: 0 2px 0 0;
+}
+
+.btn-add-section {
+    background-color: transparent;
+    border-width: 1px 0 0;
+    color: #0a87ff!important;
+    padding-bottom: 25px;
+     padding-top: 25px;
+}
