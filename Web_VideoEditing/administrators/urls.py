@@ -12,5 +12,5 @@ urlpatterns = [
     path('video_user/<int:pk>/', views.video_user, name='video_user'),
     path('delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('update_user/<int:user_id>/', views.update_user, name='update_user'),
-
+    path('video/delete/<int:user_id>/<int:video_id>/', views.delete_video, name='delete_video'),
 ]

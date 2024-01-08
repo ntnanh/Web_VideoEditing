@@ -26,12 +26,12 @@
                       Tools
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                      <a class="dropdown-item" href="{% url 'clients:loop_video'%}">Loop video</a>
-                      <a class="dropdown-item" href="{% url 'clients:merge_video'%}">Merge video</a>
-                      <a class="dropdown-item" href="{% url 'clients:cut_video'%}">Cut video</a>
-                      <a class="dropdown-item" href="{% url 'clients:crop_video'%}">Crop video</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="{% url 'clients:all_tools' %}">All tools<i class="fa-solid fa-chevron-right"></i></a>
+                    <a class="dropdown-item" href="{% url 'clients:loop_video'%}">Loop video</a>
+                    <a class="dropdown-item" href="{% url 'clients:add_voice'%}">Add voice to video</a>
+                    <a class="dropdown-item" href="{% url 'clients:cut_video'%}">Cut video</a>
+                    <a class="dropdown-item" href="{% url 'clients:crop_video'%}">Crop video</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="{% url 'clients:all_tools' %}">All tools<i class="fa-solid fa-chevron-right"></i></a>
                   </div>
               </li>
               <li class="nav-item">
@@ -49,7 +49,8 @@
                       <img src="{{ user_profile.image.url }}" class="dropbtn"/>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="{% url 'users:signout' %}">Logout</a>
+                    <a class="dropdown-item" href="{% url 'user_project:index' id=user_profile.id %}">My Project</a>
+                    <a class="dropdown-item" href="{% url 'users:signout' %}">Logout</a>
                   </div>
               </li>
           </ul>

@@ -2,11 +2,14 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from users.views import base_context
 from users.models import Users
-from clients.models import Video
+from clients.models import Video, UserUpload
 from .forms import UserForm
 from django.contrib.auth.hashers import make_password
 from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
+import os
+from django.conf import settings
+
 
 
 
@@ -112,32 +115,43 @@ def update_user(request, user_id):
 
     return render(request, 'administrators/update_user.html', {'form': form, 'user': user, 'user_profile':user_profile})
 
-# def video_user(request):
-#     context = base_context(request)
-#     user_profile = context['user_profile']
-#     return render(request,'administrators/video_user.html',{'user_profile':user_profile})
-
-# def video_user(request):
-     # Assuming you have a user profile model and the user is authenticated
-    # context = base_context(request)
-    # user_profile = context['user_profile']
-    # user = Users.objects.get(id=user_id)  # Assuming you have a User model
-    
-    # videos = Video.objects.filter(user=user)
-    
-    # context1 = {
-    #     'user_profile': user_profile,
-    #     'user': user,
-    #     'videos': videos,
-    # }
-    
-    # return render(request, 'administrators/video_user.html', {'user_profile':user_profile})
-# administrators/views.py
-
-# def video_user(request, pk):
-#     videos = Video.objects.filter(user_id=pk)
-#     return render(request, 'administrators/video_user.html', {'videos': videos, 'user_id': pk})
 def video_user(request, pk):
+    context = base_context(request)
+    user_profile = context['user_profile']
     # Lấy dữ liệu video của người dùng với id tương ứng
     videos = Video.objects.filter(user_id=pk)
-    return render(request, 'video_user.html', {'videos': videos})
+    print(videos)
+    return render(request, 'administrators/video_user.html', {'videos': videos, 'user_id': pk, 'user_profile':user_profile})
+
+
+# def delete_video(request, user_id, video_id):
+#     # Retrieve the video based on the provided video_id
+#     video = Video.objects.get(id=video_id)
+    
+#     # Perform any necessary checks or validations before deleting the video
+    
+#     # Delete the video
+#     video.delete()
+    
+#     # Redirect the user to the desired page after successful deletion
+#     return redirect('administrators:video_user', pk=user_id)
+
+def delete_video(request, user_id, video_id):
+    # Retrieve the video based on the provided video_id
+    video = Video.objects.get(id=video_id)
+    
+    # Delete the associated video_edit file
+    video_edit_path = os.path.join(settings.MEDIA_ROOT, str(video.video_edit))
+    if os.path.exists(video_edit_path):
+        os.remove(video_edit_path)
+    
+    # Delete the associated upload file
+    upload_path = os.path.join(settings.MEDIA_ROOT, str(video.upload_id.path_video))
+    if os.path.exists(upload_path):
+        os.remove(upload_path)
+    
+    # Delete the video record
+    video.delete()
+    
+    # Redirect the user to the desired page after successful deletion
+    return redirect('administrators:video_user', pk=user_id)
