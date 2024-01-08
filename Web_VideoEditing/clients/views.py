@@ -79,7 +79,7 @@ def format_time(time):
     time_obj = datetime.strptime(time, '%H:%M:%S,%f')
     # Calculate total seconds with microseconds truncated to two decimal places
     total_seconds = time_obj.second + (time_obj.microsecond / 10**6)
-    formatted_time = f"{time_obj.minute:02}:{total_seconds:.2f}"
+    formatted_time = f"{time_obj.minute:02}:0{total_seconds:.2f}"
     return formatted_time
 
 def subtitle(request, id):
