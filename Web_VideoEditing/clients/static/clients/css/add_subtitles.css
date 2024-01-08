@@ -104,3 +104,68 @@ textarea.auto-expand {
     background-color: #202024;
     border-color: #fa7a04!important;
 }
+.scroll-element, .scroll-element div {
+    box-sizing: content-box;
+}
+.scroll-element {
+    display: none;
+}
+.scrollbar-custom>.scroll-element, .scrollbar-custom>.scroll-element div {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+}
+.scrollbar-custom>.scroll-element.scroll-x {
+    bottom: 0;
+    height: 10px;
+    left: 0;
+    min-width: 100%;
+    overflow: visible;
+    width: 100%;
+}
+
+.scroll-wrapper>.scroll-content {
+    border: none!important;
+    box-sizing: content-box!important;
+    height: auto;
+    left: 0;
+    margin: 0;
+    max-height: none;
+    max-width: none!important;
+    overflow: scroll!important;
+    padding: 0;
+    position: relative!important;
+    top: 0;
+    width: auto!important;
+}
+
+.editor-sidebar .sidebar-scroll {
+    height: 100%;
+    overflow-y: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+.scrollbar-custom>.scroll-element.scroll-y .scroll-element_outer {
+    top: 2px;
+}
+.scrollbar-custom>.scroll-element div {
+    display: block;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.scrollbar-custom>.scroll-element, .scrollbar-custom>.scroll-element div {
+    background: none;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    z-index: 10;
+}
