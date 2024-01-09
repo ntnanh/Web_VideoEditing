@@ -17,13 +17,12 @@
                 <h1 class="mb-5">Edit Video Tools</h1>
                 <div class="row justify-content-center">
                     <div class="m-3">
-                        <a href="#" class="item">
+                        <a href="{% url 'clients:loop_video'%}" class="item">
                             <div class="card d-flex align-items-center" style="width: 18rem;">
                                 <div class="card-body">
-                                    <img src="{% static 'clients/images/videoandaudio-1@2x.png' %}" width="50" height="50" alt="...">
-                                    <h5 class="card-title">Video Editor</h5>
-                                    <p class="tool-des">Your online all-in-one video editor. Combine and manage video, images, text and music in the multi-track timeline.</p>
-<!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
+                                    <img src="{% static 'clients/images/video.png' %}"  width="50" height="50" alt="...">
+                                    <h5 class="card-title">Loop video</h5>
+                                    <p class="tool-des">Add a video in any format and loop it up to 6 times or infinitely.</p>
                                 </div>
                             </div>
                         </a>
@@ -32,7 +31,7 @@
                         <a href="{% url 'clients:add_voice'%}" class="item">
                             <div class="card d-flex align-items-center" style="width: 18rem;">
                                 <div class="card-body">
-                                    <img src="{% static 'clients/images/addtext-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <img src="{% static 'clients/images/microphone.png' %}" width="50" height="50" alt="...">
                                     <h5 class="card-title">Add Voice</h5>
                                     <p class="tool-des">The tool allows you to add voice to a video of any format, and personalize the text font.</p>
                                     <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
@@ -44,7 +43,7 @@
                         <a href="{% url 'clients:crop_video'%}" class="item">
                             <div class="card d-flex align-items-center" style="width: 18rem;">
                                 <div class="card-body">
-                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <img src="{% static 'clients/images/crop.png' %}" width="50" height="50" alt="...">
                                     <h5 class="card-title">Crop Video</h5>
                                     <p class="tool-des">Choose one of the prepared sizes that are set by default in some popular social media sites.</p>
                                     <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
@@ -56,7 +55,7 @@
                         <a href="{% url 'clients:cut_video'%}" class="item">
                             <div class="card d-flex align-items-center" style="width: 18rem;">
                                 <div class="card-body">
-                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <img  src="{% static 'clients/images/video-editor.png' %}"  width="50" height="50" alt="...">
                                     <h5 class="card-title">Cut Video</h5>
                                     <p class="tool-des">Enter the necessary period of time or move markers to quickly cut your video file.</p>
                                     <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->
@@ -65,10 +64,10 @@
                         </a>
                     </div>
                     <div class="m-3">
-                        <a href="{% url 'clients:cut_video'%}" class="item">
+                        <a href="{% url 'clients:merge_video'%}" class="item">
                             <div class="card d-flex align-items-center" style="width: 18rem;">
                                 <div class="card-body">
-                                    <img src="{% static 'clients/images/crop-1@2x.png' %}" width="50" height="50" alt="...">
+                                    <img src="{% static 'clients/images/merge.png' %}" width="50" height="50" alt="...">
                                     <h5 class="card-title">Merge Video</h5>
                                     <p class="tool-des">Upload any number of videos and images, change their order, add an audio and combine them with one click.</p>
                                     <!--                                    <a class="btn background-primary" href="#">Make Edit Now</a>-->

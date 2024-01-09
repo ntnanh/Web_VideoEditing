@@ -54,8 +54,9 @@
                             <td>{{ video.size }}</td>
                             <td>{{ video.video_upload }}</td>
                             <td>
-                                <a href="{% url 'administrators:update_user' user_id=user.id %}" class="btn btn-danger btn-circle btn-sm update"><i class="fa-regular fa-pen-to-square"></i></a>
-                                <a href="{% url 'administrators:delete_user' user.id%}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                                {% comment %} <a href="{% url 'administrators:update_user' user_id=user.id %}" class="btn btn-danger btn-circle btn-sm update"><i class="fa-regular fa-pen-to-square"></i></a> {% endcomment %}
+                                <a href="{% url 'administrators:delete_video' user_id=user_id video_id=video.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a></td>
+                                {% comment %} <a href="{% url 'administrators:delete_user' user.id%}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a> {% endcomment %}
                             </td>
                         </tr>
                         {% endfor %}
