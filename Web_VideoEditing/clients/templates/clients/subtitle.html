@@ -1,0 +1,49 @@
+{% extends "clients/base_tool.html" %}
+{% load static %}
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_subtitles.css' %}" />
+{% endblock stylesheets %}
+{% block content %}
+<div class="h-100">
+    <div class="row content-upload_subtitle">
+        <div class="file-source-btn">
+            <form method="post" action="{% url 'clients:subtitle' id=id %}" id="formUpload" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input id="upload-subtitle" type="file"
+                       name="sub_file" class="file-input">
+                <label for="upload-subtitle" class="file-btn">
+                    <span><i class="fas fa-file-alt mr-1"></i>Upload .SRT</span>
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script>
+
+    $(document).ready(function (){
+        $('#upload-subtitle').on('change', function() {
+            let fileInput = document.getElementById('upload-subtitle');
+            let file = fileInput.files[0];
+
+            if (file) {
+                var fileName = file.name;
+                var fileExtension = fileName.split('.').pop();
+                if (fileExtension.toLowerCase() === 'srt') {
+                    $('#formUpload').submit();
+                } else {
+                    alert('Please select a .srt file.');
+                }
+            } else {
+                alert('Please select a .srt file.');
+            }
+        });
+    })
+
+    $('.btn-back').on('click', function () {
+        window.history.back();
+    });
+
+</script>
+{% endblock script %}

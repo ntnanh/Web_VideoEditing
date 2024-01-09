@@ -1,7 +1,6 @@
 {% extends "clients/base_tool.html" %}
 {% load static %}
 {% block stylesheets %}
-<link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_voice.css' %}" />
 <link rel="stylesheet" type="text/css" href="{% static 'clients/css/add_subtitles.css' %}" />
 {% endblock stylesheets %}
 {% block content %}
@@ -15,7 +14,7 @@
                         <video class="video-upload" width="100%">
                             <source src="{{ video_url }}" type="video/mp4">
                         </video>
-                        <div class="media-controls d-flex text-center mt-4"><!---->
+                        <div class="media-controls d-flex text-center mt-4">
                             <div class="flex-grow-1 text-left text-white btn-mute"><i class="fas fa-volume-up"></i></div>
                             <div class="mc-box-center btn-play"><i class="fas fa-play"></i></div>
                             <div class="flex-grow-1 text-white">
@@ -80,30 +79,30 @@
                                 </div>
                                 <div class="sidebar-inner">
                                     {% if subtitles %}
-                                    {% for subtitle in subtitles %}
-                                    <div class="sidebar-subs">
-                                        <div data-uuid="5afcd303-c219-4edc-bde0-158c0ede2955" class="sub-card current">
-                                            <div class="sub-time">
-                                                <input type="text"
-                                                       pattern="[0-9]*" placeholder="{{ subtitle.start_time }}"
-                                                       class="form-control text-center sub-time-start"
-                                                       im-insert="true">
-                                                <input type="text"
-                                                       inputmode="numeric"
-                                                       pattern="[0-9]*"
-                                                       placeholder="{{ subtitle.end_time }}"
-                                                       data-mask="99:99.99"
-                                                       class="form-control text-center sub-time-end"
-                                                       im-insert="true">
-                                            </div>
-                                            <div class="sub-text"><textarea
-                                                placeholder="{{ subtitle.text }}"
-                                                rows="2" class="form-control auto-expand subtext"></textarea></div>
-                                            <div class="sub-buttons d-none"><a class="sub-del"><i class="fa-solid fa-xmark"></i></a>
+                                        {% for subtitle in subtitles %}
+                                        <div class="sidebar-subs">
+                                            <div data-uuid="5afcd303-c219-4edc-bde0-158c0ede2955" class="sub-card current">
+                                                <div class="sub-time">
+                                                    <input type="text"
+                                                           pattern="[0-9]*" placeholder="{{ subtitle.start_time }}"
+                                                           class="form-control text-center sub-time-start"
+                                                           im-insert="true">
+                                                    <input type="text"
+                                                           inputmode="numeric"
+                                                           pattern="[0-9]*"
+                                                           placeholder="{{ subtitle.end_time }}"
+                                                           data-mask="99:99.99"
+                                                           class="form-control text-center sub-time-end"
+                                                           im-insert="true">
+                                                </div>
+                                                <div class="sub-text"><textarea
+                                                        placeholder="{{ subtitle.text }}"
+                                                        rows="2" class="form-control auto-expand subtext"></textarea></div>
+                                                <div class="sub-buttons d-none"><a class="sub-del"><i class="fa-solid fa-xmark"></i></a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    {% endfor %}
+                                        {% endfor %}
                                     {% endif %}
                                     <button class="sidebar-section btn-add-section"><span class="btn"><i class="fas fa-plus mr-2"></i>Add subtitle</span></button>
                                 </div>
@@ -236,7 +235,7 @@
                     'subtitles': JSON.stringify(subtitles)
                 }
                 $.ajax({
-                    url: '/preview_voice_to_video',
+                    url: '/preview_add_subtitles',
                     type: 'POST',
                     beforeSend: function() {
                         $.LoadingOverlay("show");
