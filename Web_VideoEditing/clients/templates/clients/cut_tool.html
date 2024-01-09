@@ -148,10 +148,7 @@
 </div>
 {% endblock content %}
 {% block script %}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-<script type="text/javascript" src="{% static 'clients/js/loadingoverlay.min.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'clients/js/common.js' %}"></script>
 <script>
     $('.time-input').on('change', function() {
         var inputValue = $(this).val();
@@ -161,40 +158,11 @@
         } else {
         }
     });
-
     function validateTimeFormat(value) {
         return /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/.test(value);
     }
 
-
     $(document).ready(function() {
-        $(".btn-play").on("click", function() {
-            const video = $(".video-upload")[0];
-            const button = $(this);
-            const icon = button.find("i");
-            video.muted = false;
-            if (video.paused) {
-                video.play();
-                icon.removeClass("fa-play").addClass("fa-pause");
-            } else {
-                video.pause();
-                icon.removeClass("fa-pause").addClass("fa-play");
-            }
-        });
-
-        $(".btn-mute").on("click", function() {
-            const video = $(".video-upload")[0];
-            const button = $(this);
-            const icon = button.find("i");
-            if (video.muted) {
-                video.muted = false;
-                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
-            } else {
-                video.muted = true;
-                icon.removeClass("a-volume-up").addClass("fa-volume-mute");
-            }
-        });
-
         $('.btn-preview').on("click", function() {
             const previewContent = $('.preview-video_content');
             let start_time = previewContent.find('.start_time').val();
@@ -223,87 +191,14 @@
                     video[0].load();
                     video[0].play();
                     $.LoadingOverlay("hide");
-                });
-            }
-        })
-
-        $('.btn-export').on('click', function (){
-            const previewContent = $('.preview-video_content');
-            let id = previewContent.find('#id').val();
-            let url = previewContent.find('source').attr('src');
-            if (url) {
-                let params = {
-                    'id': id,
-                    'url': url
-                }
-                $.ajax({
-                    url: '/export_cut_video',
-                    type: 'POST',
-                    beforeSend: function() {
-                        $.LoadingOverlay("show");
-                    },
-                    headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
-                    data: params
-                }).done(function(res) {
-                    if (res.success === 'true') {
-                        let anchor = $("<a>")
-                            .attr("href", url)
-                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
-                            .appendTo("body");
-                        anchor[0].click();
-                        anchor.remove();
+                }).fail(function(xhr, status) {
+                    if (status === 'error') {
+                        alert('Handle preview error, Please try again');
                         $.LoadingOverlay("hide");
                     }
-                }).error(function (e) {
-                    $.LoadingOverlay("hide");
                 });
-            }else {
-                alert('Please Enter Preview before export');
             }
         })
     });
-
-    const video = document.querySelector('.video-upload');
-    const startInput = $('.start_time');
-    const endInput = $('.end_time');
-    const outputInput = $('.video-duration');
-    const videoTimeTotal = $('.video-time-total');
-    const videoTimeCurrent = $('.video-time-current');
-    outputInput.text(formatTime(video.duration));
-    videoTimeTotal.text(formatTime(video.duration));
-    video.addEventListener('play', () => {
-        startInput.val(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('timeupdate', function() {
-        videoTimeCurrent.text(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('pause', () => {
-        endInput.val(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('loadedmetadata', function() {
-        videoTimeTotal.text(formatTime(video.duration));
-        outputInput.text(formatTime(video.duration));
-    });
-
-
-
-    function formatTime(time) {
-        const hours = Math.floor(time / 3600);
-        const minutes = Math.floor((time % 3600) / 60);
-        const seconds = Math.floor(time % 60);
-        return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
-    }
-
-    function padZero(number) {
-        return number < 10 ? `0${number}` : number;
-    }
-
-    $('.btn-back').on('click', function () {
-        window.history.back();
-    });
-
 </script>
 {% endblock script %}

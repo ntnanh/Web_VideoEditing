@@ -41,7 +41,7 @@
     background-color: #2c2c31;
 }
 .sub-card.current {
-    background-color: rgba(44,44,49,.5);
+    background-color: #202024;
 }
 .sub-card {
     padding: 10px 20px 10px 14px;
@@ -196,4 +196,32 @@ textarea.auto-expand {
     color: #0a87ff!important;
     padding-bottom: 25px;
      padding-top: 25px;
+}
+
+.sub-card .sub-buttons a {
+    background-color: rgba(21,21,25,.6);
+    border-radius: 50%;
+    cursor: pointer;
+    display: block;
+    height: 21px;
+    position: relative;
+    transition: none;
+    width: 21px;
+    color: #ffffff;
+}
+
+.sub-card .sub-buttons .sub-del {
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.sub-card .sub-buttons a:hover {
+    background-color: #151519;
+    text-decoration: none;
+}
+
+.sub-card:hover {
+    background-color: #192530;
 }

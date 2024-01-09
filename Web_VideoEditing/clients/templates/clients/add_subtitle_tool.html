@@ -98,7 +98,7 @@
                                                 <div class="sub-text"><textarea
                                                         placeholder="{{ subtitle.text }}"
                                                         rows="2" class="form-control auto-expand subtext"></textarea></div>
-                                                <div class="sub-buttons"><a class="sub-del"></a> <a class="sub-add"></a>
+                                                <div class="sub-buttons d-none"><a class="sub-del"><i class="fa-solid fa-xmark"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -219,118 +219,15 @@
 </div>
 {% endblock content %}
 {% block script %}
+<script type="text/javascript" src="{% static 'clients/js/subtitle.js' %}"></script>
+<script type="text/javascript" src="{% static 'clients/js/common.js' %}"></script>
 <script>
-
-    $(document).ready(function() {
-        function handleChangeSubText() {
-            const subText = $('.sub-text textarea');
-            // Button click event to change the placeholder
-            subText.on('click', function() {
-                let originalPlaceholder = $(this).attr('placeholder');
-                $(this).val(originalPlaceholder);
-            });
-            subText.on('change', function () {
-                let newSub = $(this).val();
-                $(this).attr('placeholder', newSub)
-            })
-        }
-
-        function handleChangeTime() {
-            const subTime = $('.sub-time-start, .sub-time-end');
-            // Button click event to change the placeholder
-            subTime.on('click', function() {
-                let originalPlaceholder = $(this).attr('placeholder');
-                $(this).val(originalPlaceholder);
-            });
-
-            subTime.on('change', function () {
-                let newSub = $(this).val();
-                $(this).attr('placeholder', newSub)
-            })
-        }
-        handleChangeTime();
-        handleChangeSubText();
-    });
-
     $(document).ready(function (){
-        $(".btn-play").on("click", function() {
-            const video = $(".video-upload")[0];
-            const button = $(this);
-            const icon = button.find("i");
-            video.muted = false;
-            if (video.paused) {
-                video.play();
-                icon.removeClass("fa-play").addClass("fa-pause");
-            } else {
-                video.pause();
-                icon.removeClass("fa-pause").addClass("fa-play");
-            }
-        });
-
-        $(".btn-mute").on("click", function() {
-            const video = $(".video-upload")[0];
-            const button = $(this);
-            const icon = button.find("i");
-            if (video.muted) {
-                video.muted = false;
-                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
-            } else {
-                video.muted = true;
-                icon.removeClass("a-volume-up").addClass("fa-volume-mute");
-            }
-        });
-
-        $('#upload-subtitle').on('change', function() {
-            let fileInput = document.getElementById('upload-subtitle');
-            let file = fileInput.files[0];
-
-            if (file) {
-                var fileName = file.name;
-                var fileExtension = fileName.split('.').pop();
-                if (fileExtension.toLowerCase() === 'srt') {
-                    let formData = new FormData();
-                    formData.append('sub_file', file);
-                    $.ajax({
-                        url: '/upload_subtitle', // Replace with your server endpoint
-                        type: 'POST',
-                        headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
-                        data: formData,
-                        processData: false,
-                        contentType: false,
-                        success: function(response) {
-                            $('.path_sub').val(response.path_sub)
-                        },
-                        error: function(xhr, status, error) {
-                            // Handle errors
-                            console.error('There was a problem with the upload:', error);
-                        }
-                    });
-                } else {
-                    alert('Please select a .srt file.');
-                }
-            } else {
-                console.error('No file selected.');
-            }
-        });
-
-        function getSubtitles() {
-            let subtitles = [];
-            $('.sidebar-subs').each(function (i) {
-                subtitles.push({
-                    'start_time': $(this).find('.sub-time-start').attr('placeholder'),
-                    'end_time': $(this).find('.sub-time-end').attr('placeholder'),
-                    'text': $(this).find('.sub-text textarea').attr('placeholder'),
-                })
-            })
-
-            return subtitles;
-        }
-
         $('.btn-preview').on("click", function() {
             let video_path = $('#video_path').val();
             let id = $('#id').val();
-            let subtitles = getSubtitles();
-
+            const subtitle = new Subtitle();
+            let subtitles = subtitle.getSubtitles();
             if(video_path && subtitles) {
                 let params = {
                     'id': id,
@@ -352,98 +249,16 @@
                     video[0].load();
                     video[0].play();
                     $.LoadingOverlay("hide");
+                }).fail(function(xhr, status) {
+                    if (status === 'error') {
+                        alert('Handle preview error, Please try again');
+                        $.LoadingOverlay("hide");
+                    }
                 });
             }else {
                 alert('Please select a .srt file');
             }
         })
-
-        $('.btn-add-section').on('click', function () {
-            const subClone = $('.sidebar-subs:last').clone();
-            subClone.find('.sub-time-start').attr('placeholder','00:00.00')
-            subClone.find('.sub-time-end').attr('placeholder','00:00.00')
-            subClone.find('.sub-text textarea').attr('placeholder','')
-            $(this).before(subClone)
-        })
-
-        $('.btn-export').on('click', function (){
-            let preview_video = $('#video-preview');
-            let url = preview_video.find('source').attr('src');
-            let id = $('#id').val();
-            if (url) {
-                let params = {
-                    'id': id,
-                    'url': url
-                }
-                $.ajax({
-                    url: '/export_cut_video',
-                    type: 'POST',
-                    beforeSend: function() {
-                        $.LoadingOverlay("show");
-                    },
-                    headers: {'X-CSRFToken': $('input[name="csrfmiddlewaretoken"]').val()},
-                    data: params
-                }).done(function(res) {
-                    if (res.success === 'true') {
-                        let anchor = $("<a>")
-                            .attr("href", url)
-                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
-                            .appendTo("body");
-                        anchor[0].click();
-                        anchor.remove();
-                        $.LoadingOverlay("hide");
-                    }
-                }).error(function (e) {
-                    console.log(e)
-                    $.LoadingOverlay("hide");
-                });
-            }else {
-                alert('Please enter preview before export');
-            }
-        })
-
     })
-
-    const video = document.querySelector('.video-upload');
-    const startInput = $('.start_time');
-    const endInput = $('.end_time');
-    const outputInput = $('.video-duration');
-    const videoTimeTotal = $('.video-time-total');
-    const videoTimeCurrent = $('.video-time-current');
-    outputInput.text(formatTime(video.duration));
-    videoTimeTotal.text(formatTime(video.duration));
-    video.addEventListener('play', () => {
-        startInput.val(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('timeupdate', function() {
-        videoTimeCurrent.text(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('pause', () => {
-        endInput.val(formatTime(video.currentTime));
-    });
-
-    video.addEventListener('loadedmetadata', function() {
-        videoTimeTotal.text(formatTime(video.duration));
-        outputInput.text(formatTime(video.duration));
-    });
-
-
-    function formatTime(time) {
-        const hours = Math.floor(time / 3600);
-        const minutes = Math.floor((time % 3600) / 60);
-        const seconds = Math.floor(time % 60);
-        return `${padZero(hours)}:${padZero(minutes)}:${padZero(seconds)}`;
-    }
-
-    function padZero(number) {
-        return number < 10 ? `0${number}` : number;
-    }
-
-    $('.btn-back').on('click', function () {
-        window.history.back();
-    });
-
 </script>
 {% endblock script %}
