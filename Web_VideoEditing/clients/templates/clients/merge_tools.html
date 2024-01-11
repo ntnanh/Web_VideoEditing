@@ -1,88 +1,298 @@
-
+{% extends "clients/base_tool.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="initial-scale=1, width=device-width" />
+{% block stylesheets %}
+{% endblock stylesheets %}
+{% block content %}
+<div class="h-100">
+    <div class="row content-tool h-100">
+        <div class="col col-12 h-100">
+            <i class="btn-back fas fa-chevron-left"></i>
+            <div class="row edit-wrapper">
+                <div class="edit-video_content d-flex justify-content-center align-items-center col col-md-6 col-sm-12">
+                    <div class="imported-video-wrapper">
 
-    <link rel="stylesheet" href="{% static 'clients/css/global.css' %}" />
-    <link rel="stylesheet" href="{% static 'clients/css/merge_tools.css' %}" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Google Sans:wght@500&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Volkhov:wght@700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600&display=swap"
-    />
-  </head>
-  <body>
-    <div class="margetools">
-      <div class="margetools-child"></div>
-      <img class="margetools-item" alt="" src="{% static 'clients/images/group-100@2x.png' %}" />
+                        <div class="checkbox-container" id="checkboxContainer">
+                            {% for video_item in video_list %}
+                            <div class="col-md-6 checkbox-item">
+                                <input type="checkbox" class="video-checkbox" data-id="{{ video_item.id }}" id="checkbox{{ forloop.counter }}" name="checkbox{{ forloop.counter }}">
+                                <label for="checkbox{{ forloop.counter }}">
+                                    <video class="video-upload" width="100%">
+                                        <source src="{{ video_item.path_video.url }}" type="video/mp4">
+                                    </video>
+                                    <script>console.log("{{ video_item.path_video.url }}");</script>
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
 
-      <img
-        class="margetools-inner"
-        alt=""
-        src="{% static 'clients/images/rectangle-203@2x.png' %}"
-      />
-
-      <img class="rectangle-icon" alt="" src="{% static 'clients/images/rectangle-201@2x.png' %}" />
-
-      <img
-        class="margetools-child1"
-        alt=""
-        src="{% static 'clients/images/rectangle-202@2x.png' %}"
-      />
-
-      <div class="group-parent">
-        <div class="group-wrapper">
-          <div class="format-wrapper">
-            <div class="format">Format:</div>
-          </div>
+                </div>
+                <div class="preview-video_content col col-md-6 col-sm-12">
+                    <div class="preview-video">
+                        <form>
+                            {% csrf_token %}
+                            <input type="hidden" id="video_path" name="full_path" value="{{ full_path }}"/>
+                            <input type="hidden" id="id" name="id" value="{{ id }}"/>
+                            <video id="video-preview" width="100%" controls>
+                                <source src="{{ preview_video }}" type="video/mp4">
+                            </video>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="rectangle-wrapper">
-          <div class="group-child"></div>
+        <div class="col col-12 editor-footer">
+            <div class="editor-settings flex-grow-1 col-10">
+                <div class="form-group"><span class="text-muted">Final output</span> <span class="text-muted">—</span>
+                    <span class="video-duration"></span></div> <!---->
+                <div class="form-group"><span class="text-muted font-weight-normal">Format</span> <span
+                        class="text-muted">—</span> <!---->
+                    <div class="dropup">
+                        <div id="vFormat" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                              data-display="static" class="form-control form-control-sm form-select border-hover"><span
+                                class="selected-option">MP4</span></div>
+                        <div aria-labelledby="vFormat" class="dropdown-menu">
+                            <div class="scroll-wrapper dropdown-menu-inner scrollbar-custom" style="position: relative;">
+                                <div class="dropdown-menu-inner scrollbar-custom scroll-content scroll-scrolly_visible"
+                                    style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 272px;"><a
+                                        class="dropdown-item">
+                                    3G2
+                                </a><a class="dropdown-item">
+                                    3GP
+                                </a><a class="dropdown-item">
+                                    AVI
+                                </a><a class="dropdown-item">
+                                    ASF
+                                </a><a class="dropdown-item">
+                                    F4V
+                                </a><a class="dropdown-item">
+                                    FLV
+                                </a><a class="dropdown-item">
+                                    M2TS
+                                </a><a class="dropdown-item">
+                                    M2V
+                                </a><a class="dropdown-item">
+                                    M4V
+                                </a><a class="dropdown-item">
+                                    MKV
+                                </a><a class="dropdown-item">
+                                    MOV
+                                </a><a class="dropdown-item active">
+                                    MP4
+                                </a><a class="dropdown-item">
+                                    MPG
+                                </a><a class="dropdown-item">
+                                    MPEG
+                                </a><a class="dropdown-item">
+                                    MTS
+                                </a><a class="dropdown-item">
+                                    MXF
+                                </a><a class="dropdown-item">
+                                    OGV
+                                </a><a class="dropdown-item">
+                                    RM
+                                </a><a class="dropdown-item">
+                                    RMVB
+                                </a><a class="dropdown-item">
+                                    TS
+                                </a><a class="dropdown-item">
+                                    VOB
+                                </a><a class="dropdown-item">
+                                    WEBM
+                                </a><a class="dropdown-item">
+                                    WMV
+                                </a></div>
+                                <div class="scroll-element scroll-x scroll-scrolly_visible">
+                                    <div class="scroll-element_outer">
+                                        <div class="scroll-element_size"></div>
+                                        <div class="scroll-element_track"></div>
+                                        <div class="scroll-bar" style="width: 0px;"></div>
+                                    </div>
+                                </div>
+                                <div class="scroll-element scroll-y scroll-scrolly_visible">
+                                    <div class="scroll-element_outer">
+                                        <div class="scroll-element_size"></div>
+                                        <div class="scroll-element_track"></div>
+                                        <div class="scroll-bar" style="height: 93px; top: 0px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> <!---->
+            <div class="editor-button col-2 mr-auto text-right">
+
+                <button type="button" class="btn btn-preview">
+                    Preview
+                </button>
+                <button type="button" class="btn btn-export">
+                    Export
+                </button>
+            </div>
         </div>
-      </div>
-      <div class="rectangle-parent">
-        <button class="export-button">Export</button>
-      </div>
-      <div class="rectangle-group">
-        <div class="group-inner"></div>
-        <div class="final-output-parent">
-          <div class="format">Final output:</div>
-          <div class="div">00:18</div>
-        </div>
-      </div>
-      <div class="home-wrapper" id="frameContainer">
-        <div class="home"><a href="{% url 'clients:home' %}">Home</a></div>
-      </div>
-      <div class="rectangle-div"></div>
-      <div class="margetools-child2"></div>
-      <div class="add-more-videos">Add more videos</div>
-      <div class="add-more-videos1">Add more videos</div>
-      <div class="div1">
-        <p class="p">00:01 / 00:18</p>
-      </div>
     </div>
+</div>
+{% endblock content %}
+{% block script %}
+ <script>
+    $('.time-input').on('change', function() {
+        var inputValue = $(this).val();
+        if (!validateTimeFormat(inputValue)) {
+            alert('Please enter a valid time in HH:mm:ss format');
+            $(this).val('00:00:00')
+        } else {
+        }
+    });
 
-    <script>
-      var frameContainer = document.getElementById("frameContainer");
-      if (frameContainer) {
-        frameContainer.addEventListener("click", function (e) {
-          // Please sync "Index" to the project
+    function validateTimeFormat(value) {
+        return /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/.test(value);
+    }
+
+
+    $(document).ready(function() {
+        $(".btn-play").on("click", function() {
+            const video = $(".video-upload")[0];
+            const button = $(this);
+            const icon = button.find("i");
+            if (video.paused) {
+                video.play();
+                icon.removeClass("fa-play").addClass("fa-pause");
+            } else {
+                video.pause();
+                icon.removeClass("fa-pause").addClass("fa-play");
+            }
         });
-      }
-      </script>
-  </body>
-</html>
+
+        $(".btn-mute").on("click", function() {
+            const video = $(".video-upload")[0];
+            const button = $(this);
+            const icon = button.find("i");
+            if (video.muted) {
+                video.muted = false;
+                icon.removeClass("fa-volume-up").addClass("fa-volume-mute");
+            } else {
+                video.muted = true;
+                icon.removeClass("fa-volume-mute").addClass("fa-volume-up");
+            }
+        });
+
+        $('.btn-preview').on("click", function() {
+            const previewContent = $('.preview-video_content');
+            let video_ids = [];
+            $("#checkboxContainer .video-checkbox").each(function () {
+                if ($(this).prop('checked')) {
+                    video_ids.push($(this).data('id'));
+                }
+            })
+            if (video_ids) {
+                let params = {
+                    'video_ids': JSON.stringify(video_ids),
+                }
+                $.ajax({
+                    url: '/preview_merge_video/',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    let video = $('#video-preview');
+                    let source = '<source src="' + res.preview_video + '" type="video/mp4">';
+                    video.html(source)
+                    video[0].load();
+                    video[0].play();
+                    $.LoadingOverlay("hide");
+                });
+            }
+        })
+
+        $('.btn-export').on('click', function (){
+            const previewContent = $('.preview-video_content');
+            let id = previewContent.find('#id').val();
+            let url = previewContent.find('source').attr('src');
+            if (url) {
+                let params = {
+                    'id': id,
+                    'url': url
+                }
+                $.ajax({
+                    url: '/export_merge_video',
+                    type: 'POST',
+                    beforeSend: function() {
+                        $.LoadingOverlay("show");
+                    },
+                    headers: {'X-CSRFToken': previewContent.find('input[name="csrfmiddlewaretoken"]').val()},
+                    data: params
+                }).done(function(res) {
+                    if (res.success === 'true') {
+                        let anchor = $("<a>")
+                            .attr("href", url)
+                            .attr("download", "downloaded_video.mp4") // Change the downloaded file name here
+                            .appendTo("body");
+                        anchor[0].click();
+                        anchor.remove();
+                        $.LoadingOverlay("hide");
+                    }
+                }).error(function (e) {
+                    $.LoadingOverlay("hide");
+                });
+            }else {
+                alert('Please Enter Preview before export');
+            }
+        })
+    });
+
+    const video = document.querySelector('.video-upload');
+    const startInput = $('.start_time');
+    const endInput = $('.end_time');
+    const outputInput = $('.video-duration');
+    const videoTimeTotal = $('.video-time-total');
+    const videoTimeCurrent = $('.video-time-current');
+    outputInput.text(formatTime(video.duration));
+    videoTimeTotal.text(formatTime(video.duration));
+    video.addEventListener('play', () => {
+        startInput.val(formatTime(video.currentTime));
+    });
+
+    video.addEventListener('timeupdate', function() {
+        videoTimeCurrent.text(formatTime(video.currentTime));
+    });
+
+    video.addEventListener('pause', () => {
+        endInput.val(formatTime(video.currentTime));
+    });
+
+    video.addEventListener('loadedmetadata', function() {
+        videoTimeTotal.text(formatTime(video.duration));
+        outputInput.text(formatTime(video.duration));
+    });
+
+
+
+    function formatTime(time) {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = Math.floor(time % 60);
+        return padZero(hours) + ':' + padZero(minutes) + ':' + padZero(seconds);
+    }
+
+    function padZero(number) {
+        return number < 10 ? '0' + number : number;
+    }
+
+    $('.btn-back').on('click', function () {
+        window.history.back();
+    });
+        document.addEventListener("DOMContentLoaded", function () {
+        const checkboxContainer = document.getElementById("checkboxContainer");
+        const checkboxItems = checkboxContainer.querySelectorAll(".checkbox-item");
+        checkboxItems.forEach((checkbox) => {
+            checkbox.addEventListener("change", function () {
+                checkbox.parentElement.classList.toggle("checked", checkbox.checked);
+            });
+        });
+    });
+</script>
+{% endblock script %}

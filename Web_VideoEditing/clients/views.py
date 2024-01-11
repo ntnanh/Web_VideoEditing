@@ -3,6 +3,7 @@ from django.urls import reverse
 from users.models import Users
 from django.http import HttpResponse, JsonResponse
 import os
+import json
 from django.conf import settings
 from .forms import FileUploadForm
 from users.views import base_context
@@ -10,12 +11,14 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 from .models import Upload,UserUpload
 from .models import Upload,UserUpload, Video, Subtitle
 import uuid
-from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips
+from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips, concatenate_videoclips
 from datetime import datetime
 from pydub import AudioSegment
 import re
 import time
 import requests
+import subprocess
+
 
 def home(request):
     context = base_context(request)
@@ -68,7 +71,7 @@ def preview_voice_to_video(request):
 def handle_sub(path_video, path_sub):
     video_clip = VideoFileClip(path_video)
     output_audio_file = os.path.join(settings.BASE_DIR, 'media/Files/output_audio.mp3')
-    final_video = os.path.join(settings.BASE_DIR, 'media/Files/previews/output.mp4')
+    final_video = 'D:\Web_VideoEditing\web_videoediting\media\Files\previews\output.mp4'
     video_file = path_video
     # Phân tích tệp SRT
     with open(path_sub, 'r', encoding='utf-8') as srt_file:
@@ -88,14 +91,11 @@ def handle_sub(path_video, path_sub):
                 'speed': '',
                 'voice': 'banmai'
             }
-
             response = requests.request('POST', url, data=payload.encode('utf-8'), headers=headers)
-
             if response.status_code == 200:
                 response_data = response.json()
                 print(text)
                 audio_url = response_data.get('async')
-
                 # Tải tệp âm thanh đã tạo từ URL
                 audio_response = requests.get(audio_url)
                 if audio_response.status_code == 200:
@@ -121,7 +121,7 @@ def handle_sub(path_video, path_sub):
     video_with_new_audio = new_video.set_audio(merged_audio)
     video_with_new_audio.write_videofile(final_video, codec='libx264', audio_codec='aac')
     os.remove(path_sub)
-    os.remove(path_video)
+    # os.remove(path_video)
     os.remove(output_audio_file)
 
     return '/media/Files/previews/output.mp4'
@@ -135,13 +135,82 @@ def add_voice_tool(request, id):
     upload = Upload.objects.get(id=id)
     return render(request, "clients/add_voice_tool.html", {'id':id,'video_url': upload.path_video.url, 'full_path': upload.path_video.path})
 
-# def merge_video(request):
-#     context = base_context(request)
-#     return render(request, 'clients/merge_video.html', context)
-
 def merge_video(request):
     context = base_context(request)
+    if request.method == 'POST' and 'video_files' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        video_files = request.FILES.getlist('video_files')
+        for video_file in video_files:
+            title = video_file.name
+            upload = Upload(path_video=video_file, title_video=title, path_image='')
+            upload.save()
+            upload_id = upload.id
+            user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
+            user_upload.save()
+        redirect_url = reverse('clients:merge_tools', kwargs={'id': upload_id})
+        return redirect(redirect_url)
+    else:
+        return render(request, 'clients/merge_video.html', context)
+
+def merge_tools(request, id):
+    upload = Upload.objects.get(id=id)
+    video_list = Upload.objects.filter(userupload__user_id=request.session.get('user_id'))
+    return render(request, "clients/merge_tools.html", {'id': id, 'video_url': upload.path_video.url, 'full_path': upload.path_video.path, 'video_list': video_list})
+
+def preview_merge_video(request):
+    if request.method == 'POST':
+        video_ids = request.POST.get('video_ids')
+        video_ids = json.loads(video_ids)
+        video_clips = []
+        for video_id in video_ids:
+            upload = Upload.objects.get(id=video_id)
+            video_path = upload.path_video.path
+            video_clip = VideoFileClip(video_path)
+            video_clips.append(video_clip)
+        merged_video = concatenate_videoclips(video_clips)
+        merged_video_path = f'media/Files/previews/merged_video_output.mp4'
+        merged_video.write_videofile(merged_video_path)
+        preview_video = f'/{merged_video_path}'
+        return JsonResponse({'preview_video': preview_video})
+    
+def export_merge_video(request):
+    url = request.POST.get('url').replace('/', '', 1)
+    id = request.POST.get('id')
+    local_video = os.path.join(settings.BASE_DIR, url)
+    unique_id = str(uuid.uuid4()).split('-')[-1]
+    file_name = f"downloaded_file_{unique_id}_{id}.mp4"
+    dir_download = os.path.join(settings.BASE_DIR, f"media/Files/exports/{file_name}")
+    with open(local_video, 'rb') as file:
+        with open(dir_download, 'wb') as downloaded_file:
+            chunk = file.read(1024)  # Read the file in chunks of 1024 bytes
+            while chunk:
+                downloaded_file.write(chunk)  # Write the chunk to the new file
+                chunk = file.read(1024)  # Read the next chunk
+    # Handle get data save video table
+    clip = VideoFileClip(dir_download)
+    duration = clip.duration
+    file_size = os.path.getsize(dir_download)
+    file_extension = os.path.splitext(dir_download)[1]
+    file_format = file_extension[1:]  # Removing the dot from the extension
+    current_date = datetime.now().date()
+    # Save file to Upload table
+    upload = Upload(path_video=f"Files/exports/{file_name}", title_video=file_name, path_image='')
+    upload.save()
+    # Save file to UserUpload table
+    user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
+    user_upload.save()
+    # Save file to Video table
+    video = Video(title=file_name, video_edit=file_name, duration=duration, format=file_format, size=file_size, update_date=current_date, thumb='', upload_id_id=upload.id, user_id_id=request.session.get('user_id'))
+    video.save()
+
+    return JsonResponse({'success' : 'true'})
+
+def crop_video(request):
+    context = base_context(request)
     if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
         video_file = request.FILES['video_file']
         title = video_file.name
         upload = Upload(path_video=video_file, title_video=title, path_image='')
@@ -149,47 +218,70 @@ def merge_video(request):
         upload_id = upload.id
         user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
         user_upload.save()
-        redirect_url = reverse('clients:merge_tools', kwargs={'id': upload_id})
+        redirect_url = reverse('clients:crop_tool', kwargs={'id': upload_id})
         return redirect(redirect_url)
     else:
-        return render(request, 'clients/merge_video.html', context)
+        return render(request, 'clients/crop_video.html', context)
 
-
-
-# def merge_tools(request):
-#     return render(request, 'clients/merge_tools.html')
-
-
-def merge_tools(request, id):
+def crop_tool(request, id):
     upload = Upload.objects.get(id=id)
+    return render(request, "clients/crop_tool.html", {'id':id,'video_url': upload.path_video.url, 'full_path': upload.path_video.path})
+
+
+def preview_crop_video(request):
     if request.method == 'POST':
-        starttime = request.POST.get('start')
-        endtime = request.POST.get('end')
-        input_video_path = request.POST.get('full_path')
-        output_video_path = 'D:\Web_VideoEditing\web_videoediting\media\Files\input_video1.mp4'
-        if starttime and endtime:
-            start_time_seconds = convert_to_seconds(starttime)
-            end_time_seconds = convert_to_seconds(endtime)
+        id = request.POST.get('id')
+        upload = Upload.objects.get(id=id)
+        x = request.POST.get('x')
+        y = request.POST.get('y')
+        width = request.POST.get('width')
+        height = request.POST.get('height')
+        input_video_path = request.POST.get('video_path')
+        output_video_path = os.path.join(settings.BASE_DIR, f"media/Files/previews/output_preview_{id}.mp4")
+        
+        command = f'ffmpeg -i {input_video_path} -filter:v crop={width}:{height}:{x}:{y} {output_video_path}'
+        subprocess.call(command, shell=True)
+        preview_video = f"/media/Files/previews/output_preview_{id}.mp4"
+        return JsonResponse({'preview_video' : preview_video})
+    content = {
+            'id': id,
+            'video_url': upload.path_video.url,
+            'full_path': upload.path_video.path
+        }
+    return render(request, "clients/crop_tool.html", content)
 
-            ffmpeg_extract_subclip(input_video_path, start_time_seconds, end_time_seconds, targetname=output_video_path)
+def export_crop_video(request):
+    url = request.POST.get('url').replace('/', '', 1)
+    id = request.POST.get('id')
+    local_video = os.path.join(settings.BASE_DIR, url)
+    unique_id = str(uuid.uuid4()).split('-')[-1]
+    file_name = f"downloaded_file_{unique_id}_{id}.mp4"
+    dir_download = os.path.join(settings.BASE_DIR, f"media/Files/exports/{file_name}")
+    with open(local_video, 'rb') as file:
+        with open(dir_download, 'wb') as downloaded_file:
+            chunk = file.read(1024)  # Read the file in chunks of 1024 bytes
+            while chunk:
+                downloaded_file.write(chunk)  # Write the chunk to the new file
+                chunk = file.read(1024)  # Read the next chunk
+    # Handle get data save video table
+    clip = VideoFileClip(dir_download)
+    duration = clip.duration
+    file_size = os.path.getsize(dir_download)
+    file_extension = os.path.splitext(dir_download)[1]
+    file_format = file_extension[1:]  # Removing the dot from the extension
+    current_date = datetime.now().date()
+    # Save file to Upload table
+    upload = Upload(path_video=f"Files/exports/{file_name}", title_video=file_name, path_image='')
+    upload.save()
+    # Save file to UserUpload table
+    user_upload = UserUpload(upload_id=upload.id, user_id=request.session.get('user_id'))
+    user_upload.save()
+    # Save file to Video table
+    video = Video(title=file_name, video_edit=file_name, duration=duration, format=file_format, size=file_size, update_date=current_date, thumb='', upload_id_id=upload.id, user_id_id=request.session.get('user_id'))
+    video.save()
 
-            video_url = '/media/Files/input_video1.mp4'
-            content = {
-                'id': id,
-                'preview_video': video_url,
-                'video_url': upload.path_video.url,
-                'full_path': upload.path_video.path
-                }
-            return render(request, "clients/merge_tools.html", content)
-    return render(request, "clients/merge_tools.html", {'id':id,'video_url': upload.path_video.url, 'full_path': upload.path_video.path})
+    return JsonResponse({'success' : 'true'})
 
-
-def crop_video(request):
-    context = base_context(request)
-    return render(request, 'clients/crop_video.html', context)
-
-def crop_tool(request):
-    return render(request, 'clients/crop_tool.html')
 
 def add_subtitles_tool(request):
     return render(request, 'clients/add_subtitles_tool.html')
@@ -290,10 +382,6 @@ def loop_video(request):
     else:
         return render(request, 'clients/loop_video.html', context)
 
-from django.conf import settings
-from moviepy.editor import VideoFileClip, concatenate_videoclips
-import os
-
 def loop_tool(request, id):
     upload = Upload.objects.get(id=id)
     preview_video = upload.path_video.url  # Đường dẫn mặc định là video gốc chưa được lặp lại
@@ -310,23 +398,16 @@ def loop_tool(request, id):
             loop_factor = 4
         elif '5x' in loop_factor_values:
             loop_factor = 5
-
         clip = VideoFileClip(video_path)
         clips = [clip.copy() for _ in range(loop_factor)]
         final_clip = concatenate_videoclips(clips)
-
         looped_video_path = os.path.join(settings.MEDIA_ROOT, 'inputloopvideo.mp4')
         final_clip.write_videofile(looped_video_path)
-
         preview_video = looped_video_path 
         # Gán đường dẫn của video đã lặp lại cho biến preview_video
-        
-        
-        
         looped_video_path = os.path.join(settings.MEDIA_ROOT, 'inputloopvideo.mp4')
         final_clip.write_videofile(looped_video_path)
         preview_video = os.path.join(settings.MEDIA_URL, 'inputloopvideo.mp4')
-
         print("Original video path:", upload.path_video.url)
         print("Looped video path:", preview_video)
         print("Video factor:", loop_factor)

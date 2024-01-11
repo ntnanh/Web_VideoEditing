@@ -1,90 +1,133 @@
-{% extends "clients/base.html" %} {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% block stylesheets %}
-      {{ block.super }}
-      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/global.css' %}" />
-      <link rel="stylesheet" type="text/css" href="{% static 'clients/css/merge_video.css' %}" />
-    {% endblock stylesheets %}
-</head>
-
-<body>
-    {% block content %}
-    <div class="merge-video">
-      <div class="gr1">
-        <div class="upload-wrapper">
-          <button type="submit" class="cta6">Upload</button>
-        </div>
-        <div class="choose-file-parent">
-          <button type="submit" class="choosefile">Choose file
-            <img class="add-1-icon1" alt="" src="{% static 'clients/images/add-1@2x.png' %}" />
-          </button>
-        </div>
-        <div class="desc">Combine multiple videos, images and add audio</div>
-        <b class="heading"><p class="merge-videos">Merge Videos</p> </b>
+{% extends "clients/base.html" %}
+{% load static %}
+{% block stylesheets %}
+{% endblock stylesheets %}
+{% block content %}
+<div id="loader" class="pb-5">
+  <div class="content-upload">
+    <div class="content-box">
+      <div class="title text-center">
+        <h1>Video Merge Online</h1>
+        <h2>Trim the necessary part of your video</h2>
       </div>
-
-      <div class="gr2">
-        <div class="card">
-          <div class="base"></div>
-          <div class="easy-video-merging-container"> <p class="merge-videos">Easy Video Merging</p></div>
-          <img class="card-child" alt="" src="{% static 'clients/images/frame-427319047@2x.png' %}"/>
-          <div class="instantly-upload-any"> Instantly upload any number of videos or images and combine them with one click. </div>
-        </div>
-        <div class="card1">
-          <div class="base"></div>
-          <div class="secure-encryption">Secure Encryption</div>
-          <div class="in-person-and-online"> In-person and online events that bring together universities,experts and more. </div>
-          <img class="card-item" alt="" src="{% static 'clients/images/frame-427319049@2x.png' %}" />
-        </div>
-        <div class="card2">
-          <div class="base"></div>
-          <div class="secure-encryption">Check Preview</div>
-          <img class="card-child" alt="" src="{% static 'clients/images/frame-427319047@2x.png' %}" />
-          <div class="if-you-want-container"> <p class="merge-videos"> If you want to, you can change the format of your video to any other in the same window. You don't even need any other special software! </p> </div>
-        </div>
+      <div class="file-source-btn">
+        <form method="post" action="{% url 'clients:merge_video' %}" id="formUpload" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input accept="video/mp4" id="upload-file" type="file" name="video_files" class="file-input" multiple>
+          <label for="upload-file" class="file-btn">
+              <span><i class="fas fa-plus-circle mr-1"></i>Choose files</span>
+          </label>
+      </form>
       </div>
-
-      <div class="gr3">
-        <b class="how-to-use-container"> <p class="merge-videos">How to use the video merger</p></b>
-        <img class="image-47-icon" alt="" src="{% static 'clients/images/image-47@2x.png' %}" />
-        <div class="step-3">
-          <div class="step-3-save">Step 3: Save the result</div>
-        </div>
-        <div class="step-2">
-          <div class="step-3-save">Step 2: Create a video</div>
-        </div>
-        <div class="step-1">
-          <div class="step-1-upload-a-recording-or-parent">
-            <div class="step-3-save">Step 1: Upload a recording or movie</div>
-            <div class="upload-all-the"> Upload all the pics, videos and audio you want to the editor. You can choose them from your device, Google Drive and Dropbox storage account. If you want to make a video from scratch, just proceed to the next step. </div>
+    </div>
+  </div>
+  <div class="content-advantage mt-5 pb-5 pt-5">
+    <div class="row justify-content-center">
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Fast Video Cutting</h5>
+            <p class="card-text"> The tool allows you to move the two markers to select the beginning and ending of your clip. It takes just a few seconds! </p>
           </div>
         </div>
       </div>
-
-      <div class="contact">
-        <div class="contact-bt">
-          <div class="contact-bt-child"></div>
-          <div class="insert-your-email">Insert your email address</div>
-          <img class="send-icon" alt="" src="{% static 'clients/images/send@2x.png' %}" />
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319049@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Completely Online</h5>
+            <p class="card-text">You don't need to download or install anything on your device, that is not only faster but also more secure.</p>
+          </div>
         </div>
-        <div class="have-a-too-container">
-          <p class="merge-videos"> Have a too large file for uploading to Instagram, Facebook, YouTube, or for sending via Email? It's not a problem anymore, with our tool you can easily make your video smaller without losing quality! </p>
-          <p class="merge-videos"> Clideo's interface is user-friendly so you don't need to have any special video editing skills to use it!</p>
-          <p class="merge-videos">&nbsp;</p>
-          <p class="merge-videos"> Contact us if you are interested in working with us </p>
+      </div>
+      <div class="m-3">
+        <div class="card d-flex align-items-center" style="width: 18rem;">
+          <img class="card-image" src="{% static 'clients/images/frame-427319047@2x.png' %}" width="100" height="100" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Easy-to-use</h5>
+            <p class="card-text">You don't need any experience in video editing to use the online service because its interface is intuitive. </p>
+          </div>
         </div>
-        <img class="image-45-icon" alt="" src="{% static 'clients/images/image-45@2x.png' %}" />
       </div>
     </div>
+  </div>
 
-    {% endblock content %}
-
-</body>
-
-</html>
+  <div class="content-using pt-5 pb-5 mt-5">
+    <div class="accordion row justify-content-md-center" id="accordionExample">
+      <div class="using-left col-md-2 m-3">
+        <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/image-47@2x.png' %}" />
+      </div>
+      <div class="using-right col-md-4 m-3">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Step 1: Upload a recording or movie
+              </button>
+            </h2>
+          </div>
+          <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              Open or drag & drop a video from your Mac, Windows computer or other device.
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingTwo">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                Step 2: Cut your video
+              </button>
+            </h2>
+          </div>
+          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+            <div class="card-body">
+              Select a part of the video using the markers. Then choose to extract or delete the selected part. Change the output format and click "Preview".
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header" id="headingThree">
+            <h2 class="mb-0">
+              <button class="btn btn-block text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                Step 3: Export the file
+              </button>
+            </h2>
+          </div>
+          <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+            <div class="card-body">
+              Once your video is processed, you can save it to your device
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="content-contract pt-5 mt-5 pb-5">
+    <div class="row justify-content-md-center">
+      <div class="contract-left col col-lg-4">
+        <p>
+          Have a too large file for uploading to Instagram, Facebook, YouTube, or for sending via Email? It's not a
+          problem anymore, with our tool you can easily make your video smaller without losing quality!
+          Clideo's interface is user-friendly so you don't need to have any special video editing skills to use it!
+        </p>
+        <div>
+          <p>
+            Contact us if you are interested in working with us
+          </p>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Insert your email address" aria-describedby="basic-addon1">
+          </div>
+        </div>
+      </div>
+      <div class="contract-right col col-lg-2">
+        <img class="image-47-icon" alt="" width="300" height="300" src="{% static 'clients/images/image-45@2x.png' %}"/>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+{% block script %}
+<script src="{% static 'clients/js/upload.js' %}"></script>
+{% endblock script %}
