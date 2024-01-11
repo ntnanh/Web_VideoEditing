@@ -11,14 +11,14 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 from .models import Upload,UserUpload
 from .models import Upload,UserUpload, Video, Subtitle
 import uuid
-from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips, concatenate_videoclips
+from moviepy.editor import VideoFileClip, vfx, AudioFileClip, concatenate_audioclips, concatenate_videoclips, TextClip, CompositeVideoClip, VideoClip
 from datetime import datetime
 from pydub import AudioSegment
 import re
 import time
 import requests
 import subprocess
-
+import json
 
 def home(request):
     context = base_context(request)
@@ -28,6 +28,155 @@ def all_tools(request):
     context = base_context(request)
     return render(request, 'clients/all_tools.html', context)
 
+def subtitle_video(request):
+    context = base_context(request)
+    if request.method == 'POST' and 'video_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        video_file = request.FILES['video_file']
+        title = video_file.name
+        upload = Upload(path_video=video_file, title_video=title, path_image='')
+        upload.save()
+        upload_id = upload.id
+        user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
+        user_upload.save()
+        redirect_url = reverse('clients:subtitle', kwargs={'id': upload_id})
+        return redirect(redirect_url)
+    else:
+        return render(request, 'clients/add_subtitles.html', context)
+
+def add_subtitles_tool(request, id, subtitle_id):
+    upload = Upload.objects.get(id=id)
+    subtitle = Subtitle.objects.get(id=subtitle_id)
+    if subtitle.path.path is not None:
+        subtitles = detect_subtitle(subtitle.path.path)
+    data = {
+        'id':id,
+        'video_url': upload.path_video.url,
+        'full_path': upload.path_video.path,
+        'subtitles': subtitles
+    }
+
+    return render(request, "clients/add_subtitle_tool.html", data)
+
+def detect_subtitle(path):
+    with open(path, 'r', encoding='utf-8') as srt_file:
+        srt_lines = srt_file.readlines()
+    subtitles = []
+    for i in range(0, len(srt_lines), 4):
+        time_line = srt_lines[i + 1].strip()
+        if is_valid_time_format(time_line):
+            start_time, end_time = time_line.split(' --> ')
+            text = srt_lines[i + 2].strip()
+            subtitle = {
+                'start_time': format_time(start_time),
+                'end_time': format_time(end_time),
+                'text': text
+            }
+            subtitles.append(subtitle)
+    return subtitles
+    # Kết hợp (merge) các audio trong danh sách
+def preview_add_subtitles(request):
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        upload = Upload.objects.get(id=id)
+        input_video_path = request.POST.get('video_path')
+        video = VideoFileClip(upload.path_video.path)
+        final_video = os.path.join(settings.BASE_DIR, 'media/Files/previews/output.mp4')
+        subtitles = request.POST.get('subtitles')
+        subtitles = json.loads(subtitles)
+        video_clips = sub_clips = []
+        for sub in subtitles:
+            start_time = format_time_to_seconds(sub["start_time"])
+            end_time = format_time_to_seconds(sub["end_time"])
+            videoClip = video.subclip(start_time, end_time)
+            text = sub["text"]
+            font_size = int(min(video.size) / 20)
+            # Insert line breaks based on video width and maximum characters per line
+            max_chars_per_line = int(video.size[0] / font_size)
+            text_with_line_breaks = insert_line_breaks(text, max_chars_per_line)
+            subtitle_clip = generate_subtitle(text_with_line_breaks, start_time , end_time, font_size)
+            sub_clips.append(subtitle_clip)
+        video_with_subtitles = CompositeVideoClip([video] + sub_clips)
+        video_with_subtitles.write_videofile(final_video, codec="libx264", audio_codec="aac",fps=24)
+
+
+        return JsonResponse({'preview_video' : '/media/Files/previews/output.mp4'})
+# Function to insert line breaks in text based on width
+def insert_line_breaks(text, max_chars):
+    words = text.split()
+    lines = []
+    current_line = ""
+
+    for word in words:
+        if len(current_line + " " + word) <= max_chars:
+            current_line += " " + word
+        else:
+            lines.append(current_line.strip())
+            current_line = word
+
+    lines.append(current_line.strip())
+    return "\n".join(lines)
+
+def format_time_to_seconds(time):
+# Split the time string into minutes, seconds, and milliseconds
+    minutes, seconds = map(float, time.split(':'))
+
+    # Convert the time to seconds
+    total_seconds = (minutes * 60) + seconds
+    return total_seconds
+
+def generate_subtitle(subtitle_text, start_time, end_time, font_size):
+    duration = end_time - start_time
+    textClip = TextClip(subtitle_text, fontsize=font_size, font='Arial', color='white', bg_color='black')
+    # Calculate the desired padding (in pixels)
+    padding_x = 20  # Horizontal padding
+    padding_y = 20  # Vertical padding
+
+    # Increase the size of the text clip to add padding
+    textClip = textClip.margin(left=padding_x, right=padding_x, top=padding_y, bottom=padding_y)
+    textClip = textClip.set_start(start_time).set_end(end_time).set_duration(duration).set_position(("center", "bottom"))
+    return textClip
+
+def format_time(time):
+    # Parse the input time string
+    time_obj = datetime.strptime(time, '%H:%M:%S,%f')
+    # Calculate total seconds with microseconds truncated to two decimal places
+    total_seconds = time_obj.second + (time_obj.microsecond / 10**6)
+    formatted_time = f"{time_obj.minute:02}:0{total_seconds:.2f}"
+    return formatted_time
+
+def subtitle(request, id):
+    context = base_context(request)
+    if request.method == 'POST' and 'sub_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        sub_file = request.FILES['sub_file']
+        path_file = os.path.join(settings.BASE_DIR, f"media/Files/{sub_file.name}")
+        name = sub_file.name
+        subtitle = Subtitle(path=sub_file, name=name)
+        subtitle.save()
+        subtitle_id = subtitle.id
+        redirect_url = reverse('clients:add_subtitles_tool', kwargs={'id': id,'subtitle_id':subtitle_id})
+        return redirect(redirect_url)
+
+    return render(request, "clients/subtitle.html", {'id':id})
+
+def subtitle_voice(request, id):
+    context = base_context(request)
+    if request.method == 'POST' and 'sub_file' in request.FILES:
+        if request.session.get('user_id') is None:
+            return redirect('users:signin')
+        sub_file = request.FILES['sub_file']
+        path_file = os.path.join(settings.BASE_DIR, f"media/Files/{sub_file.name}")
+        name = sub_file.name
+        subtitle = Subtitle(path=sub_file, name=name)
+        subtitle.save()
+        subtitle_id = subtitle.id
+        redirect_url = reverse('clients:add_voice_tool', kwargs={'id': id,'subtitle_id':subtitle_id})
+        return redirect(redirect_url)
+
+    return render(request, "clients/subtitle_voice.html", {'id':id})
 
 def add_voice(request):
     context = base_context(request)
@@ -41,7 +190,7 @@ def add_voice(request):
         upload_id = upload.id
         user_upload = UserUpload(upload_id=upload_id, user_id=request.session.get('user_id'))
         user_upload.save()
-        redirect_url = reverse('clients:add_voice_tool', kwargs={'id': upload_id})
+        redirect_url = reverse('clients:subtitle_voice', kwargs={'id': upload_id})
         return redirect(redirect_url)
     else:
         return render(request, 'clients/add_voice.html', context)
@@ -64,53 +213,53 @@ def preview_voice_to_video(request):
         id = request.POST.get('id')
         upload = Upload.objects.get(id=id)
         input_video_path = request.POST.get('video_path')
-        path_sub = request.POST.get('path_sub')
-        final_video = handle_sub(input_video_path, path_sub)
+        final_video = os.path.join(settings.BASE_DIR, 'media/Files/previews/output.mp4')
+        subtitles = request.POST.get('subtitles')
+        subtitles = json.loads(subtitles)
+        final_video = handle_sub(input_video_path, subtitles)
         return JsonResponse({'preview_video' : final_video})
 
-def handle_sub(path_video, path_sub):
+def handle_sub(path_video, subtitles):
     video_clip = VideoFileClip(path_video)
     output_audio_file = os.path.join(settings.BASE_DIR, 'media/Files/output_audio.mp3')
     final_video = 'D:\Web_VideoEditing\web_videoediting\media\Files\previews\output.mp4'
     video_file = path_video
-    # Phân tích tệp SRT
-    with open(path_sub, 'r', encoding='utf-8') as srt_file:
-        srt_lines = srt_file.readlines()
     audio_clips = []
-    count = 0
-    # Tạo audio cho từng phụ đề và đồng bộ hóa với video
-    for i in range(0, len(srt_lines), 4):
-        time_line = srt_lines[i + 1].strip()
-        if is_valid_time_format(time_line):
-            start_time, end_time = time_line.split(' --> ')
-            text = srt_lines[i + 2].strip()
-            url = 'https://api.fpt.ai/hmi/tts/v5'
-            payload = text
-            headers = {
-                'api-key': 'abAl9piv7XGwHVn5onzLLzTrNGbh5LPZ',
-                'speed': '',
-                'voice': 'banmai'
-            }
-            response = requests.request('POST', url, data=payload.encode('utf-8'), headers=headers)
-            if response.status_code == 200:
-                response_data = response.json()
-                print(text)
-                audio_url = response_data.get('async')
-                # Tải tệp âm thanh đã tạo từ URL
-                audio_response = requests.get(audio_url)
-                if audio_response.status_code == 200:
-                    with open(output_audio_file, 'wb') as audio_file:
-                        audio_file.write(audio_response.content)
-                        audio_clip = AudioSegment.from_file(output_audio_file)
-                        adjusted_audio = audio_clip._spawn(audio_clip.raw_data, overrides={
-                            "frame_rate": int(audio_clip.frame_rate * 1)
-                        }).set_frame_rate(audio_clip.frame_rate)
-                        adjusted_audio.export("adjusted_audio.mp3", format="mp3")
-                        audio_export = AudioFileClip("adjusted_audio.mp3")
-                        audio_clips.append(audio_export)
-            else:
-                print(response.json())
-            time.sleep(1)
+    for sub in subtitles:
+        start_time = format_time_to_seconds(sub["start_time"])
+        end_time = format_time_to_seconds(sub["end_time"])
+        videoClip = video_clip.subclip(start_time, end_time)
+        text = sub["text"]
+        url = 'https://api.fpt.ai/hmi/tts/v5'
+        payload = text
+        headers = {
+            'api-key': 'abAl9piv7XGwHVn5onzLLzTrNGbh5LPZ',
+            'speed': '',
+            'voice': 'banmai'
+        }
+
+        response = requests.request('POST', url, data=payload.encode('utf-8'), headers=headers)
+
+        if response.status_code == 200:
+            response_data = response.json()
+            print(text)
+            audio_url = response_data.get('async')
+
+            # Tải tệp âm thanh đã tạo từ URL
+            audio_response = requests.get(audio_url)
+            if audio_response.status_code == 200:
+                with open(output_audio_file, 'wb') as audio_file:
+                    audio_file.write(audio_response.content)
+                    audio_clip = AudioSegment.from_file(output_audio_file)
+                    adjusted_audio = audio_clip._spawn(audio_clip.raw_data, overrides={
+                        "frame_rate": int(audio_clip.frame_rate * 1)
+                    }).set_frame_rate(audio_clip.frame_rate)
+                    adjusted_audio.export("adjusted_audio.mp3", format="mp3")
+                    audio_export = AudioFileClip("adjusted_audio.mp3")
+                    audio_clips.append(audio_export)
+        else:
+            print(response.json())
+        time.sleep(1)
     # Kết hợp (merge) các audio trong danh sách
     merged_audio = concatenate_audioclips(audio_clips)
     # Lưu âm thanh kết hợp thành tệp mới
@@ -120,8 +269,6 @@ def handle_sub(path_video, path_sub):
     new_video = video_clip.set_duration(audio_duration)
     video_with_new_audio = new_video.set_audio(merged_audio)
     video_with_new_audio.write_videofile(final_video, codec='libx264', audio_codec='aac')
-    os.remove(path_sub)
-    # os.remove(path_video)
     os.remove(output_audio_file)
 
     return '/media/Files/previews/output.mp4'
@@ -131,9 +278,18 @@ def is_valid_time_format(time_str):
     time_format = r'\d{2}:\d{2}:\d{2},\d{3} --> \d{2}:\d{2}:\d{2},\d{3}'
     return bool(re.match(time_format, time_str))
 
-def add_voice_tool(request, id):
+def add_voice_tool(request, id, subtitle_id):
     upload = Upload.objects.get(id=id)
-    return render(request, "clients/add_voice_tool.html", {'id':id,'video_url': upload.path_video.url, 'full_path': upload.path_video.path})
+    subtitle = Subtitle.objects.get(id=subtitle_id)
+    if subtitle.path.path is not None:
+        subtitles = detect_subtitle(subtitle.path.path)
+    data = {
+        'id':id,
+        'video_url': upload.path_video.url,
+        'full_path': upload.path_video.path,
+        'subtitles': subtitles
+    }
+    return render(request, "clients/add_voice_tool.html", data)
 
 def merge_video(request):
     context = base_context(request)
@@ -283,9 +439,6 @@ def export_crop_video(request):
     return JsonResponse({'success' : 'true'})
 
 
-def add_subtitles_tool(request):
-    return render(request, 'clients/add_subtitles_tool.html')
-
 def cut_video(request):
     context = base_context(request)
     if request.method == 'POST' and 'video_file' in request.FILES:
@@ -324,7 +477,7 @@ def preview_cut_video(request):
         }
         return render(request, "clients/cut_tool.html", content)
 
-def export_cut_video(request):
+def export_video(request):
     url = request.POST.get('url').replace('/', '', 1)
     id = request.POST.get('id')
     local_video = os.path.join(settings.BASE_DIR, url)

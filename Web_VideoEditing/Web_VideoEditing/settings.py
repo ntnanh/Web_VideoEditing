@@ -12,10 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 # from pathlib import Path
 import os
+from moviepy.config import change_settings
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+change_settings({
+    "IMAGEMAGICK_BINARY": "/usr/bin/convert"
+})
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -86,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'web_videoediting',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root',
         'HOST': 'localhost',
         'PORT': '3306',
     }
