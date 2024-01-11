@@ -222,7 +222,7 @@ def preview_voice_to_video(request):
 def handle_sub(path_video, subtitles):
     video_clip = VideoFileClip(path_video)
     output_audio_file = os.path.join(settings.BASE_DIR, 'media/Files/output_audio.mp3')
-    final_video = 'D:\Web_VideoEditing\web_videoediting\media\Files\previews\output.mp4'
+    final_video = os.path.join(settings.BASE_DIR,'media\Files\previews\output.mp4')
     video_file = path_video
     audio_clips = []
     for sub in subtitles:
@@ -242,24 +242,31 @@ def handle_sub(path_video, subtitles):
 
         if response.status_code == 200:
             response_data = response.json()
-            print(text)
             audio_url = response_data.get('async')
-
             # Tải tệp âm thanh đã tạo từ URL
-            audio_response = requests.get(audio_url)
-            if audio_response.status_code == 200:
-                with open(output_audio_file, 'wb') as audio_file:
-                    audio_file.write(audio_response.content)
-                    audio_clip = AudioSegment.from_file(output_audio_file)
-                    adjusted_audio = audio_clip._spawn(audio_clip.raw_data, overrides={
-                        "frame_rate": int(audio_clip.frame_rate * 1)
-                    }).set_frame_rate(audio_clip.frame_rate)
-                    adjusted_audio.export("adjusted_audio.mp3", format="mp3")
-                    audio_export = AudioFileClip("adjusted_audio.mp3")
-                    audio_clips.append(audio_export)
+            max_retries = 4
+            for retry in range(max_retries):
+                print(audio_url)
+                audio_response = requests.get(audio_url)
+                print(audio_response.status_code)
+                if audio_response.status_code == 200:
+                    with open(output_audio_file, 'wb') as audio_file:
+                        audio_file.write(audio_response.content)
+                        audio_clip = AudioSegment.from_file(output_audio_file)
+                        adjusted_audio = audio_clip._spawn(audio_clip.raw_data, overrides={
+                            "frame_rate": int(audio_clip.frame_rate * 1)
+                        }).set_frame_rate(audio_clip.frame_rate)
+                        adjusted_audio.export("adjusted_audio.mp3", format="mp3")
+                        audio_export = AudioFileClip("adjusted_audio.mp3")
+                        audio_clips.append(audio_export)
+                    break
+                elif response.status_code == 404:
+                    print('404 here')
+                time.sleep(2)
+
         else:
             print(response.json())
-        time.sleep(1)
+#         time.sleep(3)
     # Kết hợp (merge) các audio trong danh sách
     merged_audio = concatenate_audioclips(audio_clips)
     # Lưu âm thanh kết hợp thành tệp mới
