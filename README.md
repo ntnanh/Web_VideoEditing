@@ -41,4 +41,4 @@ Building an online video editing website with the aim of providing users with a 
 ## Demo
 * Administrator interface
 - User management page
-![Alt text](./Screenshots/Screenshot_1.png) 
+![Alt text](./Screenshots/Screenshots_1.png) 
