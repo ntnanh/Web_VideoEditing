@@ -1,6 +1,6 @@
 # Web_VideoEditing
 # Building an Online Video Editing Website
-Building an online video editing website with the aim of providing users with a convenient tool to create and edit their own videos. The platform will offer features such as audio editing, video cutting, format conversion, and more.
+Building an online video editing website with the aim of providing users with a convenient tool to create and edit their videos. The platform will offer features such as audio editing, video cutting, format conversion, and more.
 
 ## Installation Guide
 - Installing Xampp: You can download the latest version. Link download: https://www.apachefriends.org/download.html
@@ -22,7 +22,7 @@ Building an online video editing website with the aim of providing users with a 
 - User functions:
     + Login - Signup: First, users register for an account. Then, the user logs in to the website using the registered account with role="client" access rights.
     + Edit information: Users can view and edit their personal information.
-    + Choose a video editing tool: After successfully logging in, users choose editing tools such as cutting video, merging video, looping video, cropping video, add voice to video, add subtitle to video.
+    + Choose a video editing tool: After successfully logging in, users choose editing tools such as cutting video, merging video, looping video, cropping video, add voice to video, add subtitles to video.
     + Upload a video: After selecting an editing tool, users can upload a video to that page.
     + Preview the video: Users can preview the edited video before exporting and saving.
     + Export video: After previewing the video, users can export the video and save it.
@@ -34,9 +34,12 @@ Building an online video editing website with the aim of providing users with a 
 
 ## Usage
     python web_videoediting/manage.py makemigrations
+    
     python web_videoediting/manage.py migrate
+    
     python web_videoediting/manage.py runserver
-    In your web browser enter the address : http://localhost:8000 or http://127.0.0.1:8000/
+    
+  In your web browser enter the address: http://localhost:8000 or http://127.0.0.1:8000/
 
 ## Demo
 * Administrator interface
